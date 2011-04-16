@@ -110,5 +110,6 @@ AC_SUBST(GUI_LIBS)
 AC_OUTPUT([
 Makefile
 src/Makefile
+test/Makefile
 ])
 
