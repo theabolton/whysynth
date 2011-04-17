@@ -9,6 +9,8 @@
 #define SEGMENT_LENGTH 2750
 #define FREQ_STEPS 10
 #define RES_STEPS 20
+
+// These defines give us a header for a 44.1kHz 16 bit mono WAV file
 #define DATA_SIZE (SEGMENT_LENGTH * FREQ_STEPS * RES_STEPS * 2)
 #define WAV_HEADER  { \
 0x57, 0x41, 0x56, 0x45, 0x66, 0x6d, 0x74, 0x20,  0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, \
@@ -50,7 +52,7 @@ void test_filter(float freq, float key_mod, float res, FILE *output)
 
     int16_t audio[SEGMENT_LENGTH];
     for (i = 0; i < SEGMENT_LENGTH; i++)
-        audio[i] = (int16_t)roundf(out[i] * 30000 );
+        audio[i] = (int16_t)roundf(out[i] * 25000 );
 
     fwrite(audio, 2, SEGMENT_LENGTH, output);
 
@@ -58,13 +60,9 @@ void test_filter(float freq, float key_mod, float res, FILE *output)
     // TODO check return values
 }
 
-int main(void) 
+FILE *create_wav(char *filename)
 {
-    // freq: 0-50 from GUI
-    // svcf->frequency: ~0.001-0.05 from note value (middle C ~ 0.0055)
-    // res: 0-1
-
-    FILE *output = fopen("filter_sweep_test.wav","wb");
+    FILE *output = fopen(filename,"wb");
 
     int riff_size = WAV_FILESIZE - 8;
     fwrite("RIFF", 1, 4, output);
@@ -76,10 +74,21 @@ int main(void)
     uint32_t data_size = DATA_SIZE;
     fwrite(&data_size, 4, 1, output);
 
+    return output;
+}
+
+int main(void) 
+{
+    // freq: 0-50 from GUI
+    // svcf->frequency: ~0.001-0.05 from note value (middle C ~ 0.0055)
+    // res: 0-1
+
+    FILE *output = create_wav("filter_sweep_test.wav");
+
     float freq,r;
 
-    for (freq=0; freq < FREQ_STEPS; freq++)
-        for (r=0; r < 1; r += (1.0/RES_STEPS))
+    for (r=0; r < 0.9; r += (1.0/RES_STEPS))
+        for (freq=0; freq < FREQ_STEPS; freq++)
             test_filter(freq, 0.0055, r, output);
 
     fclose(output);
