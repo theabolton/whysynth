@@ -6,29 +6,28 @@
 
 #include "src/whysynth_voice_render.c"
 
-// set CHECK_OUTPUT to true when you want to use the LONG_SEGMENT_LENGTH to
+// change SEGMENT_LENGTH to a large vaule (3000+) when you want to 
 // check the filter output by ear
-#define CHECK_OUTPUT
-#define LONG_SEGMENT_LENGTH 2750
-#define SHORT_SEGMENT_LENGTH 64
+#define SEGMENT_LENGTH 3000
 
 #define FREQ_STEPS 10
 #define RES_STEPS 20
 
 // These defines give us a header for a 44.1kHz 16 bit mono WAV file
-#ifdef CHECK_OUTPUT
-  #define DATA_SIZE (LONG_SEGMENT_LENGTH * FREQ_STEPS * RES_STEPS * 2)
-#else
-  #define DATA_SIZE (SHORT_SEGMENT_LENGTH * FREQ_STEPS * RES_STEPS * 2)
-#endif
+#define DATA_SIZE (SEGMENT_LENGTH * FREQ_STEPS * RES_STEPS * 2)
 
 #define WAV_HEADER  { \
-0x57, 0x41, 0x56, 0x45, 0x66, 0x6d, 0x74, 0x20,  0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, \
-0x44, 0xac, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00,  0x02, 0x00, 0x10, 0x00, 0x64, 0x61, 0x74, 0x61 \
+  0x57, 0x41, 0x56, 0x45, 0x66, 0x6d, 0x74, 0x20,  0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, \
+  0x44, 0xac, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00,  0x02, 0x00, 0x10, 0x00, 0x64, 0x61, 0x74, 0x61 \
 }
 #define WAV_HEADER_SIZE 32
 #define WAV_FILESIZE (10 + WAV_HEADER_SIZE + DATA_SIZE)
 
+// Parameter ranges:
+//
+// freq: 0-50 from GUI
+// key_mod: ~0.001-0.05 from note value (middle C ~ 0.0055)
+// res: 0-1
 void test_filter(uint32_t length, float freq, float key_mod, float res, FILE *output)
 {
     int i;
@@ -37,6 +36,8 @@ void test_filter(uint32_t length, float freq, float key_mod, float res, FILE *ou
     struct vvcf  vcf_state = {0, 0, 0.0, 0.0, 0.0, 0.0, 0.0};
     y_voice_t   *voice     = malloc(sizeof(y_voice_t));
     y_svcf_t    *param     = malloc(sizeof(y_svcf_t));
+
+    assert(voice != NULL && param != NULL);
 
     param->frequency = &key_mod;
     param->qres = &res;
@@ -47,8 +48,7 @@ void test_filter(uint32_t length, float freq, float key_mod, float res, FILE *ou
     param->freq_mod_amt = &fzero;
     param->mparam = &fzero;
 
-    float in[length]; 
-    float out[length];
+    float in[length], out[length];
 
     // TODO only call this for automated tests to prevent audible patterns forming
     // when verifying the output by ear
@@ -60,17 +60,13 @@ void test_filter(uint32_t length, float freq, float key_mod, float res, FILE *ou
         out[i] = 0;
     }
 
-
     vcf_2pole(length, param, voice, &vcf_state, freq, (float *)&in, (float *)&out);
 
     int16_t audio[length];
     for (i = 0; i < length; i++)
         audio[i] = (int16_t)roundf(out[i] * 25000 );
 
-    fwrite(audio, 2, length, output);
-
-
-    // TODO check return values
+    assert(fwrite(audio, 2, length, output) == length);
 }
 
 FILE *create_wav(char *filename)
@@ -92,19 +88,12 @@ FILE *create_wav(char *filename)
 
 int main(void) 
 {
-    // freq: 0-50 from GUI
-    // svcf->frequency: ~0.001-0.05 from note value (middle C ~ 0.0055)
-    // res: 0-1
 
     FILE *output = create_wav("filter_sweep_test.wav");
 
     float freq,r;
 
-#ifdef CHECK_OUTPUT
-    const uint32_t test_segment_length = LONG_SEGMENT_LENGTH;
-#else
-    const uint32_t test_segment_length = SHORT_SEGMENT_LENGTH;
-#endif
+    const uint32_t test_segment_length = SEGMENT_LENGTH;
 
     for (r=0; r < 0.9; r += (1.0/RES_STEPS))
         for (freq=0; freq < FREQ_STEPS; freq++)
