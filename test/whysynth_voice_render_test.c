@@ -8,7 +8,7 @@
 
 // change SEGMENT_LENGTH to a large vaule (3000+) when you want to 
 // check the filter output by ear
-#define SEGMENT_LENGTH 2000
+#define SEGMENT_LENGTH 128
 
 #define SWEEP_STEPS 10
 
