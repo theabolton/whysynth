@@ -33,10 +33,11 @@ void generate_segment(filter_func_t filter, float freq, float key_mod, float dri
     float fzero = 0.0f;
 
     struct vvcf  vcf_state = {0, 0, 0.0, 0.0, 0.0, 0.0, 0.0};
-    y_voice_t   *voice     = malloc(sizeof(y_voice_t));
-    y_svcf_t    *param     = malloc(sizeof(y_svcf_t));
 
-    assert(voice != NULL && param != NULL);
+    y_voice_t   _voice;
+    y_svcf_t    _param;
+    y_voice_t   *voice = &_voice;
+    y_svcf_t    *param = &_param;
 
     param->frequency = &key_mod;
     param->qres = &res;
@@ -116,12 +117,12 @@ void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
 
 int main(void) 
 {
-    sweep_filter(&vcf_2pole,     false, "vcf_2pole_sweep.wav");
-    sweep_filter(&vcf_4pole,     false, "vcf_4pole_sweep.wav");
-    sweep_filter(&vcf_mvclpf,    false, "vcf_mvclpf_sweep.wav");
-    sweep_filter(&vcf_clip4pole, true,  "vcf_clip4pole_sweep.wav");
-    sweep_filter(&vcf_bandpass,  false, "vcf_bandpass_sweep.wav");
-    sweep_filter(&vcf_amsynth,   false, "vcf_amsynth_sweep.wav");
+    sweep_filter(&vcf_2pole,     false, "vcf_2pole_sweep_test.wav");
+    sweep_filter(&vcf_4pole,     false, "vcf_4pole_sweep_test.wav");
+    sweep_filter(&vcf_mvclpf,    false, "vcf_mvclpf_sweep_test.wav");
+    sweep_filter(&vcf_clip4pole, true,  "vcf_clip4pole_sweep_test.wav");
+    sweep_filter(&vcf_bandpass,  false, "vcf_bandpass_sweep_test.wav");
+    sweep_filter(&vcf_amsynth,   false, "vcf_amsynth_sweep_test.wav");
 
     return 0;
 }
