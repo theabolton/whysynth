@@ -2058,81 +2058,39 @@ vcf_off(unsigned long sample_count, struct vvcf *vvcf, float *out)
     }
 }
 
-/* vcf_2pole
- *
- * 2-pole Chamberlin state-variable low-pass filter
- */
-static void
-vcf_2pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
-          struct vvcf *vvcf, float freq, float *in, float *out)
+static float
+stabilize(float freqcut, float freq, float qres)
 {
-    unsigned long sample;
-    int mod;
-    float freqmax, freqcut, freqtmp, freqcut_delta,
-          qres, highpass,
-          delay1, delay2;
-
-    if (vvcf->last_mode != vvcf->mode) {
-        vvcf->delay1 = 0.0f;
-        vvcf->delay2 = 0.0f;
-        vvcf->last_mode = vvcf->mode;
-    }
-
-    qres = 2.0f - *(svcf->qres) * 1.995f;
     /* SVF stabilization based on Eli Brandt's work
      * Eli's original 'f3' function for limiting cutoff frequency based on Q:
      *     freqmax = (-qres + sqrt(4.f + qres * qres));
      * My slightly more stable version:
      *     freqmax = (-qres + sqrt(4.f * sqrt(2.f) + qres * qres)) / sqrt(2.f);
      * A quick approximation thereof: */
-    freqmax = (0.115375f * qres - 0.673851f) * qres + 1.67588f;
+    float freqmax = (0.115375f * qres - 0.673851f) * qres + 1.67588f;
 
-    mod = y_voice_mod_index(svcf->freq_mod_src);
-    freqcut = (*(svcf->frequency) +
-                  *(svcf->freq_mod_amt) * 50.0f * voice->mod[mod].value);
-    freqtmp = freqcut + *(svcf->freq_mod_amt) * 50.0f *
-                        (float)sample_count * voice->mod[mod].delta;
     freqcut *= freq;
-    freqtmp *= freq;
+
     if (freqcut > 0.48f) freqcut = 0.48f;
     else if (freqcut < 1e-5f) freqcut = 1e-5f;
-    if (freqtmp > 0.48f) freqtmp = 0.48f;
-    else if (freqtmp < 1e-5f) freqtmp = 1e-5f;
+
     freqcut = (-5.98261f * freqcut + 7.11034f) * freqcut; /* quick approximation of 2.0f * sinf(M_PI_F * freqcut) */
-    freqtmp = (-5.98261f * freqtmp + 7.11034f) * freqtmp;
     if (freqcut > freqmax) freqcut = freqmax;
-    if (freqtmp > freqmax) freqtmp = freqmax;
-    freqcut_delta = (freqtmp - freqcut) / (float)sample_count;
 
-    delay1 = vvcf->delay1;
-    delay2 = vvcf->delay2;
-
-    for (sample = 0; sample < sample_count; sample++) {
-
-        delay2 = delay2 + freqcut * delay1;             /* delay2 = lowpass output */
-        highpass = in[sample] - delay2 - qres * delay1;
-        delay1 = freqcut * highpass + delay1;           /* delay1 = bandpass output */
-
-        out[sample] = delay2;
-
-        freqcut += freqcut_delta;
-    }
-
-    vvcf->delay1 = delay1;
-    vvcf->delay2 = delay2;
+    return freqcut;
 }
 
-/* vcf_4pole
+/* vcf_2_4pole
  *
- * 4-pole Chamberlin state-variable low-pass filter
+ * 2/4-pole Chamberlin state-variable low-pass filter
  */
 static void
-vcf_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
-          struct vvcf *vvcf, float freq, float *in, float *out)
+vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+          struct vvcf *vvcf, float freq, int four_pole, float *in, float *out)
 {
     unsigned long sample;
     int mod;
-    float freqmax, freqcut, freqtmp, freqcut_delta,
+    float freqcut, freqtmp, freqcut_delta,
           qres, highpass,
           delay1, delay2, delay3, delay4;
 
@@ -2144,30 +2102,21 @@ vcf_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
         vvcf->last_mode = vvcf->mode;
     }
 
-    qres = 2.0f - *(svcf->qres) * 1.96f;
-    /* SVF stabilization based on Eli Brandt's work
-     * Eli's original 'f3' function for limiting cutoff frequency based on Q:
-     *     freqmax = (-qres + sqrt(4.f + qres * qres));
-     * My slightly more stable version:
-     *     freqmax = (-qres + sqrt(4.f * sqrt(2.f) + qres * qres)) / sqrt(2.f);
-     * A quick approximation thereof: */
-    freqmax = (0.115375f * qres - 0.673851f) * qres + 1.67588f;
+    if (four_pole)
+        qres = 2.0f - *(svcf->qres) * 1.96f;
+    else
+        qres = 2.0f - *(svcf->qres) * 1.995;
 
     mod = y_voice_mod_index(svcf->freq_mod_src);
+
     freqcut = (*(svcf->frequency) +
-                  *(svcf->freq_mod_amt) * 50.0f * voice->mod[mod].value);
-    freqtmp = freqcut + *(svcf->freq_mod_amt) * 50.0f *
-                        (float)sample_count * voice->mod[mod].delta;
-    freqcut *= freq;
-    freqtmp *= freq;
-    if (freqcut > 0.48f) freqcut = 0.48f;
-    else if (freqcut < 1e-5f) freqcut = 1e-5f;
-    if (freqtmp > 0.48f) freqtmp = 0.48f;
-    else if (freqtmp < 1e-5f) freqtmp = 1e-5f;
-    freqcut = (-5.98261f * freqcut + 7.11034f) * freqcut; /* quick approximation of 2.0f * sinf(M_PI_F * freqcut) */
-    freqtmp = (-5.98261f * freqtmp + 7.11034f) * freqtmp;
-    if (freqcut > freqmax) freqcut = freqmax;
-    if (freqtmp > freqmax) freqtmp = freqmax;
+                *(svcf->freq_mod_amt) * 50.0f * voice->mod[mod].value);
+    freqtmp = freqcut +
+                *(svcf->freq_mod_amt) * 50.0f * (float)sample_count * voice->mod[mod].delta;
+
+    freqcut = stabilize(freqcut, freq, qres);
+    freqtmp = stabilize(freqtmp, freq, qres);
+
     freqcut_delta = (freqtmp - freqcut) / (float)sample_count;
 
     delay1 = vvcf->delay1;
@@ -2181,11 +2130,16 @@ vcf_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
         highpass = in[sample] - delay2 - qres * delay1;
         delay1 = freqcut * highpass + delay1;           /* delay1/3 = bandpass output */
 
-        delay4 = delay4 + freqcut * delay3;
-        highpass = delay2 - delay4 - qres * delay3;
-        delay3 = freqcut * highpass + delay3;
+        if (four_pole)
+        {
+            delay4 = delay4 + freqcut * delay3;
+            highpass = delay2 - delay4 - qres * delay3;
+            delay3 = freqcut * highpass + delay3;
 
-        out[sample] = delay4;
+            out[sample] = delay4;
+        }
+        else
+            out[sample] = delay2;
 
         freqcut += freqcut_delta;
     }
@@ -2194,6 +2148,20 @@ vcf_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     vvcf->delay2 = delay2;
     vvcf->delay3 = delay3;
     vvcf->delay4 = delay4;
+}
+
+static void
+vcf_2pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+          struct vvcf *vvcf, float freq, float *in, float *out)
+{
+    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, 0, in, out);
+}
+
+static void
+vcf_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+          struct vvcf *vvcf, float freq, float *in, float *out)
+{
+    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, 1, in, out);
 }
 
 /* vcf_mvclpf
