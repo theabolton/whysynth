@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "src/whysynth_voice_render.c"
 
@@ -115,6 +117,34 @@ void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
     fclose(output);
 }
 
+void compare_files(char *filename1, char *filename2)
+{
+    struct stat info1, info2;
+    stat(filename1, &info1);
+    stat(filename2, &info2);
+    assert(info1.st_size == info2.st_size);
+
+    FILE *file1, *file2;
+    file1 = fopen(filename1, "r");
+    file2 = fopen(filename2, "r");
+
+    char *contents1, *contents2;
+    contents1 = malloc(info1.st_size);
+    contents2 = malloc(info2.st_size);
+
+    size_t amount_read;
+
+    amount_read = fread(contents1, sizeof(char), info1.st_size, file1);
+    assert( amount_read == info1.st_size);
+
+    amount_read = fread(contents2, sizeof(char), info2.st_size, file2);
+    assert( amount_read == info2.st_size);
+
+    int i;
+    for (i = 0; i < info1.st_size; i++)
+        assert(contents1[i] == contents2[i]);
+}
+
 int main(void) 
 {
     sweep_filter(&vcf_2pole,     false, "vcf_2pole_sweep_test.wav");
@@ -123,6 +153,13 @@ int main(void)
     sweep_filter(&vcf_clip4pole, true,  "vcf_clip4pole_sweep_test.wav");
     sweep_filter(&vcf_bandpass,  false, "vcf_bandpass_sweep_test.wav");
     sweep_filter(&vcf_amsynth,   false, "vcf_amsynth_sweep_test.wav");
+
+    compare_files("vcf_2pole_sweep.wav",     "vcf_2pole_sweep_test.wav");
+    compare_files("vcf_4pole_sweep.wav",     "vcf_4pole_sweep_test.wav");
+    compare_files("vcf_mvclpf_sweep.wav",    "vcf_mvclpf_sweep_test.wav");
+    compare_files("vcf_clip4pole_sweep.wav", "vcf_clip4pole_sweep_test.wav");
+    compare_files("vcf_bandpass_sweep.wav",  "vcf_bandpass_sweep_test.wav");
+    compare_files("vcf_amsynth_sweep.wav",   "vcf_amsynth_sweep_test.wav");
 
     return 0;
 }
