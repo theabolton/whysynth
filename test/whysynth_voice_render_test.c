@@ -17,19 +17,21 @@
 // These defines give us a header for a 44.1kHz 16 bit mono WAV file
 
 #define WAV_HEADER  { \
-  0x57, 0x41, 0x56, 0x45, 0x66, 0x6d, 0x74, 0x20,  0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, \
-  0x44, 0xac, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00,  0x02, 0x00, 0x10, 0x00, 0x64, 0x61, 0x74, 0x61 \
+  0x57, 0x41, 0x56, 0x45, 0x66, 0x6d, 0x74, 0x20, \
+  0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, \
+  0x44, 0xac, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, \
+  0x02, 0x00, 0x10, 0x00, 0x64, 0x61, 0x74, 0x61 \
 }
 #define WAV_HEADER_SIZE 32
 
-typedef void (*filter_func_t)(unsigned long, y_svcf_t *, y_voice_t *, struct vvcf *, float , float *, float *);
+// the type of filter functions to be tested
+typedef void (*filter_func_t)(unsigned long, y_svcf_t *, y_voice_t *, struct
+              vvcf *, float , float *, float *);
 
-// Parameter ranges:
-//
-// freq: 0-50 from GUI
-// key_mod: ~0.001-0.05 from note value (middle C ~ 0.0055)
-// res: 0-1
-void generate_segment(filter_func_t filter, float freq, float key_mod, float drive, float res, FILE *output)
+// feed white noise through the given filter with the specified paramters,
+// writing the output to a file
+static void generate_segment(filter_func_t filter, float freq, float key_mod,
+                             float drive, float res, FILE *output)
 {
     int i;
     float fzero = 0.0f;
@@ -68,6 +70,18 @@ void generate_segment(filter_func_t filter, float freq, float key_mod, float dri
     assert(fwrite(audio, 2, SEGMENT_LENGTH, output) == SEGMENT_LENGTH);
 }
 
+// feed white noise through the filter, sweeping the cuttoff frequency and
+// resonance
+static void sweep(filter_func_t filter, float drive, FILE *output)
+{
+    float freq, r;
+
+    for (r=0; r < 0.9; r += (1.0/SWEEP_STEPS))
+        for (freq=0; freq < SWEEP_STEPS; freq++)
+            generate_segment(filter, freq, 0.0055, drive, r, output);
+}
+
+// create a .wav file given a filename and the amount of data to be written
 FILE *create_wav(uint32_t data_size, char *filename)
 {
     FILE *output = fopen(filename,"wb");
@@ -84,15 +98,9 @@ FILE *create_wav(uint32_t data_size, char *filename)
     return output;
 }
 
-static void sweep(filter_func_t filter, float drive, FILE *output)
-{
-    float freq, r;
-
-    for (r=0; r < 0.9; r += (1.0/SWEEP_STEPS))
-        for (freq=0; freq < SWEEP_STEPS; freq++)
-            generate_segment(filter, freq, 0.0055, drive, r, output);
-}
-
+// create a wav file by feeding white noise through the given filter, writing
+// the output to filename. if sweep_drive is true, also sweep the drive
+// parameter.
 void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
 {
     srand(0);
@@ -106,7 +114,8 @@ void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
 
     float drive = 0;
 
-    // generate test segments by sweeping the frequency, resonance and optionally drive.
+    // generate test segments by sweeping the frequency, resonance and
+    // optionally drive.
     if (sweep_drive)
         for (drive=0; drive < 1.0; drive += (1.0/SWEEP_STEPS))
             sweep(filter, drive, output);
@@ -117,6 +126,7 @@ void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
     fclose(output);
 }
 
+// compare the contents of 2 files
 void compare_files(char *filename1, char *filename2)
 {
     struct stat info1, info2;
@@ -147,6 +157,7 @@ void compare_files(char *filename1, char *filename2)
 
 int main(void) 
 {
+    // generate sweeps of each filter...
     sweep_filter(&vcf_2pole,     false, "vcf_2pole_sweep_test.wav");
     sweep_filter(&vcf_4pole,     false, "vcf_4pole_sweep_test.wav");
     sweep_filter(&vcf_mvclpf,    false, "vcf_mvclpf_sweep_test.wav");
@@ -154,6 +165,7 @@ int main(void)
     sweep_filter(&vcf_bandpass,  false, "vcf_bandpass_sweep_test.wav");
     sweep_filter(&vcf_amsynth,   false, "vcf_amsynth_sweep_test.wav");
 
+    // ...and compare the results to known good samples.
     compare_files("vcf_2pole_sweep.wav",     "vcf_2pole_sweep_test.wav");
     compare_files("vcf_4pole_sweep.wav",     "vcf_4pole_sweep_test.wav");
     compare_files("vcf_mvclpf_sweep.wav",    "vcf_mvclpf_sweep_test.wav");
