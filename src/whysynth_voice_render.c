@@ -2083,6 +2083,7 @@ stabilize(float freqcut, float freq, float qres)
 enum _filter_type_t {
     FT_LOWPASS_2POLE,
     FT_LOWPASS_4POLE,
+    FT_LOWPASS_4POLE_CLIP,
     FT_HIGHPASS,
     FT_BANDPASS
 };
@@ -2100,9 +2101,9 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     unsigned long sample;
     int mod;
     float freqcut, freqtmp, freqcut_delta,
-          qres, highpass,
+          qres, highpass, gain,
           delay1, delay2, delay3, delay4,
-          stage2_input;
+          input, stage2_input;
 
     if (vvcf->last_mode != vvcf->mode) {
         vvcf->delay1 = 0.0f;
@@ -2129,6 +2130,9 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
 
     freqcut_delta = (freqtmp - freqcut) / (float)sample_count;
 
+    /* gain range: -24dB to +24dB */
+    gain = volume_cv_to_amplitude(0.36f + *(svcf->mparam) * 0.64f) * 16.0f;
+
     delay1 = vvcf->delay1;
     delay2 = vvcf->delay2;
     delay3 = vvcf->delay3;
@@ -2136,14 +2140,35 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
 
     for (sample = 0; sample < sample_count; sample++) {
 
+        if (type == FT_LOWPASS_4POLE_CLIP)
+        {
+            input = in[sample] * gain;
+            if (input > 0.7f)
+                input = 0.7f;
+            else if (input < -0.7f)
+                input = -0.7f;
+        }
+        else
+            input = in[sample];
+
         delay2 = delay2 + freqcut * delay1;             /* delay2/4 = lowpass output */
-        highpass = in[sample] - delay2 - qres * delay1;
+        highpass = input - delay2 - qres * delay1;
         delay1 = freqcut * highpass + delay1;           /* delay1/3 = bandpass output */
 
-        if (type == FT_LOWPASS_4POLE || type == FT_BANDPASS)
+        if (type == FT_LOWPASS_2POLE)
+            out[sample] = delay2;
+        else
         {
             if (type == FT_LOWPASS_4POLE)
                 stage2_input = delay2;
+            else if (type == FT_LOWPASS_4POLE_CLIP)
+            {
+                stage2_input = delay2 * gain;
+                if (stage2_input > 0.7f)
+                    stage2_input = 0.7f;
+                else if (stage2_input < -0.7f)
+                    stage2_input = -0.7f;
+            }
             else
                 stage2_input = delay1;
 
@@ -2151,13 +2176,14 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
             highpass = stage2_input - delay4 - qres * delay3;
             delay3 = freqcut * highpass + delay3;
 
-            if (type == FT_LOWPASS_4POLE)
-                out[sample] = delay4;
-            else
-                out[sample] = delay3;
+            switch(type)
+            {
+                case FT_BANDPASS:
+                    out[sample] = delay3; break;
+                default:
+                    out[sample] = delay4; break;
+            }
         }
-        else
-            out[sample] = delay2;
 
         freqcut += freqcut_delta;
     }
@@ -2180,6 +2206,13 @@ vcf_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
           struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_LOWPASS_4POLE, in, out);
+}
+
+static void
+vcf_clip4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+             struct vvcf *vvcf, float freq, float *in, float *out)
+{
+    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_LOWPASS_4POLE_CLIP, in, out);
 }
 
 static void
@@ -2295,95 +2328,6 @@ vcf_mvclpf(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     vvcf->delay3 = delay3;
     vvcf->delay4 = delay4;
     vvcf->delay5 = delay5;
-}
-
-/* vcf_clip4pole
- *
- * [ hard clipping followed by a two-pole lowpass filter ] times two.
- */
-static void
-vcf_clip4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
-              struct vvcf *vvcf, float freq, float *in, float *out)
-{
-    unsigned long sample;
-    int mod;
-    float freqmax, freqcut, freqtmp, freqcut_delta,
-          qres, highpass, gain, inlim,
-          delay1, delay2, delay3, delay4;
-
-    if (vvcf->last_mode != vvcf->mode) {
-        vvcf->delay1 = 0.0f;
-        vvcf->delay2 = 0.0f;
-        vvcf->delay3 = 0.0f;
-        vvcf->delay4 = 0.0f;
-        vvcf->last_mode = vvcf->mode;
-    }
-
-    qres = 2.0f - *(svcf->qres) * 1.96f;
-    /* Chamberlin SVF stabilization based on Eli Brandt's work
-     * Eli's original 'f3' function for limiting cutoff frequency based on Q:
-     *     freqmax = (-qres + sqrt(4.f + qres * qres));
-     * My slightly more stable version:
-     *     freqmax = (-qres + sqrt(4.f * sqrt(2.f) + qres * qres)) / sqrt(2.f);
-     * A quick approximation thereof: */
-    freqmax = (0.115375f * qres - 0.673851f) * qres + 1.67588f;
-
-    mod = y_voice_mod_index(svcf->freq_mod_src);
-    freqcut = (*(svcf->frequency) +
-                  *(svcf->freq_mod_amt) * 50.0f * voice->mod[mod].value);
-    freqtmp = freqcut + *(svcf->freq_mod_amt) * 50.0f *
-                        (float)sample_count * voice->mod[mod].delta;
-    freqcut *= freq;
-    freqtmp *= freq;
-    if (freqcut > 0.48f) freqcut = 0.48f;
-    else if (freqcut < 1e-5f) freqcut = 1e-5f;
-    if (freqtmp > 0.48f) freqtmp = 0.48f;
-    else if (freqtmp < 1e-5f) freqtmp = 1e-5f;
-    freqcut = (-5.98261f * freqcut + 7.11034f) * freqcut; /* quick approximation of 2.0f * sinf(M_PI_F * freqcut) */
-    freqtmp = (-5.98261f * freqtmp + 7.11034f) * freqtmp;
-    if (freqcut > freqmax) freqcut = freqmax;
-    if (freqtmp > freqmax) freqtmp = freqmax;
-    freqcut_delta = (freqtmp - freqcut) / (float)sample_count;
-
-    /* gain range: -24dB to +24dB */
-    gain = volume_cv_to_amplitude(0.36f + *(svcf->mparam) * 0.64f) * 16.0f;
-
-    delay1 = vvcf->delay1;
-    delay2 = vvcf->delay2;
-    delay3 = vvcf->delay3;
-    delay4 = vvcf->delay4;
-
-    for (sample = 0; sample < sample_count; sample++) {
-
-        inlim = in[sample] * gain;
-        if (inlim > 0.7f)
-            inlim = 0.7f;
-        else if (inlim < -0.7f)
-            inlim = -0.7f;
-
-        delay2 = delay2 + freqcut * delay1;             /* delay2/4 = lowpass output */
-        highpass = inlim - delay2 - qres * delay1;
-        delay1 = freqcut * highpass + delay1;           /* delay1/3 = bandpass output */
-
-        inlim = delay2 * gain;
-        if (inlim > 0.7f)
-            inlim = 0.7f;
-        else if (inlim < -0.7f)
-            inlim = -0.7f;
-
-        delay4 = delay4 + freqcut * delay3;
-        highpass = inlim - delay4 - qres * delay3;
-        delay3 = freqcut * highpass + delay3;
-
-        out[sample] = delay4;
-
-        freqcut += freqcut_delta;
-    }
-
-    vvcf->delay1 = delay1;
-    vvcf->delay2 = delay2;
-    vvcf->delay3 = delay3;
-    vvcf->delay4 = delay4;
 }
 
 /* vcf_amsynth

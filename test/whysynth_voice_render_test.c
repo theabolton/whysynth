@@ -129,6 +129,8 @@ void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
 // compare the contents of 2 files
 void compare_files(char *filename1, char *filename2)
 {
+    printf("Comparing %s with %s\n", filename1, filename2);
+
     struct stat info1, info2;
     stat(filename1, &info1);
     stat(filename2, &info2);
