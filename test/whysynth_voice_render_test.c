@@ -132,9 +132,9 @@ void compare_files(char *filename1, char *filename2)
     printf("Comparing %s with %s\n", filename1, filename2);
 
     struct stat info1, info2;
-    stat(filename1, &info1);
-    stat(filename2, &info2);
-    assert(info1.st_size == info2.st_size);
+    assert( stat(filename1, &info1) == 0);
+    assert( stat(filename2, &info2) == 0);
+    assert( info1.st_size == info2.st_size );
 
     FILE *file1, *file2;
     file1 = fopen(filename1, "r");
@@ -166,6 +166,7 @@ int main(void)
     sweep_filter(&vcf_clip4pole, true,  "vcf_clip4pole_sweep_test.wav");
     sweep_filter(&vcf_bandpass,  false, "vcf_bandpass_sweep_test.wav");
     sweep_filter(&vcf_amsynth,   false, "vcf_amsynth_sweep_test.wav");
+    sweep_filter(&vcf_highpass,  false, "vcf_highpass_sweep_test.wav");
 
     // ...and compare the results to known good samples.
     compare_files("vcf_2pole_sweep.wav",     "vcf_2pole_sweep_test.wav");
@@ -174,6 +175,7 @@ int main(void)
     compare_files("vcf_clip4pole_sweep.wav", "vcf_clip4pole_sweep_test.wav");
     compare_files("vcf_bandpass_sweep.wav",  "vcf_bandpass_sweep_test.wav");
     compare_files("vcf_amsynth_sweep.wav",   "vcf_amsynth_sweep_test.wav");
+    compare_files("vcf_highpass_sweep.wav",   "vcf_highpass_sweep_test.wav");
 
     return 0;
 }

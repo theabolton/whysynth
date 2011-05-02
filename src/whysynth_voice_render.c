@@ -2159,18 +2159,24 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
             out[sample] = delay2;
         else
         {
-            if (type == FT_LOWPASS_4POLE)
-                stage2_input = delay2;
-            else if (type == FT_LOWPASS_4POLE_CLIP)
+            switch(type)
             {
-                stage2_input = delay2 * gain;
-                if (stage2_input > 0.7f)
-                    stage2_input = 0.7f;
-                else if (stage2_input < -0.7f)
-                    stage2_input = -0.7f;
+                case FT_LOWPASS_4POLE:
+                    stage2_input = delay2; break;
+                case  FT_LOWPASS_4POLE_CLIP:
+                {
+                    stage2_input = delay2 * gain;
+                    if (stage2_input > 0.7f)
+                        stage2_input = 0.7f;
+                    else if (stage2_input < -0.7f)
+                        stage2_input = -0.7f;
+                    break;
+                }
+                case FT_HIGHPASS:
+                    stage2_input = highpass; break;
+                default:
+                    stage2_input = delay1;
             }
-            else
-                stage2_input = delay1;
 
             delay4 = delay4 + freqcut * delay3;
             highpass = stage2_input - delay4 - qres * delay3;
@@ -2180,8 +2186,10 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
             {
                 case FT_BANDPASS:
                     out[sample] = delay3; break;
+                case FT_HIGHPASS:
+                    out[sample] = highpass; break;
                 default:
-                    out[sample] = delay4; break;
+                    out[sample] = delay4;
             }
         }
 
@@ -2220,6 +2228,13 @@ vcf_bandpass(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_BANDPASS, in, out);
+}
+
+static void
+vcf_highpass(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+             struct vvcf *vvcf, float freq, float *in, float *out)
+{
+    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_HIGHPASS, in, out);
 }
 
 /* vcf_mvclpf
