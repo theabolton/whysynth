@@ -2090,6 +2090,81 @@ enum _filter_type_t {
 
 typedef enum _filter_type_t filter_type_t;
 
+// We define all the inner-loops for the Chamberlin filters using #defines
+// so that we can keep most of the conditional statements out of the loops.
+#define FILTER_LOOP_BANDPASS       FILTER_LOOP_PRELUDE { BANDPASS          UPDATE_FREQCUT }
+#define FILTER_LOOP_HIGHPASS       FILTER_LOOP_PRELUDE { HIGHPASS          UPDATE_FREQCUT }
+#define FILTER_LOOP_2POLE_LP       FILTER_LOOP_PRELUDE { TWO_POLE_LP       UPDATE_FREQCUT }
+#define FILTER_LOOP_4POLE_LP       FILTER_LOOP_PRELUDE { FOUR_POLE_LP      UPDATE_FREQCUT }
+#define FILTER_LOOP_4POLE_LP_CLIP  FILTER_LOOP_PRELUDE { FOUR_POLE_LP_CLIP UPDATE_FREQCUT }
+
+#define FILTER_LOOP_PRELUDE  for (sample = 0; sample < sample_count; sample++) 
+#define UPDATE_FREQCUT       freqcut += freqcut_delta;
+
+
+#define TWO_POLE_LP                \
+    input = in[sample];            \
+    FIRST_FILTER_STAGE             \
+    out[sample] = delay2;          \
+
+#define FOUR_POLE_LP               \
+    input = in[sample];            \
+    FIRST_FILTER_STAGE             \
+                                   \
+    stage2_input = delay2;         \
+    SECOND_FILTER_STAGE            \
+                                   \
+    out[sample] = delay4;          \
+
+#define BANDPASS                   \
+    input = in[sample];            \
+    FIRST_FILTER_STAGE             \
+                                   \
+    stage2_input = delay1;         \
+    SECOND_FILTER_STAGE            \
+                                   \
+    out[sample] = delay3;          \
+
+#define HIGHPASS                   \
+    input = in[sample];            \
+    FIRST_FILTER_STAGE             \
+                                   \
+    stage2_input = highpass;       \
+    SECOND_FILTER_STAGE            \
+                                   \
+    out[sample] = highpass;        \
+
+#define FOUR_POLE_LP_CLIP          \
+    input = in[sample] * gain;     \
+    if (input > 0.7f)              \
+        input = 0.7f;              \
+    else if (input < -0.7f)        \
+        input = -0.7f;             \
+                                   \
+    FIRST_FILTER_STAGE             \
+                                   \
+    stage2_input = delay2 * gain;  \
+    if (stage2_input > 0.7f)       \
+        stage2_input = 0.7f;       \
+    else if (stage2_input < -0.7f) \
+        stage2_input = -0.7f;      \
+                                   \
+    SECOND_FILTER_STAGE            \
+                                   \
+    out[sample] = delay4;          \
+
+
+#define FIRST_FILTER_STAGE                                                        \
+    delay2 = delay2 + freqcut * delay1;         /* delay2/4 = lowpass output */   \
+    highpass = input - delay2 - qres * delay1;                                    \
+    delay1 = freqcut * highpass + delay1;       /* delay1/3 = bandpass output */  \
+
+#define SECOND_FILTER_STAGE                                                       \
+    delay4 = delay4 + freqcut * delay3;                                           \
+    highpass = stage2_input - delay4 - qres * delay3;                             \
+    delay3 = freqcut * highpass + delay3;                                         \
+
+
 /* vcf_2_4pole
  *
  * 2/4-pole Chamberlin state-variable low-pass filter
@@ -2138,62 +2213,27 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     delay3 = vvcf->delay3;
     delay4 = vvcf->delay4;
 
-    for (sample = 0; sample < sample_count; sample++) {
+    switch (type)
+    {
+        case FT_BANDPASS:
+            FILTER_LOOP_BANDPASS
+            break;
 
-        if (type == FT_LOWPASS_4POLE_CLIP)
-        {
-            input = in[sample] * gain;
-            if (input > 0.7f)
-                input = 0.7f;
-            else if (input < -0.7f)
-                input = -0.7f;
-        }
-        else
-            input = in[sample];
+        case FT_HIGHPASS:
+            FILTER_LOOP_HIGHPASS
+            break;
 
-        delay2 = delay2 + freqcut * delay1;             /* delay2/4 = lowpass output */
-        highpass = input - delay2 - qres * delay1;
-        delay1 = freqcut * highpass + delay1;           /* delay1/3 = bandpass output */
+        case FT_LOWPASS_2POLE:
+            FILTER_LOOP_2POLE_LP
+            break;
 
-        if (type == FT_LOWPASS_2POLE)
-            out[sample] = delay2;
-        else
-        {
-            switch(type)
-            {
-                case FT_LOWPASS_4POLE:
-                    stage2_input = delay2; break;
-                case  FT_LOWPASS_4POLE_CLIP:
-                {
-                    stage2_input = delay2 * gain;
-                    if (stage2_input > 0.7f)
-                        stage2_input = 0.7f;
-                    else if (stage2_input < -0.7f)
-                        stage2_input = -0.7f;
-                    break;
-                }
-                case FT_HIGHPASS:
-                    stage2_input = highpass; break;
-                default:
-                    stage2_input = delay1;
-            }
+        case FT_LOWPASS_4POLE:
+            FILTER_LOOP_4POLE_LP
+            break;
 
-            delay4 = delay4 + freqcut * delay3;
-            highpass = stage2_input - delay4 - qres * delay3;
-            delay3 = freqcut * highpass + delay3;
-
-            switch(type)
-            {
-                case FT_BANDPASS:
-                    out[sample] = delay3; break;
-                case FT_HIGHPASS:
-                    out[sample] = highpass; break;
-                default:
-                    out[sample] = delay4;
-            }
-        }
-
-        freqcut += freqcut_delta;
+        case FT_LOWPASS_4POLE_CLIP:
+            FILTER_LOOP_4POLE_LP_CLIP
+            break;
     }
 
     vvcf->delay1 = delay1;
