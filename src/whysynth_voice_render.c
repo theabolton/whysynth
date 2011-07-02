@@ -2611,6 +2611,11 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
                   deltat * voice->current_pitch,
                   vcf_source, synth->vcf1_out);
         break;
+      case 8:
+        vcf_highpass(sample_count, &synth->vcf1, voice, &voice->vcf1,
+                    deltat * voice->current_pitch,
+                    vcf_source, synth->vcf1_out);
+        break;
     }
 
     switch (lrintf(*(synth->vcf2.source))) {
@@ -2664,6 +2669,11 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
         vcf_resonz(sample_count, &synth->vcf2, voice, &voice->vcf2,
                   deltat * voice->current_pitch,
                   vcf_source, synth->vcf2_out);
+        break;
+      case 8:
+        vcf_highpass(sample_count, &synth->vcf1, voice, &voice->vcf1,
+                    deltat * voice->current_pitch,
+                    vcf_source, synth->vcf1_out);
         break;
     }
 
