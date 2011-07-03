@@ -40,3 +40,12 @@ config.h.in
 configure
 ltmain.sh
 tags
+test/vcf_2pole_sweep_test.wav
+test/vcf_4pole_sweep_test.wav
+test/vcf_amsynth_sweep_test.wav
+test/vcf_bandpass_sweep_test.wav
+test/vcf_clip4pole_sweep_test.wav
+test/vcf_highpass_2pole_sweep_test.wav
+test/vcf_highpass_4pole_sweep_test.wav
+test/vcf_highpass_sweep_test.wav
+test/vcf_mvclpf_sweep_test.wav
