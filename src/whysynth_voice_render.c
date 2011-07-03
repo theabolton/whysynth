@@ -2084,7 +2084,8 @@ enum _filter_type_t {
     FT_LOWPASS_2POLE,
     FT_LOWPASS_4POLE,
     FT_LOWPASS_4POLE_CLIP,
-    FT_HIGHPASS,
+    FT_HIGHPASS_2POLE,
+    FT_HIGHPASS_4POLE,
     FT_BANDPASS
 };
 
@@ -2093,7 +2094,8 @@ typedef enum _filter_type_t filter_type_t;
 // We define all the inner-loops for the Chamberlin filters using #defines
 // so that we can keep most of the conditional statements out of the loops.
 #define FILTER_LOOP_BANDPASS       FILTER_LOOP_PRELUDE { BANDPASS          UPDATE_FREQCUT }
-#define FILTER_LOOP_HIGHPASS       FILTER_LOOP_PRELUDE { HIGHPASS          UPDATE_FREQCUT }
+#define FILTER_LOOP_2POLE_HP       FILTER_LOOP_PRELUDE { TWO_POLE_HP       UPDATE_FREQCUT }
+#define FILTER_LOOP_4POLE_HP       FILTER_LOOP_PRELUDE { FOUR_POLE_HP      UPDATE_FREQCUT }
 #define FILTER_LOOP_2POLE_LP       FILTER_LOOP_PRELUDE { TWO_POLE_LP       UPDATE_FREQCUT }
 #define FILTER_LOOP_4POLE_LP       FILTER_LOOP_PRELUDE { FOUR_POLE_LP      UPDATE_FREQCUT }
 #define FILTER_LOOP_4POLE_LP_CLIP  FILTER_LOOP_PRELUDE { FOUR_POLE_LP_CLIP UPDATE_FREQCUT }
@@ -2125,7 +2127,13 @@ typedef enum _filter_type_t filter_type_t;
                                    \
     out[sample] = delay3;          \
 
-#define HIGHPASS                   \
+#define TWO_POLE_HP                \
+    input = in[sample];            \
+    FIRST_FILTER_STAGE             \
+                                   \
+    out[sample] = highpass;        \
+
+#define FOUR_POLE_HP               \
     input = in[sample];            \
     FIRST_FILTER_STAGE             \
                                    \
@@ -2219,8 +2227,12 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
             FILTER_LOOP_BANDPASS
             break;
 
-        case FT_HIGHPASS:
-            FILTER_LOOP_HIGHPASS
+        case FT_HIGHPASS_2POLE:
+            FILTER_LOOP_2POLE_HP
+            break;
+
+        case FT_HIGHPASS_4POLE:
+            FILTER_LOOP_4POLE_HP
             break;
 
         case FT_LOWPASS_2POLE:
@@ -2271,10 +2283,17 @@ vcf_bandpass(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
 }
 
 static void
-vcf_highpass(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+vcf_highpass_2pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
-    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_HIGHPASS, in, out);
+    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_HIGHPASS_2POLE, in, out);
+}
+
+static void
+vcf_highpass_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+             struct vvcf *vvcf, float freq, float *in, float *out)
+{
+    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_HIGHPASS_4POLE, in, out);
 }
 
 /* vcf_mvclpf
@@ -2652,7 +2671,11 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
                   vcf_source, synth->vcf1_out);
         break;
       case 8:
-        vcf_highpass(sample_count, &synth->vcf1, voice, &voice->vcf1,
+        vcf_highpass_2pole(sample_count, &synth->vcf1, voice, &voice->vcf1,
+                    deltat * voice->current_pitch,
+                    vcf_source, synth->vcf1_out);
+      case 9:
+        vcf_highpass_4pole(sample_count, &synth->vcf1, voice, &voice->vcf1,
                     deltat * voice->current_pitch,
                     vcf_source, synth->vcf1_out);
         break;
@@ -2711,9 +2734,13 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
                   vcf_source, synth->vcf2_out);
         break;
       case 8:
-        vcf_highpass(sample_count, &synth->vcf1, voice, &voice->vcf1,
+        vcf_highpass_2pole(sample_count, &synth->vcf2, voice, &voice->vcf2,
                     deltat * voice->current_pitch,
-                    vcf_source, synth->vcf1_out);
+                    vcf_source, synth->vcf2_out);
+      case 9:
+        vcf_highpass_4pole(sample_count, &synth->vcf2, voice, &voice->vcf2,
+                    deltat * voice->current_pitch,
+                    vcf_source, synth->vcf2_out);
         break;
     }
 

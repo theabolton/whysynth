@@ -160,22 +160,24 @@ void compare_files(char *filename1, char *filename2)
 int main(void) 
 {
     // generate sweeps of each filter...
-    sweep_filter(&vcf_2pole,     false, "vcf_2pole_sweep_test.wav");
-    sweep_filter(&vcf_4pole,     false, "vcf_4pole_sweep_test.wav");
-    sweep_filter(&vcf_mvclpf,    false, "vcf_mvclpf_sweep_test.wav");
-    sweep_filter(&vcf_clip4pole, true,  "vcf_clip4pole_sweep_test.wav");
-    sweep_filter(&vcf_bandpass,  false, "vcf_bandpass_sweep_test.wav");
-    sweep_filter(&vcf_amsynth,   false, "vcf_amsynth_sweep_test.wav");
-    sweep_filter(&vcf_highpass,  false, "vcf_highpass_sweep_test.wav");
+    sweep_filter(&vcf_2pole,           false, "vcf_2pole_sweep_test.wav");
+    sweep_filter(&vcf_4pole,           false, "vcf_4pole_sweep_test.wav");
+    sweep_filter(&vcf_mvclpf,          false, "vcf_mvclpf_sweep_test.wav");
+    sweep_filter(&vcf_clip4pole,       true,  "vcf_clip4pole_sweep_test.wav");
+    sweep_filter(&vcf_bandpass,        false, "vcf_bandpass_sweep_test.wav");
+    sweep_filter(&vcf_amsynth,         false, "vcf_amsynth_sweep_test.wav");
+    sweep_filter(&vcf_highpass_2pole,  false, "vcf_highpass_2pole_sweep_test.wav");
+    sweep_filter(&vcf_highpass_4pole,  false, "vcf_highpass_4pole_sweep_test.wav");
 
     // ...and compare the results to known good samples.
-    compare_files("vcf_2pole_sweep.wav",     "vcf_2pole_sweep_test.wav");
-    compare_files("vcf_4pole_sweep.wav",     "vcf_4pole_sweep_test.wav");
-    compare_files("vcf_mvclpf_sweep.wav",    "vcf_mvclpf_sweep_test.wav");
-    compare_files("vcf_clip4pole_sweep.wav", "vcf_clip4pole_sweep_test.wav");
-    compare_files("vcf_bandpass_sweep.wav",  "vcf_bandpass_sweep_test.wav");
-    compare_files("vcf_amsynth_sweep.wav",   "vcf_amsynth_sweep_test.wav");
-    compare_files("vcf_highpass_sweep.wav",   "vcf_highpass_sweep_test.wav");
+    compare_files("vcf_2pole_sweep.wav",          "vcf_2pole_sweep_test.wav");
+    compare_files("vcf_4pole_sweep.wav",          "vcf_4pole_sweep_test.wav");
+    compare_files("vcf_mvclpf_sweep.wav",         "vcf_mvclpf_sweep_test.wav");
+    compare_files("vcf_clip4pole_sweep.wav",      "vcf_clip4pole_sweep_test.wav");
+    compare_files("vcf_bandpass_sweep.wav",       "vcf_bandpass_sweep_test.wav");
+    compare_files("vcf_amsynth_sweep.wav",        "vcf_amsynth_sweep_test.wav");
+    compare_files("vcf_highpass_2pole_sweep.wav", "vcf_highpass_2pole_sweep_test.wav");
+    compare_files("vcf_highpass_4pole_sweep.wav", "vcf_highpass_4pole_sweep_test.wav");
 
     return 0;
 }
