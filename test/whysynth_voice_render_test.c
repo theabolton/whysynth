@@ -165,6 +165,7 @@ int main(void)
     sweep_filter(&vcf_mvclpf,          false, "vcf_mvclpf_sweep_test.wav");
     sweep_filter(&vcf_clip4pole,       true,  "vcf_clip4pole_sweep_test.wav");
     sweep_filter(&vcf_bandpass,        false, "vcf_bandpass_sweep_test.wav");
+    sweep_filter(&vcf_bandreject,      false, "vcf_bandreject_sweep_test.wav");
     sweep_filter(&vcf_amsynth,         false, "vcf_amsynth_sweep_test.wav");
     sweep_filter(&vcf_highpass_2pole,  false, "vcf_highpass_2pole_sweep_test.wav");
     sweep_filter(&vcf_highpass_4pole,  false, "vcf_highpass_4pole_sweep_test.wav");
@@ -175,6 +176,7 @@ int main(void)
     compare_files("vcf_mvclpf_sweep.wav",         "vcf_mvclpf_sweep_test.wav");
     compare_files("vcf_clip4pole_sweep.wav",      "vcf_clip4pole_sweep_test.wav");
     compare_files("vcf_bandpass_sweep.wav",       "vcf_bandpass_sweep_test.wav");
+    compare_files("vcf_bandreject_sweep.wav",     "vcf_bandreject_sweep_test.wav");
     compare_files("vcf_amsynth_sweep.wav",        "vcf_amsynth_sweep_test.wav");
     compare_files("vcf_highpass_2pole_sweep.wav", "vcf_highpass_2pole_sweep_test.wav");
     compare_files("vcf_highpass_4pole_sweep.wav", "vcf_highpass_4pole_sweep_test.wav");

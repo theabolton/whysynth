@@ -49,3 +49,4 @@ test/vcf_highpass_2pole_sweep_test.wav
 test/vcf_highpass_4pole_sweep_test.wav
 test/vcf_highpass_sweep_test.wav
 test/vcf_mvclpf_sweep_test.wav
+test/vcf_bandreject_sweep_test.wav

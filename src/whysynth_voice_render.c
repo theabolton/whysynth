@@ -2086,7 +2086,8 @@ enum _filter_type_t {
     FT_LOWPASS_4POLE_CLIP,
     FT_HIGHPASS_2POLE,
     FT_HIGHPASS_4POLE,
-    FT_BANDPASS
+    FT_BANDPASS,
+    FT_BANDREJECT
 };
 
 typedef enum _filter_type_t filter_type_t;
@@ -2094,6 +2095,7 @@ typedef enum _filter_type_t filter_type_t;
 // We define all the inner-loops for the Chamberlin filters using #defines
 // so that we can keep most of the conditional statements out of the loops.
 #define FILTER_LOOP_BANDPASS       FILTER_LOOP_PRELUDE { BANDPASS          UPDATE_FREQCUT }
+#define FILTER_LOOP_BANDREJECT     FILTER_LOOP_PRELUDE { BANDREJECT        UPDATE_FREQCUT }
 #define FILTER_LOOP_2POLE_HP       FILTER_LOOP_PRELUDE { TWO_POLE_HP       UPDATE_FREQCUT }
 #define FILTER_LOOP_4POLE_HP       FILTER_LOOP_PRELUDE { FOUR_POLE_HP      UPDATE_FREQCUT }
 #define FILTER_LOOP_2POLE_LP       FILTER_LOOP_PRELUDE { TWO_POLE_LP       UPDATE_FREQCUT }
@@ -2104,62 +2106,71 @@ typedef enum _filter_type_t filter_type_t;
 #define UPDATE_FREQCUT       freqcut += freqcut_delta;
 
 
-#define TWO_POLE_LP                \
-    input = in[sample];            \
-    FIRST_FILTER_STAGE             \
-    out[sample] = delay2;          \
+#define TWO_POLE_LP                   \
+    input = in[sample];               \
+    FIRST_FILTER_STAGE                \
+    out[sample] = delay2;             \
+   
+#define FOUR_POLE_LP                  \
+    input = in[sample];               \
+    FIRST_FILTER_STAGE                \
+                                      \
+    stage2_input = delay2;            \
+    SECOND_FILTER_STAGE               \
+                                      \
+    out[sample] = delay4;             \
 
-#define FOUR_POLE_LP               \
-    input = in[sample];            \
-    FIRST_FILTER_STAGE             \
-                                   \
-    stage2_input = delay2;         \
-    SECOND_FILTER_STAGE            \
-                                   \
-    out[sample] = delay4;          \
+#define BANDPASS                      \
+    input = in[sample];               \
+    FIRST_FILTER_STAGE                \
+                                      \
+    stage2_input = delay1;            \
+    SECOND_FILTER_STAGE               \
+                                      \
+    out[sample] = delay3;             \
 
-#define BANDPASS                   \
-    input = in[sample];            \
-    FIRST_FILTER_STAGE             \
-                                   \
-    stage2_input = delay1;         \
-    SECOND_FILTER_STAGE            \
-                                   \
-    out[sample] = delay3;          \
+#define BANDREJECT                    \
+    input = in[sample];               \
+    FIRST_FILTER_STAGE                \
+                                      \
+    stage2_input = highpass + delay2; \
+    SECOND_FILTER_STAGE               \
+                                      \
+    out[sample] = highpass + delay4;  \
 
-#define TWO_POLE_HP                \
-    input = in[sample];            \
-    FIRST_FILTER_STAGE             \
-                                   \
-    out[sample] = highpass;        \
+#define TWO_POLE_HP                   \
+    input = in[sample];               \
+    FIRST_FILTER_STAGE                \
+                                      \
+    out[sample] = highpass;           \
 
-#define FOUR_POLE_HP               \
-    input = in[sample];            \
-    FIRST_FILTER_STAGE             \
-                                   \
-    stage2_input = highpass;       \
-    SECOND_FILTER_STAGE            \
-                                   \
-    out[sample] = highpass;        \
+#define FOUR_POLE_HP                  \
+    input = in[sample];               \
+    FIRST_FILTER_STAGE                \
+                                      \
+    stage2_input = highpass;          \
+    SECOND_FILTER_STAGE               \
+                                      \
+    out[sample] = highpass;           \
 
-#define FOUR_POLE_LP_CLIP          \
-    input = in[sample] * gain;     \
-    if (input > 0.7f)              \
-        input = 0.7f;              \
-    else if (input < -0.7f)        \
-        input = -0.7f;             \
-                                   \
-    FIRST_FILTER_STAGE             \
-                                   \
-    stage2_input = delay2 * gain;  \
-    if (stage2_input > 0.7f)       \
-        stage2_input = 0.7f;       \
-    else if (stage2_input < -0.7f) \
-        stage2_input = -0.7f;      \
-                                   \
-    SECOND_FILTER_STAGE            \
-                                   \
-    out[sample] = delay4;          \
+#define FOUR_POLE_LP_CLIP             \
+    input = in[sample] * gain;        \
+    if (input > 0.7f)                 \
+        input = 0.7f;                 \
+    else if (input < -0.7f)           \
+        input = -0.7f;                \
+                                      \
+    FIRST_FILTER_STAGE                \
+                                      \
+    stage2_input = delay2 * gain;     \
+    if (stage2_input > 0.7f)          \
+        stage2_input = 0.7f;          \
+    else if (stage2_input < -0.7f)    \
+        stage2_input = -0.7f;         \
+                                      \
+    SECOND_FILTER_STAGE               \
+                                      \
+    out[sample] = delay4;             \
 
 
 #define FIRST_FILTER_STAGE                                                        \
@@ -2227,6 +2238,10 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
             FILTER_LOOP_BANDPASS
             break;
 
+        case FT_BANDREJECT:
+            FILTER_LOOP_BANDREJECT
+            break;
+
         case FT_HIGHPASS_2POLE:
             FILTER_LOOP_2POLE_HP
             break;
@@ -2280,6 +2295,13 @@ vcf_bandpass(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_BANDPASS, in, out);
+}
+
+static void
+vcf_bandreject(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
+             struct vvcf *vvcf, float freq, float *in, float *out)
+{
+    vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_BANDREJECT, in, out);
 }
 
 static void
@@ -2679,6 +2701,11 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
                     deltat * voice->current_pitch,
                     vcf_source, synth->vcf1_out);
         break;
+      case 10:
+        vcf_bandreject(sample_count, &synth->vcf1, voice, &voice->vcf1,
+                    deltat * voice->current_pitch,
+                    vcf_source, synth->vcf1_out);
+        break;
     }
 
     switch (lrintf(*(synth->vcf2.source))) {
@@ -2739,6 +2766,11 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
                     vcf_source, synth->vcf2_out);
       case 9:
         vcf_highpass_4pole(sample_count, &synth->vcf2, voice, &voice->vcf2,
+                    deltat * voice->current_pitch,
+                    vcf_source, synth->vcf2_out);
+        break;
+      case 10:
+        vcf_bandreject(sample_count, &synth->vcf2, voice, &voice->vcf2,
                     deltat * voice->current_pitch,
                     vcf_source, synth->vcf2_out);
         break;
