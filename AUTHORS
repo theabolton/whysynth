@@ -1,0 +1,78 @@
+                                   WhySynth
+                                   ========
+                    A software synthesizer plugin  for the
+                           DSSI Soft Synth Interface
+
+WhySynth is written and maintained by Sean Bolton.  It is copyright
+(c) 2010 under the GNU General Public License, version 2 or later.
+Bug reports, kudos, and job offers (seriously!) should go directly
+to Sean at the email address:
+
+    musound /at/ jps /dot/ net
+
+WhySynth mutated out of Xsynth-DSSI, and a few bits of code may
+remain from the original Xsynth v1.0.2, copyright (c) 1999 S. J.
+Brookes, under the GNU General Public License version 2.
+
+Portions of the minBLEP oscillator code are based on Fons
+Adriaensen's VCO-plugins v0.3.0, copyright (c) 2003 under the GNU
+General Public License version 2.  (Thanks also to Daniel Werner for
+his public domain minBLEP generation code, upon which I based my
+discontinuity-delta generation code).
+
+The MVCLPF-3 filter was taken directly from Fons Adriaensen's
+MCP-plugins v0.3.0, copyright (c) 2003 under the GNU General Public
+License version 2.
+
+The amSynth 4P-LPF filter comes from Nick Dowell's amSynth,
+copyright (c) 2001,2002 Nick Dowell, under the GNU General Public
+License version 2.
+
+The asynchronous granular synthesis implementation was inspired by
+MSS, (c) 2002 Mats Olsson.  Some of the grain envelope code comes
+directly from Mats.
+
+The PADsynth implementation began as Nasca O. Paul's public domain
+example code.
+
+Major portions of the event handling code are derived from
+Fluidsynth, copyright (c) 2003 Peter Hanappe and others, under the
+GNU General Public License version 2.
+
+Portions of the DSSI interface and OSC handling code come from Chris
+Cannam and Steve Harris's public domain DSSI example code.
+
+The GTK+ knob code was adapted from gAlan 0.2.0, copyright (c) 1999
+Tony Garnock-Jones.
+
+The wavecycle data was in part resynthesized from Claude Kaber's
+Virtual K4 soundfont, and from //christian's exegesis of the Ensoniq
+SQ-80 wavetable ROMs.
+
+The Kellet pink noise filter and reson{r,z} filters come from
+Csound, copyright (c) 1999 Sean Costello, rasmus ekman, et. al.
+
+Nearly all of the Plate reverb code comes from the Plate2x2
+reverb in CAPS 0.2.3, copyright (c) 2002-4 Tim Goetze.
+
+The SC Reverb is Sean Costello's reverb from Csound, C implement-
+ation copyright (c) 2005 Istvan Varga under the GNU Lesser General
+Public License version 2.1.
+
+Much of the original code in WhySynth would not have been possible
+without the generous availability of the work of Tim Stilson, Julius
+Smith, Eli Brandt, John Chowning, Curtis Roads, and a slew of other
+pioneers.  
+
+Bug fixes have been contributed by:
+    Chris Cannam
+
+WhySynth (or Xsynth-DSSI) patch contributors:
+    Nigel Henry
+    Silvan (D. Michael McIntyre)
+    Garett Shulman
+    Ken Restivo
+    Idiomdrottning
+
+Thanks everybody!  Ain't open source great?
+

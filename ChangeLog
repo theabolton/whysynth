@@ -1,0 +1,141 @@
+20090922 smbolton
+
+* Added minBLEP oscillator waveform: clipped saw (thanks to Gordon
+    JC Pearce for the inspiration).
+
+* Added effect: Sean Costello's reverbsc from Csound.
+
+* Added a few new patches to the default set, including a
+    contribution from Idiomdrottning.
+
+* Cleaned up effect common memory allocation and dirty buffer
+    silencing (somewhat).
+
+* Use new cairo-rendered knobs, when cairo is available (requires
+    GTK+ >= 2.8; old knobs will be used if < 2.8 is found).
+
+* Seriously: two consecutive copies of an inlined function that are
+    not in cache can take longer to execute than two subroutine
+    calls to the function's non-inlined version.  Re-thought
+    WhySynth inlining.
+
+* Debastardization of the GUI combo boxes (or, the death of
+    popmenu).
+
+* Reworked the minBLEP code for more even processor usage over
+    successive process cycles.
+
+* Consolidated some voice buffers for better cache utilization.
+
+* On Mac OS X only (since it doesn't have a working mlockall()),
+    added code at startup to page each wavetable into memory (and
+    thus hopefully minimize page faults later.)
+
+* Doh. Thread-safe, user-friendly locale flexibility.
+
+20090531 smbolton
+
+* Fix patchfile load and save to be locale-neutral (thanks to Martin
+    Tarenskeen for the bug report.)
+
+20090403 smbolton
+
+* Silently ignore 'sample-rate' method.
+
+* Fixed GtkSpinButton adjustments to avoid page_size warning with
+    GTK+ >=2.14.
+
+* configure.ac: added check for ladspa.h, removed some obsolete
+    macros.
+
+20080411 smbolton
+
+* Use GtkFileChooserWidget instead of GtkFileSelection. Requires
+    GTK+ >= 2.4.0.
+
+* Fixed a bug in the XSynth-DSSI patch import.
+
+20080204 smbolton
+
+* Added extra/COPYING-patches and fixed README and
+    src/patch_tables.c to clearly declare patches as being in the
+    public domain.
+
+* Added config.h.ac, doc/voice_block_diagram.png, and
+    extra/COPYING-patches to Makefile.am EXTRA_DIST.  The first two
+    have been inadvertently omitted from previous distributions, and
+    the block diagram at least shouldn't have been.
+
+20070418 smbolton
+
+* Added 'FM Wave->LF Sine' and 'Phase Distortion' oscillator types.
+
+* Enhanced the GUI by replacing all the mode selection spinbuttons
+    with popup menu buttons.
+
+* Improved the envelope generator code so that already-playing notes
+    will respond to parameter changes to envelope segments that have
+    not yet begun.
+
+* Added a 75% partial width scaling setting to the PADsynth
+    parameters.
+
+* Added a few new patches to the default set, including a
+    contribution from Ken Restivo.
+
+* Made several GCC 4 fixes, including more sane inlining.
+
+20060122 smbolton
+
+* Added 'Copy' and 'Paste' buttons for the filters and effect.
+
+* Changed the autotools setup to keep the plugin and GUI libraries
+    separate (since the plugin doesn't need liblo and the GUI
+    doesn't need FFTW.)
+
+* Added a non-realtime worker thread and 'PADsynth' oscillator type.
+
+20051231 smbolton
+
+* Recreated the wavetables, without the boneheaded bandlimiting
+    error that was causing several of the the tables to alias badly
+    over portions of their key range.  Added several new waveforms,
+    including some missing SQ-80 ones, and the Bristol 'jagged-edged
+    ramp'.
+
+* Added the 'Dual Delay' effect.
+
+* Incorporated the 4-pole lowpass filter from amSynth.
+
+* Added a persistent comment field to the patches.
+
+* Updated the default patches, with a number of new native patches
+    (including contributions from Nigel Henry and Garett Shulman),
+    and redid the K4 interpretations after fixing some bugs in the
+    import code. Included in the extra/ directory are the WhySynth
+    20051005 default patches, in case anyone needs them for
+    backwards compatibility, and 454 new K4 interpretations.
+
+* A new Configuration option, 'Cancel Notes On Program Change',
+    controls whether WhySynth will stop any playing notes before it
+    performs a program change, which can prevent nasty surprises if
+    the previous and new patches are not compatible.  Defaults to
+    'On'.
+
+* WhySynth now uses gcc/glibc 'constructor' and 'destructor'
+    attributes instead of the deprecated _init() and _fini()
+    functions (needed for OS X 10.4 'Tiger').
+
+* WhySynth_gtk no longer echos host-initiated control changes back
+    to the host.
+
+* DSSI 'hide' now hides the patch edit window, too.
+
+20051005 smbolton
+* First release.
+
+20050710 smbolton
+* On this dark and stormy night, Xsynth-DSSI began a series of
+    profound and rapid mutations, acquired K4-ish wavetable
+    oscillators, and was reborn as WhySynth.
+

@@ -1,0 +1,13 @@
+Needs to be done
+================
+- clean up all '!FIX!'es and '-FIX-'es.
+
+- redesign modulation, allowing multiple source-amount-destination
+    routings like the Matrix 6.
+
+- make the GUI not look so dorky.
+
+- fix Glide Rate so it's not sample-rate dependent.
+
+- win the lottery.
+
