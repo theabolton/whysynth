@@ -29,7 +29,7 @@ AM_CONDITIONAL(BUILD_GUI, test "x${with_gtk}" != 'xno')
 dnl developer functions
 AC_ARG_ENABLE(developer, AC_HELP_STRING([--enable-developer], [enable developer functions, default=no]),
               [ if test $enableval = "yes"; then
-                AC_DEFINE(DEVELOPER,, [Define to 1 to enable developer-only functions.])
+                AC_DEFINE(DEVELOPER, 1, [Define to 1 to enable developer-only functions.])
                 fi ])
 
 dnl OS specific checks
@@ -58,6 +58,7 @@ else
   AC_MSG_CHECKING(for newlocale in locale.h)
   AC_TRY_COMPILE([
       #define _XOPEN_SOURCE 700
+      #define _GNU_SOURCE
       #include <locale.h>
     ], [newlocale(LC_ALL_MASK, "C", NULL)], use_locale=yes, use_locale=no)
   if test "$use_locale" = "yes"; then
