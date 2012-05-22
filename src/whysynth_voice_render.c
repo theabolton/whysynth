@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2004-2007, 2010 Sean Bolton and others.
+ * Copyright (C) 2004-2007, 2010, 2012 Sean Bolton and others.
  *
  * Portions of this file come from Steve Brookes' Xsynth,
  * copyright (C) 1999 S. J. Brookes.
@@ -593,6 +593,8 @@ fm_wave2sine(unsigned long sample_count, y_sosc_t *sosc, y_voice_t *voice,
     if (freq_ratio < 1.0f) freq_ratio = 0.5f;
     freq_ratio *= 1.0f + 0.012 * (*(sosc->mparam2) - 0.5f);
 
+    if (vosc->mode != vosc->last_mode)
+        cpos = mpos = 0.0f;
     i = voice->key + lrintf(*(sosc->pitch)) + fm_mod_ratio_to_keys[i];
     if (vosc->mode     != vosc->last_mode ||
         vosc->waveform != vosc->last_waveform ||
@@ -602,7 +604,6 @@ fm_wave2sine(unsigned long sample_count, y_sosc_t *sosc, y_voice_t *voice,
         wavetable_select(vosc, i);
         vosc->last_mode     = vosc->mode;
         vosc->last_waveform = vosc->waveform;
-        cpos = mpos = 0.0f;
     }
 
     i = y_voice_mod_index(sosc->pitch_mod_src);
@@ -704,6 +705,8 @@ fm_sine2wave(unsigned long sample_count, y_sosc_t *sosc, y_voice_t *voice,
     float f;
     int   i;
 
+    if (vosc->mode != vosc->last_mode)
+        cpos = mpos = 0.0f;
     i = voice->key + lrintf(*(sosc->pitch));
     if (vosc->mode     != vosc->last_mode ||
         vosc->waveform != vosc->last_waveform ||
@@ -713,7 +716,6 @@ fm_sine2wave(unsigned long sample_count, y_sosc_t *sosc, y_voice_t *voice,
         wavetable_select(vosc, i);
         vosc->last_mode     = vosc->mode;
         vosc->last_waveform = vosc->waveform;
-        cpos = mpos = 0.0f;
     }
 
     i = y_voice_mod_index(sosc->pitch_mod_src);
@@ -822,6 +824,8 @@ fm_wave2lf(unsigned long sample_count, y_synth_t *synth, y_sosc_t *sosc,
     lfw = y_pitch[lrintf(*(sosc->mparam1) * 48.0f) + 33]; /* MParam1 = carrier freq, 0.125 to 2 Hz */
     lfw *= synth->deltat;
 
+    if (vosc->mode != vosc->last_mode)
+        cpos = mpos = 0.0f;
     i = voice->key + lrintf(*(sosc->pitch));
     if (vosc->mode     != vosc->last_mode ||
         vosc->waveform != vosc->last_waveform ||
@@ -831,7 +835,6 @@ fm_wave2lf(unsigned long sample_count, y_synth_t *synth, y_sosc_t *sosc,
         wavetable_select(vosc, i);
         vosc->last_mode     = vosc->mode;
         vosc->last_waveform = vosc->waveform;
-        cpos = mpos = 0.0f;
     }
 
     i = y_voice_mod_index(sosc->pitch_mod_src);

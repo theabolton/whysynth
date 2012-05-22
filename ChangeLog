@@ -1,5 +1,9 @@
 (unreleased) smbolton
 
+* Fixed a click that occurred with several oscillator modes (Wave
+    Cycle, PADsynth, and FM) when using portamento in a monophonic
+    mode, due to the oscillator phase being reset spuriously.
+
 * Added icon (32x32 only for now, not installing).
 
 20090922 smbolton

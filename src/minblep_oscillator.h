@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2004-2008, 2010 Sean Bolton.
+ * Copyright (C) 2004-2008, 2010, 2012 Sean Bolton.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -993,6 +993,8 @@ wt_osc_slave (unsigned long sample_count, y_sosc_t *sosc, y_voice_t *voice,
     float f;
     int   i;
 
+    if (vosc->mode != vosc->last_mode)
+        pos = 0.0f;
     i = voice->key + lrintf(*(sosc->pitch) + *(sosc->mparam2) * WAVETABLE_SELECT_BIAS_RANGE);
     if (vosc->mode     != vosc->last_mode ||
         vosc->waveform != vosc->last_waveform ||
@@ -1002,7 +1004,6 @@ wt_osc_slave (unsigned long sample_count, y_sosc_t *sosc, y_voice_t *voice,
         wavetable_select(vosc, i);
         vosc->last_mode     = vosc->mode;
         vosc->last_waveform = vosc->waveform;
-        pos = 0.0f;
     }
 
     /* -FIX- what if we didn't ramp pitch? */

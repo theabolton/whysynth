@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2006, 2007 Sean Bolton.
+ * Copyright (C) 2006, 2007, 2012 Sean Bolton.
  *
  * Based on the public domain implementation of the PADsynth
  * algorithm by Nasca O. Paul.  If you want to understand the
@@ -565,13 +565,18 @@ padsynth_oscillator(unsigned long sample_count, y_sosc_t *sosc,
 
             /* get sample indices and crossfade from sampleset */
             sample_select(sosc, vosc, i);
-            vosc->last_mode     = vosc->mode;
             vosc->last_waveform = vosc->waveform;
-            if (sosc->sampleset->sample[vosc->i0])
-                vosc->pos0 = vosc->pos1 = (double)random_float(0.0f,
-                                              (float)sosc->sampleset->sample[vosc->i0]->length);
-            else
-                vosc->pos0 = vosc->pos1 = 0.0;
+            /* try to avoid reseting pos0 except when necessary to avoid causing clocks in mono
+             * mode with portamento -- but basically it's going to click if it's not the same
+             * sample.... */
+            if (vosc->mode != vosc->last_mode) {
+                vosc->last_mode = vosc->mode;
+                if (sosc->sampleset->sample[vosc->i0])
+                    vosc->pos0 = vosc->pos1 = (double)random_float(0.0f,
+                                                  (float)sosc->sampleset->sample[vosc->i0]->length);
+                else
+                    vosc->pos0 = vosc->pos1 = 0.0;
+            }
         }
         if (sosc->sampleset->sample[vosc->i0] &&
             sosc->sampleset->sample[vosc->i1])
