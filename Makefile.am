@@ -16,7 +16,11 @@ EXTRA_DIST = \
 	extra/more_K4_interpretations.WhySynth \
 	extra/version_20051005_patches.WhySynth \
 	extra/version_20051231_patches.WhySynth \
-	extra/version_20090608_patches.WhySynth
+	extra/version_20090608_patches.WhySynth \
+	extra/whysynth-icon-32x32.png
+
+#icondir = $(datadir)/icons/hicolor/32x32/apps
+#dist_icon_DATA = extra/whysynth-icon-32x32.png
 
 dist_pkgdata_DATA = \
 	extra/current_default_patches.WhySynth \

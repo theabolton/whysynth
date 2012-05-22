@@ -173,6 +173,13 @@ create_main_window (const char *tag)
   GtkWidget *label47;
   GtkWidget *configuration_tab_label;
     GtkAccelGroup *accel_group;
+    GdkPixbuf *icon;
+
+    if ((icon = gtk_icon_theme_load_icon(gtk_icon_theme_get_default(),
+                                         "whysynth", 32, 0, NULL)) != NULL) {
+        gtk_window_set_default_icon(icon);
+        g_object_unref(icon);
+    }
 
     accel_group = gtk_accel_group_new ();
 

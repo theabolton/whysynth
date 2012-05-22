@@ -1,3 +1,7 @@
+(unreleased) smbolton
+
+* Added icon (32x32 only for now, not installing).
+
 20090922 smbolton
 
 * Added minBLEP oscillator waveform: clipped saw (thanks to Gordon
