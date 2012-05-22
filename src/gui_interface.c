@@ -1850,13 +1850,6 @@ create_edit_window (const char *tag)
     GtkWidget *misc_table;
     GtkWidget *copy_button;
     GtkWidget *paste_button;
-#if 0  /* ungrouped */
-    int ungrouped_count, ungrouped_index;
-    GtkWidget *ungrouped_tab_label;
-    GtkWidget *ungrouped_table;
-    GtkWidget *scrolledwindow;
-    GtkWidget *viewport;
-#endif /* ungrouped */
     GtkWidget *hseparator;
     GtkWidget *edit_action_frame;
     GtkWidget *edit_action_table;
