@@ -1,5 +1,7 @@
 (unreleased) smbolton
 
+* Promoted resonz to regular (non-developer) filter mode.
+
 * Fixed a click that occurred with several oscillator modes (Wave
     Cycle, PADsynth, and FM) when using portamento in a monophonic
     mode, due to the oscillator phase being reset spuriously.

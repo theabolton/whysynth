@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010 Sean Bolton and others.
+ * Copyright (C) 2004-2008, 2010, 2012 Sean Bolton and others.
  *
  * Portions of this file may have come from Steve Brookes'
  * Xsynth, copyright (C) 1999 S. J. Brookes.
@@ -1241,6 +1241,8 @@ update_vcf_layout_on_mode_change(int mode_port)
 
         voice_widgets[mode_port].last_mode = vcf_mode;
 
+        port = mode_port - Y_PORT_VCF1_MODE + Y_PORT_VCF1_QRES;   /* QRes */
+        update_top_label(port, y_vcf_modes[vcf_mode].qres_top_label);
         port = mode_port - Y_PORT_VCF1_MODE + Y_PORT_VCF1_MPARAM; /* MParam */
         update_top_label(port, y_vcf_modes[vcf_mode].mparam_top_label);
         // text = vcf_mparam_left_labels[vcf_mode];

@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010 Sean Bolton and others.
+ * Copyright (C) 2004-2008, 2010, 2012 Sean Bolton and others.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -104,6 +104,7 @@ struct y_vcf_modes_t {
     char *name;
     int   priority;
     int   id;
+    char *qres_top_label;
     char *mparam_top_label;
 };
 

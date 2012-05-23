@@ -2720,8 +2720,8 @@ vcf_resonr(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     vvcf->delay4 = ynm2;
 }
 #endif /* VCF_RESONR */
-#define VCF_RESONZ
-#ifdef VCF_RESONZ
+#endif /* DEVELOPER */
+
 /* vcf_resonz
  *
  * resonz from Csound ugsc.c
@@ -2732,6 +2732,8 @@ vcf_resonr(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
  * Coefficient," Computer Music Journal, Vol. 6, No. 4,
  * Winter 1982, p.36-39. resonz implements the version
  * where the zeros are located at z = 1 and z = -1.
+ *
+ * -FIX- 'resonance' knob should be labeled 'bandwidth' for this and resonz....
  */
 static void
 vcf_resonz(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
@@ -2761,7 +2763,7 @@ vcf_resonz(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     else if (freq < 2e-4f) freq = 2e-4f;
 
     kbw = 1.0f - *(svcf->qres);
-    kbw = 0.5f * kbw * kbw * kbw;
+    kbw = 0.5f * kbw * kbw * kbw * kbw;
     if (kbw < 6.25e-5f) kbw = 6.25e-5f;
 
     r = expf(-M_PI_F * kbw);
@@ -2799,8 +2801,6 @@ vcf_resonz(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     vvcf->delay3 = ynm1;
     vvcf->delay4 = ynm2;
 }
-#endif /* VCF_RESONZ */
-#endif /* DEVELOPER */
 
 /*
  * y_voice_render
@@ -2903,19 +2903,19 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
                     deltat * voice->current_pitch,
                     vcf_source, synth->vcf1_out);
         break;
-#ifdef DEVELOPER  /* -FIX- */
       case 7:
+        vcf_resonz(sample_count, &synth->vcf1, voice, &voice->vcf1,
+                  deltat * voice->current_pitch,
+                  vcf_source, synth->vcf1_out);
+        break;
+#ifdef DEVELOPER  /* -FIX- */
+      case 9:
         vcf_neosweep(sample_count, &synth->vcf1, voice, &voice->vcf1,
                   deltat * voice->current_pitch,
                   vcf_source, synth->vcf1_out);
         break;
       case 8:
         vcf_resonr(sample_count, &synth->vcf1, voice, &voice->vcf1,
-                  deltat * voice->current_pitch,
-                  vcf_source, synth->vcf1_out);
-        break;
-      case 9:
-        vcf_resonz(sample_count, &synth->vcf1, voice, &voice->vcf1,
                   deltat * voice->current_pitch,
                   vcf_source, synth->vcf1_out);
         break;
@@ -2969,19 +2969,19 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
                     deltat * voice->current_pitch,
                     vcf_source, synth->vcf2_out);
         break;
-#ifdef DEVELOPER  /* -FIX- */
       case 7:
+        vcf_resonz(sample_count, &synth->vcf2, voice, &voice->vcf2,
+                  deltat * voice->current_pitch,
+                  vcf_source, synth->vcf2_out);
+        break;
+#ifdef DEVELOPER  /* -FIX- */
+      case 9:
         vcf_neosweep(sample_count, &synth->vcf2, voice, &voice->vcf2,
                   deltat * voice->current_pitch,
                   vcf_source, synth->vcf2_out);
         break;
       case 8:
         vcf_resonr(sample_count, &synth->vcf2, voice, &voice->vcf2,
-                  deltat * voice->current_pitch,
-                  vcf_source, synth->vcf2_out);
-        break;
-      case 9:
-        vcf_resonz(sample_count, &synth->vcf2, voice, &voice->vcf2,
                   deltat * voice->current_pitch,
                   vcf_source, synth->vcf2_out);
         break;

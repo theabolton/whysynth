@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2004-2010 Sean Bolton and others.
+ * Copyright (C) 2004-2010, 2012 Sean Bolton and others.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -301,7 +301,7 @@
 #define Y_EFFECT_MODE_COUNT         3
 #else
 #define Y_OSCILLATOR_MODE_COUNT    10
-#define Y_FILTER_MODE_COUNT         6
+#define Y_FILTER_MODE_COUNT         7
 #define Y_EFFECT_MODE_COUNT         3
 #endif /* DEVELOPER */
 

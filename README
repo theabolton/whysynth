@@ -15,7 +15,7 @@ DSSI Soft Synth Interface.  A brief list of features:
     three FM modes, waveshaper, noise, PADsynth, and phase
     distortion.
 
-- 6 filter modes.
+- 7 filter modes.
 
 - flexible modulation and mixdown options, plus effects.
 
@@ -40,11 +40,11 @@ requirements of this license, I (Sean) would appreciate any or all
 of the following should you find WhySynth useful:
 
     - an email stating where you're from and how you're using
-        WhySynth, sent to <sean /at/ smbolton /dot/ com>, or better
+        WhySynth, sent to <whysynth /at/ smbolton /dot/ com>, or better
         yet, a postcard sent to:
             Sean Bolton
             14722 30th Ave NE
-            Seattle Washington 98155 USA
+            Shoreline Washington 98155 USA
 
     - copies of or links to music you've created with WhySynth.
 
@@ -625,15 +625,15 @@ the rules for using sync:
 
 Filters
 -------
-The two filters each may be operated in one of six modes, or turned
-off.  Filter 1 can take its input from Bus A or Bus B, and Filter 2
-can take its input from either bus, or from the output of Filter 1.
-All filter modes have cutoff/center frequency, frequency modulation,
-and resonance controls.  The filter modes are:
+The two filters each may be operated in one of seven modes, or
+turned off.  Filter 1 can take its input from Bus A or Bus B, and
+Filter 2 can take its input from either bus, or from the output of
+Filter 1. All filter modes have cutoff/center frequency, frequency
+modulation, and resonance/bandwidth controls.  The filter modes are:
 
-1. The 2-pole (12dB/octave) Low-Pass filter from Xsynth.
+1. The 2-pole (12dB/octave) low-pass filter from Xsynth.
 
-2. The 4-pole (24dB/octave) Low-Pass filter from Xsynth.
+2. The 4-pole (24dB/octave) low-pass filter from Xsynth.
 
 3. Fons Adriaensen's MVC LPF-3, modeled after the voltage-controlled
     lowpass filter invented by R. A. Moog.  This mode has an
@@ -641,14 +641,19 @@ and resonance controls.  The filter modes are:
     within the filter, thereby changing the intensity of its
     non-linear effects.
 
-4. The 4-pole Low-Pass filter from amSynth.
+4. The 4-pole low-pass filter from amSynth.
 
-5. A 4-pole Low-Pass filter with Clipping.  This is two, 2-pole
+5. A 4-pole low-pass filter with clipping.  This is two, 2-pole
     filter stages with a hard clipper before each stage.  A 'Drive'
     control adjusts the relative clipping threshold.
 
-6. A 4-pole Band-Pass filter.
+6. A 4-pole band-pass filter.
 
+7. The 2-pole, constant-gain, 'resonz' band-pass filter from Csound.
+    In this mode, the 'Bandwidth' control operates backwards, so
+    that it has the same intuitive 'feel' as the 'Resonance' control
+    in other modes: turn it counter-clockwise for wider bandwidths,
+    clockwise for narrower.
 
 Mix
 ---

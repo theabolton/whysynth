@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010 Sean Bolton
+ * Copyright (C) 2004-2008, 2010, 2012 Sean Bolton
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -1114,18 +1114,18 @@ struct y_osc_modes_t y_osc_modes[Y_OSCILLATOR_MODE_COUNT + 2] = {
 };
 
 struct y_vcf_modes_t y_vcf_modes[Y_FILTER_MODE_COUNT + 2] = {
-   /* name                        pri  id  mparam1 */
-    { "Off",                       0,  0,  NULL     },
-    { "Low Pass: Xsynth 2-pole",   1,  1,  NULL     },
-    { "Low Pass: Xsynth 4-pole",   2,  2,  NULL     },
-    { "Low Pass: Fons' MVC LPF-3", 3,  3,  "Drive"  },
-    { "Low Pass: Clipping 4-pole", 5,  4,  "Drive"  },
-    { "Band Pass: 4-pole",         6,  5,  NULL     },
-    { "Low Pass: amSynth 4-pole",  4,  6,  NULL     },
+   /* name                        pri  id  qres         mparam */
+    { "Off",                       0,  0,  NULL,        NULL     },
+    { "Low Pass: Xsynth 2-pole",   1,  1,  "Resonance", NULL     },
+    { "Low Pass: Xsynth 4-pole",   2,  2,  "Resonance", NULL     },
+    { "Low Pass: Fons' MVC LPF-3", 3,  3,  "Resonance", "Drive"  },
+    { "Low Pass: Clipping 4-pole", 5,  4,  "Resonance", "Drive"  },
+    { "Band Pass: 4-pole",         6,  5,  "Resonance", NULL     },
+    { "Low Pass: amSynth 4-pole",  4,  6,  "Resonance", NULL     },
+    { "Band Pass: Csound resonz",  7,  7,  "Bandwidth", NULL     }, /* actually, "1-2*Bandwidth/Samplerate" */
 #ifdef DEVELOPER  /* -FIX- */
-    { "<NeoSweep>",                9,  7,  "???"    },
-    { "<resonr>",                  9,  8,  "???"    },
-    { "<resonz>",                  9,  9,  "???"    },
+    { "<NeoSweep>",                9,  9,  "Resonance", "???"    },
+    { "<resonr>",                  9,  8,  "Bandwidth", "???"    },
 #endif /* DEVELOPER */
     { NULL }
 };
