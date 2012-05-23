@@ -125,9 +125,6 @@ create_main_window (const char *tag)
     GtkWidget *menu_save;
     GtkWidget *menu_import_xsynth;
     GtkWidget *menu_import_k4;
-#ifdef DEVELOPER  /* ESQ1 Patch Import */
-    GtkWidget *menu_import_esq;
-#endif /* DEVELOPER */
     GtkWidget *separator1;
     GtkWidget *menu_quit;
     GtkWidget *edit1;
@@ -256,15 +253,6 @@ create_main_window (const char *tag)
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (menu_import_k4);
   gtk_container_add (GTK_CONTAINER (file1_menu), menu_import_k4);
-
-#ifdef DEVELOPER  /* ESQ1 Patch Import */
-  menu_import_esq = gtk_menu_item_new_with_label ("(Mis)Interpret ESQ-1 Patches...");
-  gtk_widget_ref (menu_import_esq);
-  gtk_object_set_data_full (GTK_OBJECT (main_window), "menu_import_esq", menu_import_esq,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (menu_import_esq);
-  gtk_container_add (GTK_CONTAINER (file1_menu), menu_import_esq);
-#endif /* DEVELOPER */
 
   separator1 = gtk_menu_item_new ();
   gtk_widget_ref (separator1);
@@ -648,11 +636,6 @@ create_main_window (const char *tag)
     gtk_signal_connect (GTK_OBJECT (menu_import_k4), "activate",
                         GTK_SIGNAL_FUNC (on_menu_import_activate),
                         (gpointer)"k4");
-#ifdef DEVELOPER  /* ESQ1 Patch Import */
-    gtk_signal_connect (GTK_OBJECT (menu_import_esq), "activate",
-                        GTK_SIGNAL_FUNC (on_menu_import_activate),
-                        (gpointer)"esq");
-#endif /* DEVELOPER */
     gtk_signal_connect (GTK_OBJECT (menu_save), "activate",
                         GTK_SIGNAL_FUNC (on_menu_save_activate),
                         NULL);

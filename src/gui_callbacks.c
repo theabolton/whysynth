@@ -134,10 +134,6 @@ on_menu_import_activate         (GtkMenuItem     *menuitem,
         gtk_window_set_title(GTK_WINDOW(import_file_chooser), "WhySynth - Import Xsynth-DSSI Patches");
     } else if (!strcmp(import_mode, "k4")) {
         gtk_window_set_title(GTK_WINDOW(import_file_chooser), "WhySynth - Import Kawai K4 Patches");
-#ifdef DEVELOPER  /* ESQ1 Patch Import */
-    } else if (!strcmp(import_mode, "esq")) {
-        gtk_window_set_title(GTK_WINDOW(import_file_chooser), "WhySynth - Import Ensoniq ESQ-1 Patches");
-#endif
     } else {
         gtk_window_set_title(GTK_WINDOW(import_file_chooser), "WhySynth - Import Patches");
     }
@@ -145,14 +141,6 @@ on_menu_import_activate         (GtkMenuItem     *menuitem,
     (GTK_ADJUSTMENT(import_file_position_spin_adj))->value = (float)patch_count;
     (GTK_ADJUSTMENT(import_file_position_spin_adj))->upper = (float)patch_count;
     gtk_signal_emit_by_name (GTK_OBJECT (import_file_position_spin_adj), "value_changed");
-
-#ifdef DEVELOPER  /* ESQ1 Patch Import */
-    if (!strcmp(import_mode, "esq")) {
-        gtk_widget_hide(import_file_position_dual_button);
-    } else {
-        gtk_widget_show(import_file_position_dual_button);
-    }
-#endif /* DEVELOPER */
 
     gtk_widget_show(import_file_chooser);
 }
@@ -418,10 +406,6 @@ on_import_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
             result = gui_data_import_xsynth(filename, position, dual, &message);
         } else if (!strcmp(import_mode, "k4")) {
             result = gui_data_interpret_k4(filename, position, dual, &message);
-#ifdef DEVELOPER  /* ESQ1 Patch Import */
-        } else if (!strcmp(import_mode, "esq")) {
-            result = gui_data_interpret_esq(filename, position, dual, &message);
-#endif /* DEVELOPER */
         } else
             result = 0;
 

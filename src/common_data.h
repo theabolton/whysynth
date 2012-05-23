@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin and GUI
  *
- * Copyright (C) 2004-2007, 2010 Sean Bolton and others.
+ * Copyright (C) 2004-2007, 2010, 2012 Sean Bolton and others.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -53,10 +53,6 @@ int  gui_data_import_xsynth(const char *filename, int position, int dual,
                             char **message);
 int  gui_data_interpret_k4(const char *filename, int position, int dual,
                            char **message);
-#ifdef DEVELOPER  /* ESQ1 Patch Import */
-int  gui_data_interpret_esq(const char *filename, int position, int dual,
-                            char **message);
-#endif
 
 /* in patch_tables.c: */
 extern int       y_friendly_patch_count;

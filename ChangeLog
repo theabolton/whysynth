@@ -1,9 +1,13 @@
 (unreleased) smbolton
 
-* Promoted Wavecycle Chorus to regular (non-developer) oscillator
-    mode.
+* Removed all code enabled by '--enable-developer', except for the
+    option to write patch files as 'C' code.  Under-development
+    functions are now contained in git branches.
 
-* Promoted resonz to regular (non-developer) filter mode.
+* Promoted Wavecycle Chorus to regular (non-developer-only)
+    oscillator mode. 
+
+* Promoted resonz to regular (non-developer-only) filter mode.
 
 * Fixed a click that occurred with several oscillator modes (Wave
     Cycle, PADsynth, and FM) when using portamento in a monophonic
@@ -12,7 +16,8 @@
 * Added icon (32x32 only for now, not installing).
 
 * Removed developer-only filters resonr (unneeded) and Neosweep
-    (unremarkable; license unclear).
+    (unremarkable; license unclear). Removed ESQ-1 patch import
+    code, which never really worked anyway.
 
 20090922 smbolton
 
