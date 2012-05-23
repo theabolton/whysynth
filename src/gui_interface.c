@@ -1121,10 +1121,6 @@ struct y_vcf_modes_t y_vcf_modes[Y_FILTER_MODE_COUNT + 2] = {
     { "Band Pass: 4-pole",         6,  5,  "Resonance", NULL     },
     { "Low Pass: amSynth 4-pole",  4,  6,  "Resonance", NULL     },
     { "Band Pass: Csound resonz",  7,  7,  "Bandwidth", NULL     }, /* actually, "1-2*Bandwidth/Samplerate" */
-#ifdef DEVELOPER  /* -FIX- */
-    { "<NeoSweep>",                9,  9,  "Resonance", "???"    },
-    { "<resonr>",                  9,  8,  "Bandwidth", "???"    },
-#endif /* DEVELOPER */
     { NULL }
 };
 
