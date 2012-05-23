@@ -295,12 +295,11 @@
 #define Y_OSCILLATOR_MODE_PADSYNTH  8
 #define Y_OSCILLATOR_MODE_PD        9
 
-#ifdef DEVELOPER  /* -FIX- */
 #define Y_OSCILLATOR_MODE_COUNT    11
+#ifdef DEVELOPER  /* -FIX- */
 #define Y_FILTER_MODE_COUNT         9
 #define Y_EFFECT_MODE_COUNT         3
 #else
-#define Y_OSCILLATOR_MODE_COUNT    10
 #define Y_FILTER_MODE_COUNT         7
 #define Y_EFFECT_MODE_COUNT         3
 #endif /* DEVELOPER */

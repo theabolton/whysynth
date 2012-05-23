@@ -1820,12 +1820,10 @@ phase_distortion(unsigned long sample_count, y_sosc_t *sosc, y_voice_t *voice,
     vosc->i0 = cycle;
 }
 
-#ifdef DEVELOPER  /* -FIX- */
 static void
 wt_chorus(unsigned long sample_count, y_synth_t *synth, y_sosc_t *sosc,
           y_voice_t *voice, struct vosc *vosc, int index, float w0)
 {
-    /* -FIX- finish polishing this */
     signed short *wave0, *wave1;
     unsigned long sample;
     float pos0 = (float)vosc->pos0,
@@ -1970,7 +1968,6 @@ wt_chorus(unsigned long sample_count, y_synth_t *synth, y_sosc_t *sosc,
     vosc->f1   = pos3;
     vosc->f2   = pos4;
 }
-#endif /* DEVELOPER */
 
 static void
 oscillator(unsigned long sample_count, y_synth_t *synth, y_sosc_t *sosc,
@@ -2028,11 +2025,9 @@ oscillator(unsigned long sample_count, y_synth_t *synth, y_sosc_t *sosc,
         fm_wave2lf(sample_count, synth, sosc, voice, vosc, index, w);
         break;
 
-#ifdef DEVELOPER  /* -FIX- */
       case 11: /* wavetable chorus */
         wt_chorus(sample_count, synth, sosc, voice, vosc, index, w);
         break;
-#endif /* DEVELOPER */
     }
 }
 

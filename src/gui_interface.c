@@ -1101,15 +1101,13 @@ struct y_osc_modes_t y_osc_modes[Y_OSCILLATOR_MODE_COUNT + 2] = {
                                         "Grain Lz",       "0.001", "20",  "Grain Spread",    "0",    "1",    /* AsyncGran  */ "Grain Envelope",     "Grain Freq Dist",   },
     { "FM|FM Wave->Sine",       0,  4,  "Mod Freq Ratio", "0.5",   "16",  "Mod Freq Detune", "-",    "+",    /* FM Wv->Sin */ "Mod Index Source",   "Mod Index Amount",  },
     { "FM|FM Sine->Wave",       1,  5,  "Mod Freq Ratio", "0.5",   "16",  "Mod Freq Detune", "-",    "+",    /* FM Sin->Wv */ "Mod Index Source",   "Mod Index Amount",  },
-    { "Waveshaper",           'w',  6,  "Phase Bias",     "0",     "1",   "Mod Amt Bias",    "0",    "1",    /* Waveshaper */ "Mod Amt Source",     "Mod Amt Amount",    },
+    { "Waveshaper",           'x',  6,  "Phase Bias",     "0",     "1",   "Mod Amt Bias",    "0",    "1",    /* Waveshaper */ "Mod Amt Source",     "Mod Amt Amount",    },
     { "Noise",                'n',  7,  NULL,             "0",     "1",   NULL,              "0",    "1",    /* Noise      */ NULL,                 NULL,                },
     { "PADsynth",             'p',  Y_OSCILLATOR_MODE_PADSYNTH,
                                         "Partial Width",  "1",     "100", "Partial Stretch", "-10%", "+10%", /* PADsynth   */ "Width Scale / Mode", "Damping",           },
     { "Phase Distortion",     'p',  9,  "Mod Balance",    "1st",   "2nd", "Bias",            "0",    "1",    /* Phase Dist */ "Mod Source",         "Mod Amount",        },
     { "FM|FM Wave->LF Sine",    2, 10,  "Low Frequency",  "1/8Hz", "2Hz", "Mod Index Bias",  "0",    "1",    /* FM Wv->LF  */ "Mod Index Source",   "Mod Index Amount",  },
-#ifdef DEVELOPER  /* -FIX- */
-    { "<Wavecycle Chorus>",   'w', 11,  "Tuning Spread",  "0",     "1",   "Wave Sel Bias",   "0",    "+60",  /* WaveChorus */ NULL,                 "Chorus Depth",      },
-#endif /* DEVELOPER */
+    { "Wavecycle Chorus",     'w', 11,  "Tuning Spread",  "0",     "1",   "Wave Sel Bias",   "0",    "+60",  /* WaveChorus */ NULL,                 "Chorus Depth",      },
     { NULL }
 };
 

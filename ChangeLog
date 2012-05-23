@@ -1,5 +1,8 @@
 (unreleased) smbolton
 
+* Promoted Wavecycle Chorus to regular (non-developer) oscillator
+    mode.
+
 * Promoted resonz to regular (non-developer) filter mode.
 
 * Fixed a click that occurred with several oscillator modes (Wave

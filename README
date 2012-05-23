@@ -11,9 +11,9 @@ DSSI Soft Synth Interface.  A brief list of features:
 - 4 oscillators, 2 filters, 3 LFOs, and 5 envelope generators per
     voice.
 
-- 10 oscillator modes: minBLEP, wavecycle, asynchronous granular,
-    three FM modes, waveshaper, noise, PADsynth, and phase
-    distortion.
+- 11 oscillator modes: minBLEP, wavecycle, chorused wavecycle,
+    asynchronous granular, three FM modes, waveshaper, noise,
+    PADsynth, and phase distortion.
 
 - 7 filter modes.
 
@@ -582,7 +582,20 @@ The ten oscillator modes and their controls are:
     Bias' control which may be used to bias the wavetable selection
     toward the higher key ranges, for lower harmonic content.
 
-10. Waveshaper - Classic waveshaping, with the wavecycle waveforms
+10. Wavecycle Chorus - This mode is similar to the previous
+    'Wavecycle' mode, except that five copies of the waveform are
+    generated simultaneously. The additional controls for this mode
+    are:
+    
+    - 'Tuning Spread' sets the degree to which the pitch of each
+        copy differs from the others.
+
+    - 'Chorus Depth' determines the extent to which the additional
+        copies are mixed into the oscillator's output. At fully
+        counter-clockwise, only a single copy is mixed in, while
+        when fully clockwise, all five copies are included.
+
+11. Waveshaper - Classic waveshaping, with the wavecycle waveforms
     used as the transfer functions.  As of this writing (2005/12/31),
     only one of the waveforms was created specifically for the
     waveshaper, a (rather boring) Chebychev T5 function, yet many of
@@ -611,8 +624,8 @@ the rules for using sync:
     and a lower-numbered master oscillator must provide sync for a
     higher-numbered slave.
 
-2. FM, minBLEP, phase distortion, wavecycle, and waveshaper
-    oscillators can be masters.
+2. FM, minBLEP, phase distortion, wavecycle, wavecycle chorus, and
+    waveshaper oscillators can be masters.
 
 3. Only minBLEP and wavecycle oscillators can be slaves.
 
