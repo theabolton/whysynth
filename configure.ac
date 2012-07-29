@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(WhySynth, devel, musound-at-jps-dot-net)
+AC_INIT(WhySynth, 20120729, musound-at-jps-dot-net)
 
 AC_CONFIG_SRCDIR(src/whysynth.h)
 AM_INIT_AUTOMAKE
@@ -36,6 +36,10 @@ dnl OS specific checks
 case "${host_os}" in
 darwin*)
   darwin=yes
+  PKG_CHECK_MODULES(ALSA, libdssialsacompat)
+  ;;
+freebsd*)
+  darwin=no
   PKG_CHECK_MODULES(ALSA, libdssialsacompat)
   ;;
 *)

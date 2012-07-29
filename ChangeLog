@@ -1,4 +1,4 @@
-(unreleased) smbolton
+20120729 smbolton
 
 * Removed all code enabled by '--enable-developer', except for the
     option to write patch files as 'C' code.  Under-development
@@ -18,11 +18,13 @@
 * Added some new patches to the default set, including several
     contributed by Ken Restivo.
 
+* Fixed configure.ac for FreeBSD (thanks, downstream.)
+
 * Removed developer-only filters resonr (unneeded) and Neosweep
     (unremarkable; license unclear). Removed ESQ-1 patch import
     code, which never really worked anyway.
 
-20090922 smbolton
+20100922 smbolton
 
 * Added minBLEP oscillator waveform: clipped saw (thanks to Gordon
     JC Pearce for the inspiration).
