@@ -15,6 +15,9 @@
 
 * Added icon (32x32 only for now, not installing).
 
+* Added some new patches to the default set, including several
+    contributed by Ken Restivo.
+
 * Removed developer-only filters resonr (unneeded) and Neosweep
     (unremarkable; license unclear). Removed ESQ-1 patch import
     code, which never really worked anyway.

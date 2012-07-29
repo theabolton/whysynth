@@ -968,11 +968,11 @@ A. Make sure your glide setting is completely off (for now, that's
 fully clockwise to '1').  Even a very little glide with long grain
 envelopes will cause the problem.
 
-Q. I upgraded from the 20090608 release to the 20100922 release, and
+Q. I upgraded from the 20100922 release to the !FIX! release, and
 the default patches changed, breaking my super-cool setup.  What
 gives?
 
-A. Just load the extra/version_20090608_patches.WhySynth file.
+A. Just load the extra/version_20100922_patches.WhySynth file.
 
 Q. How can I map other MIDI control change (CC) or NRPN messages to
 WhySynth ports?
