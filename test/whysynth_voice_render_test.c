@@ -48,11 +48,6 @@ static void randomize(float *in)
         in[i] = ((float)random() / (float)RAND_MAX) - 0.5f;
 }
 
-static void zero(float *out)
-{
-    memset(out, 0, SEGMENT_LENGTH * sizeof(float));
-}
-
 // feed white noise through the given filter with the specified parameters,
 // writing the output to a file
 static void generate_segment(filter_func_t filter, float freq, float key_mod,
@@ -76,12 +71,10 @@ static void generate_segment(filter_func_t filter, float freq, float key_mod,
     param->freq_mod_amt = &fzero;
     param->mparam = &drive;
 
-    float _in[SEGMENT_LENGTH], _out[SEGMENT_LENGTH];
-    float *in  = (float *)&_in;
-    float *out = (float *)&_out;
+    float *in  = calloc(SEGMENT_LENGTH, sizeof(float));
+    float *out = calloc(SEGMENT_LENGTH, sizeof(float));
 
     randomize(in);
-    zero(out);
 
     filter(SEGMENT_LENGTH, param, voice, &vcf_state, freq, in, out);
     write_output(out, output_file);
