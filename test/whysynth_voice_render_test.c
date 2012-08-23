@@ -8,14 +8,16 @@
 
 #include "src/whysynth_voice_render.c"
 
-// change SEGMENT_LENGTH to a large vaule (3000+) when you want to 
-// check the filter output by ear
+/** The number of samples to generate and test for each filter setting
+ *
+ * change SEGMENT_LENGTH to a large vaule (3000+) when you want to 
+ * check the filter output by ear
+ */
 #define SEGMENT_LENGTH 128
 
 #define SWEEP_STEPS 10
 
-// These defines give us a header for a 44.1kHz 16 bit mono WAV file
-
+// These defines are a hardcoded header for a 44.1kHz 16 bit mono WAV file
 #define WAV_HEADER  { \
   0x57, 0x41, 0x56, 0x45, 0x66, 0x6d, 0x74, 0x20, \
   0x10, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, \
@@ -28,12 +30,34 @@
 typedef void (*filter_func_t)(unsigned long, y_svcf_t *, y_voice_t *, struct
               vvcf *, float , float *, float *);
 
-// feed white noise through the given filter with the specified paramters,
-// writing the output to a file
-static void generate_segment(filter_func_t filter, float freq, float key_mod,
-                             float drive, float res, FILE *output)
+static void write_output(float *out, FILE *output_file)
+{
+    int16_t audio[SEGMENT_LENGTH];
+
+    int i;
+    for (i = 0; i < SEGMENT_LENGTH; i++)
+        audio[i] = (int16_t)roundf(out[i] * 17000 );
+
+    assert(fwrite(audio, 2, SEGMENT_LENGTH, output_file) == SEGMENT_LENGTH);
+}
+
+static void randomize(float *in)
 {
     int i;
+    for (i = 0; i < SEGMENT_LENGTH; i++)
+        in[i] = ((float)random() / (float)RAND_MAX) - 0.5f;
+}
+
+static void zero(float *out)
+{
+    memset(out, 0, SEGMENT_LENGTH * sizeof(float));
+}
+
+// feed white noise through the given filter with the specified parameters,
+// writing the output to a file
+static void generate_segment(filter_func_t filter, float freq, float key_mod,
+                             float drive, float res, FILE *output_file)
+{
     float fzero = 0.0f;
 
     struct vvcf  vcf_state = {0, 0, 0.0, 0.0, 0.0, 0.0, 0.0};
@@ -52,23 +76,17 @@ static void generate_segment(filter_func_t filter, float freq, float key_mod,
     param->freq_mod_amt = &fzero;
     param->mparam = &drive;
 
-    float in[SEGMENT_LENGTH], out[SEGMENT_LENGTH];
+    float _in[SEGMENT_LENGTH], _out[SEGMENT_LENGTH];
+    float *in  = (float *)&_in;
+    float *out = (float *)&_out;
 
-    for (i = 0; i < SEGMENT_LENGTH; i++)
-    {
-        in[i] = ((float)random() / (float)RAND_MAX) - 0.5f;
-        out[i] = 0;
-    }
+    randomize(in);
+    zero(out);
 
-    filter(SEGMENT_LENGTH, param, voice, &vcf_state, freq, (float *)&in, (float *)&out);
-
-    int16_t audio[SEGMENT_LENGTH];
-
-    for (i = 0; i < SEGMENT_LENGTH; i++)
-        audio[i] = (int16_t)roundf(out[i] * 17000 );
-
-    assert(fwrite(audio, 2, SEGMENT_LENGTH, output) == SEGMENT_LENGTH);
+    filter(SEGMENT_LENGTH, param, voice, &vcf_state, freq, in, out);
+    write_output(out, output_file);
 }
+
 
 // feed white noise through the filter, sweeping the cuttoff frequency and
 // resonance
@@ -82,7 +100,7 @@ static void sweep(filter_func_t filter, float drive, FILE *output)
 }
 
 // create a .wav file given a filename and the amount of data to be written
-FILE *create_wav(uint32_t data_size, char *filename)
+static FILE *create_wav(uint32_t data_size, char *filename)
 {
     FILE *output = fopen(filename,"wb");
 
@@ -91,7 +109,7 @@ FILE *create_wav(uint32_t data_size, char *filename)
     fwrite(&riff_size, 4, 1, output);
 
     uint8_t header[] = WAV_HEADER;
-    fwrite(&header, 1, 32, output);
+    fwrite(&header, 1, WAV_HEADER_SIZE, output);
 
     fwrite(&data_size, 4, 1, output);
 
@@ -101,7 +119,7 @@ FILE *create_wav(uint32_t data_size, char *filename)
 // create a wav file by feeding white noise through the given filter, writing
 // the output to filename. if sweep_drive is true, also sweep the drive
 // parameter.
-void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
+static void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
 {
     srand(0);
 
@@ -127,7 +145,7 @@ void sweep_filter(filter_func_t filter, bool sweep_drive, char *filename)
 }
 
 // compare the contents of 2 files
-void compare_files(char *filename1, char *filename2)
+static void compare_files(char *filename1, char *filename2)
 {
     printf("Comparing %s with %s\n", filename1, filename2);
 
@@ -155,6 +173,12 @@ void compare_files(char *filename1, char *filename2)
     int i;
     for (i = 0; i < info1.st_size; i++)
         assert(contents1[i] == contents2[i]);
+
+    free(contents1);
+    free(contents2);
+
+    fclose(file1);
+    fclose(file2);
 }
 
 int main(void) 
