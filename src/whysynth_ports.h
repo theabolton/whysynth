@@ -296,7 +296,7 @@
 #define Y_OSCILLATOR_MODE_PD        9
 
 #define Y_OSCILLATOR_MODE_COUNT    11
-#define Y_FILTER_MODE_COUNT        12
+#define Y_FILTER_MODE_COUNT        10
 #define Y_EFFECT_MODE_COUNT         3
 
 #define Y_MOD_ONE        0

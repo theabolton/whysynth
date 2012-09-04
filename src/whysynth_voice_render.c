@@ -12,6 +12,8 @@
  * (C) 1999 Sean Costello, rasmus ekman, et. al.
  * Portions of this file come from Nick Dowell's amSynth,
  * copyright (c) 2001,2002 Nick Dowell.
+ * Chamberlin filter refactoring with high-pass and band-reject
+ * versions copyright (c) 2011 Luke Andrew.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -2058,7 +2060,7 @@ vcf_off(unsigned long sample_count, struct vvcf *vvcf, float *out)
     }
 }
 
-static float
+static inline float
 stabilize(float freqcut, float freq, float qres)
 {
     /* SVF stabilization based on Eli Brandt's work
@@ -2208,7 +2210,7 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     }
 
     if (type == FT_LOWPASS_2POLE)
-        qres = 2.0f - *(svcf->qres) * 1.995;
+        qres = 2.0f - *(svcf->qres) * 1.995f;
     else
         qres = 2.0f - *(svcf->qres) * 1.96f;
 
@@ -2269,49 +2271,49 @@ vcf_2_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
     vvcf->delay4 = delay4;
 }
 
-static void
+static inline void
 vcf_2pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
           struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_LOWPASS_2POLE, in, out);
 }
 
-static void
+static inline void
 vcf_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
           struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_LOWPASS_4POLE, in, out);
 }
 
-static void
+static inline void
 vcf_clip4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_LOWPASS_4POLE_CLIP, in, out);
 }
 
-static void
+static inline void
 vcf_bandpass(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_BANDPASS, in, out);
 }
 
-static void
+static inline void
 vcf_bandreject(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_BANDREJECT, in, out);
 }
 
-static void
+static inline void
 vcf_highpass_2pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
     vcf_2_4pole(sample_count, svcf, voice, vvcf, freq, FT_HIGHPASS_2POLE, in, out);
 }
 
-static void
+static inline void
 vcf_highpass_4pole(unsigned long sample_count, y_svcf_t *svcf, y_voice_t *voice,
              struct vvcf *vvcf, float freq, float *in, float *out)
 {
@@ -2696,6 +2698,7 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
         vcf_highpass_2pole(sample_count, &synth->vcf1, voice, &voice->vcf1,
                     deltat * voice->current_pitch,
                     vcf_source, synth->vcf1_out);
+        break;
       case 9:
         vcf_highpass_4pole(sample_count, &synth->vcf1, voice, &voice->vcf1,
                     deltat * voice->current_pitch,
@@ -2764,6 +2767,7 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
         vcf_highpass_2pole(sample_count, &synth->vcf2, voice, &voice->vcf2,
                     deltat * voice->current_pitch,
                     vcf_source, synth->vcf2_out);
+        break;
       case 9:
         vcf_highpass_4pole(sample_count, &synth->vcf2, voice, &voice->vcf2,
                     deltat * voice->current_pitch,

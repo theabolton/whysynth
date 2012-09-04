@@ -15,7 +15,7 @@ DSSI Soft Synth Interface.  A brief list of features:
     asynchronous granular, three FM modes, waveshaper, noise,
     PADsynth, and phase distortion.
 
-- 7 filter modes.
+- 10 filter modes.
 
 - flexible modulation and mixdown options, plus effects.
 
@@ -667,6 +667,12 @@ modulation, and resonance/bandwidth controls.  The filter modes are:
     that it has the same intuitive 'feel' as the 'Resonance' control
     in other modes: turn it counter-clockwise for wider bandwidths,
     clockwise for narrower.
+
+8. A 2-pole high-pass filter.
+
+9. A 4-pole high-pass filter.
+
+10. A 4-pole band-reject filter.
 
 Mix
 ---
