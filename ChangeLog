@@ -1,3 +1,9 @@
+20120903 smbolton
+
+* Luke Andrew added three new filter modes: 2-pole high-pass, 4-pole
+    high-pass, and band-reject (plus he did some nice code
+    refactoring.)
+
 20120729 smbolton
 
 * Removed all code enabled by '--enable-developer', except for the

@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(WhySynth, 20120729, musound-at-jps-dot-net)
+AC_INIT(WhySynth, 20120903, musound-at-jps-dot-net)
 
 AC_CONFIG_SRCDIR(src/whysynth.h)
 AM_INIT_AUTOMAKE
