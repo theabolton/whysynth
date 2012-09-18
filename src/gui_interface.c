@@ -413,7 +413,7 @@ create_main_window (const char *tag)
                     (GtkAttachOptions) (0), 0, 0);
   gtk_misc_set_alignment (GTK_MISC (label43), 0, 0.5);
 
-  polyphony_adj = gtk_adjustment_new (Y_DEFAULT_POLYPHONY, 1, 128, 1, 10, 0);
+  polyphony_adj = gtk_adjustment_new (Y_DEFAULT_POLYPHONY, 1, Y_MAX_POLYPHONY, 1, 10, 0);
   polyphony = gtk_spin_button_new (GTK_ADJUSTMENT (polyphony_adj), 1, 0);
   gtk_widget_ref (polyphony);
   gtk_object_set_data_full (GTK_OBJECT (main_window), "polyphony", polyphony,
