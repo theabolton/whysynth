@@ -1909,7 +1909,7 @@ wt_chorus(unsigned long sample_count, y_synth_t *synth, y_sosc_t *sosc,
         pos1 += w * wm1;
         pos2 += w;
         pos3 += w * wm3;
-        pos4 += w * wm3;
+        pos4 += w * wm4;
         if (pos0 >= 1.0f) pos0 -= 1.0f;
         if (pos1 >= 1.0f) pos1 -= 1.0f;
         if (pos2 >= 1.0f) {
