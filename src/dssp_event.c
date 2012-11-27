@@ -353,6 +353,19 @@ y_synth_update_volume(y_synth_t* synth)
 }
 
 /*
+ * y_synth_update_pan
+ */
+void
+y_synth_update_pan(y_synth_t* synth)
+{
+    synth->cc_pan = (float)(synth->cc[MIDI_CTL_MSB_PAN] * 128 +
+                            synth->cc[MIDI_CTL_LSB_PAN]) / 16256.0f;
+    if (synth->cc_pan > 1.0f)
+        synth->cc_pan = 1.0f;
+    /* don't need to check if any playing voices need updating, because it's global */
+}
+
+/*
  * y_synth_control_change
  */
 void
@@ -370,6 +383,11 @@ y_synth_control_change(y_synth_t *synth, unsigned int param, signed int value)
       case MIDI_CTL_MSB_MAIN_VOLUME:
       case MIDI_CTL_LSB_MAIN_VOLUME:
         y_synth_update_volume(synth);
+        break;
+
+      case MIDI_CTL_MSB_PAN:
+      case MIDI_CTL_LSB_PAN:
+        y_synth_update_pan(synth);
         break;
 
       case MIDI_CTL_SUSTAIN:
@@ -470,9 +488,11 @@ y_synth_init_controls(y_synth_t *synth)
     synth->channel_pressure = 0;
     synth->pitch_wheel = 0;
     synth->cc[7] = 127;                  /* full volume */
+    synth->cc[8] = 64;
 
     y_synth_update_wheel_mod(synth);
     y_synth_update_volume(synth);
+    y_synth_update_balance(synth);
     synth->pitch_bend = 1.0f;
 
     /* check if any playing voices need updating */

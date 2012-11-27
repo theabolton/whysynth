@@ -149,6 +149,7 @@ struct _y_synth_t {
     float           pressure;                 /* 0.0 to 1.0 */
     float           pitch_bend;               /* frequency multiplier, product of wheel setting and bend range, center = 1.0 */
     float           cc_volume;                /* volume multiplier, 0.0 to 1.0 */
+    float           cc_pan;                   /* pan L-R, 0.0 to 1.0 */
 
     /* global modulators */
     struct vmod     mod[Y_GLOBAL_MODS_COUNT];
@@ -281,10 +282,12 @@ void  y_synth_render_voices(y_synth_t *synth, LADSPA_Data *out_left,
 #define MIDI_CTL_MSB_PORTAMENTO_TIME    0x05    /**< Portamento time */
 #define MIDI_CTL_MSB_MAIN_VOLUME        0x07    /**< Main volume */
 #define MIDI_CTL_MSB_BALANCE            0x08    /**< Balance */
+#define MIDI_CTL_MSB_PAN                0x0a    /**< Balance */
 #define MIDI_CTL_LSB_MODWHEEL           0x21    /**< Modulation */
 #define MIDI_CTL_LSB_PORTAMENTO_TIME    0x25    /**< Portamento time */
 #define MIDI_CTL_LSB_MAIN_VOLUME        0x27    /**< Main volume */
 #define MIDI_CTL_LSB_BALANCE            0x28    /**< Balance */
+#define MIDI_CTL_LSB_PAN                0x2a    /**< Balance */
 #define MIDI_CTL_SUSTAIN                0x40    /**< Sustain pedal */
 #define MIDI_CTL_ALL_SOUNDS_OFF         0x78    /**< All sounds off */
 #define MIDI_CTL_RESET_CONTROLLERS      0x79    /**< Reset Controllers */
