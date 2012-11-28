@@ -491,11 +491,12 @@ y_synth_init_controls(y_synth_t *synth)
     synth->channel_pressure = 0;
     synth->pitch_wheel = 0;
     synth->cc[7] = 127;                  /* full volume */
-    synth->cc[8] = 64;			 /* dead center */
+    synth->cc[10] = 64;			 /* dead center */
+    synth->cc[10 + 32] = 0;		 /* dead center */
 
     y_synth_update_wheel_mod(synth);
     y_synth_update_volume(synth);
-    y_synth_update_balance(synth);
+    y_synth_update_pan(synth);
     synth->pitch_bend = 1.0f;
 
     /* check if any playing voices need updating */
