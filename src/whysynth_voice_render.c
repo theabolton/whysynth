@@ -2795,23 +2795,29 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
               vca_delta = vol_out * volume_cv_to_amplitude(voice->mod[Y_MOD_EGO].value +
                                                            voice->mod[Y_MOD_EGO].delta *
                                                                (float)sample_count),
-	      pan_l = pan_cv_to_amplitude(1.0f - synth->cc_pan),
-	      pan_r = pan_cv_to_amplitude(       synth->cc_pan);
+	      pan_l     = pan_cv_to_amplitude(1.0f - synth->cc_pan),
+	      pan_r     = pan_cv_to_amplitude(       synth->cc_pan),
+	      vca_l     = vca * pan_l,
+	      vca_r     = vca * pan_r,
+	      vca_delta_l = vca_delta * pan_l,
+	      vca_delta_r = vca_delta * pan_r;
 
-        vca_delta = (vca_delta - vca) / (float)sample_count;
+        vca_delta_l = (vca_delta_l - vca_l) / (float)sample_count;
+        vca_delta_r = (vca_delta_r - vca_r) / (float)sample_count;
           
         for (sample = 0; sample < sample_count; sample++) {
-            out_left[sample]  += vca * pan_l *
+            out_left[sample]  += vca_l *
                                  (amp_busa_l * voice->osc_bus_a[sample + osc_index] +
                                   amp_busb_l * voice->osc_bus_b[sample + osc_index] +
                                   amp_vcf1_l * synth->vcf1_out[sample] +
                                   amp_vcf2_l * synth->vcf2_out[sample]);
-            out_right[sample] += vca * pan_r *
+            out_right[sample] += vca_r *
                                  (amp_busa_r * voice->osc_bus_a[sample + osc_index] +
                                   amp_busb_r * voice->osc_bus_b[sample + osc_index] +
                                   amp_vcf1_r * synth->vcf1_out[sample] +
                                   amp_vcf2_r * synth->vcf2_out[sample]);
-            vca += vca_delta;
+            vca_l += vca_delta_l;
+            vca_r += vca_delta_r;
 
             /* zero oscillator buses for next time around */
             voice->osc_bus_a[sample + osc_index] = 0.0f;
