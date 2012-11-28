@@ -64,6 +64,9 @@ additional modes, to "help fill out the 'filter type' knob" on his
 uber-cool hardware controller for WhySynth.  Take a look at
 http://www.houseofsynthesis.com/
 
+Jonathan H. Pickard contributed support for panning of the output
+mix via MIDI control change 10.
+
 Much of the original code in WhySynth would not have been possible
 without the generous availability of the work of Tim Stilson, Julius
 Smith, Eli Brandt, John Chowning, Curtis Roads, and a slew of other

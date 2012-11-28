@@ -913,6 +913,8 @@ WhySynth itself interprets several other MIDI control messages:
 - MIDI channel pressure and key pressure are combined (per note) and
     available as the "Pressure" modulation source.
 
+- MIDI Control Change 10 "Panning" controls panning of the output.
+
 Questions That Might Be Frequently Asked
 ========================================
 Q. The plugin seems to work fine, but the GUI never appears. Why?

@@ -2795,12 +2795,12 @@ y_voice_render(y_synth_t *synth, y_voice_t *voice,
               vca_delta = vol_out * volume_cv_to_amplitude(voice->mod[Y_MOD_EGO].value +
                                                            voice->mod[Y_MOD_EGO].delta *
                                                                (float)sample_count),
-	      pan_l     = pan_cv_to_amplitude(1.0f - synth->cc_pan),
-	      pan_r     = pan_cv_to_amplitude(       synth->cc_pan),
-	      vca_l     = vca * pan_l,
-	      vca_r     = vca * pan_r,
-	      vca_delta_l = vca_delta * pan_l,
-	      vca_delta_r = vca_delta * pan_r;
+              pan_l     = pan_cv_to_amplitude(1.0f - synth->cc_pan),
+              pan_r     = pan_cv_to_amplitude(       synth->cc_pan),
+              vca_l     = vca * pan_l,
+              vca_r     = vca * pan_r,
+              vca_delta_l = vca_delta * pan_l,
+              vca_delta_r = vca_delta * pan_r;
 
         vca_delta_l = (vca_delta_l - vca_l) / (float)sample_count;
         vca_delta_r = (vca_delta_r - vca_r) / (float)sample_count;

@@ -1,8 +1,13 @@
+20121128
+
+* Jonathan H. Pickard added support for panning of the output mix via
+    MIDI control change 10.
+
 20120918 smbolton
 
 * Fixed GUI to respect Y_MAX_POLYPHONY.
 
-20120903 smbolton
+20120903
 
 * Luke Andrew added three new filter modes: 2-pole high-pass, 4-pole
     high-pass, and band-reject (plus he did some nice code
