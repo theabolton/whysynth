@@ -258,6 +258,7 @@
 #define Y_PORT_TYPE_LOGSCALED    5  /* logarithmic scaling, but may include zero */
 #define Y_PORT_TYPE_BPLOGSCALED  6  /* dual logarithmic scaling, must be symmetric around zero */
 #define Y_PORT_TYPE_COMBO        7  /* integer using combobox */
+#define Y_PORT_TYPE_PAN          8  /* linear, but with button to center */
 
 #define Y_COMBO_TYPE_OSC_MODE      0
 #define Y_COMBO_TYPE_OSC_WAVEFORM  1

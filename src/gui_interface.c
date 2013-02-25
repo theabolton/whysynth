@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010, 2012 Sean Bolton
+ * Copyright (C) 2004-2008, 2010, 2012, 2013 Sean Bolton
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -1596,7 +1596,7 @@ create_edit_place_knob_in_table(int port,
                                   (GtkAttachOptions) (0), 0, 0);
     }
 
-    if (ypd->type == Y_PORT_TYPE_LINEAR) {
+    if (ypd->type == Y_PORT_TYPE_LINEAR || ypd->type == Y_PORT_TYPE_PAN) {
         voice_widgets[port].adjustment = gtk_adjustment_new (ypd->lower_bound, ypd->lower_bound, ypd->upper_bound, (ypd->upper_bound - ypd->lower_bound) / 1000.0f, 1, 0);
     } else { /* Y_PORT_TYPE_LOGARITHMIC, Y_PORT_TYPE_LOGSCALED, or Y_PORT_TYPE_BPLOGSCALED */
         voice_widgets[port].adjustment = gtk_adjustment_new (0.0f, 0.0f, 1.0f, 1.0f / 1000.0f, 1, 0);
@@ -1615,7 +1615,8 @@ create_edit_place_knob_in_table(int port,
                         (gpointer)port);
 
     if (ypd->type == Y_PORT_TYPE_BPLOGSCALED ||
-        (ypd->type == Y_PORT_TYPE_LINEAR && ypd->lower_bound < 0.0f && ypd->upper_bound > 0.0f)) {
+        (ypd->type == Y_PORT_TYPE_LINEAR && ypd->lower_bound < 0.0f && ypd->upper_bound > 0.0f) ||
+        ypd->type == Y_PORT_TYPE_PAN) {
         widget = gtk_button_new ();
         gtk_widget_ref (widget);
         gtk_object_set_data_full (GTK_OBJECT (window), "zero button", widget,

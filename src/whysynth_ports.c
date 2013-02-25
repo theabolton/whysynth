@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin and GUI
  *
- * Copyright (C) 2004-2010 Sean Bolton and others.
+ * Copyright (C) 2004-2010, 2013 Sean Bolton and others.
  *
  * Portions of this file may have come from Steve Brookes'
  * Xsynth, copyright (C) 1999 S. J. Brookes.
@@ -52,6 +52,7 @@ struct y_port_descriptor y_port_description[Y_PORTS_COUNT] = {
 #define YPT_0LOG   Y_PORT_TYPE_LOGSCALED
 #define YPT_BPLOG  Y_PORT_TYPE_BPLOGSCALED
 #define YPT_COMBO  Y_PORT_TYPE_COMBO
+#define YPT_PAN    Y_PORT_TYPE_PAN
 
 /* last mod source */
 #define MOD_LIM (Y_MODS_COUNT-1)
@@ -147,13 +148,13 @@ struct y_port_descriptor y_port_description[Y_PORTS_COUNT] = {
     { PD_IN,  "Filter2 MParameter",  HD_MID,          0.0f,     1.0f,   YPT_LIN,   0. },
 
     { PD_IN,  "BusA->Out Level",     HD_MIN,          0.0f,     2.0f,  YPT_0LOG,   2. },
-    { PD_IN,  "BusA->Out Pan",       HD_MID,          0.0f,     1.0f,   YPT_LIN,   0. },
+    { PD_IN,  "BusA->Out Pan",       HD_MID,          0.0f,     1.0f,   YPT_PAN,   0. },
     { PD_IN,  "BusB->Out Level",     HD_MIN,          0.0f,     2.0f,  YPT_0LOG,   2. },
-    { PD_IN,  "BusB->Out Pan",       HD_MID,          0.0f,     1.0f,   YPT_LIN,   0. },
+    { PD_IN,  "BusB->Out Pan",       HD_MID,          0.0f,     1.0f,   YPT_PAN,   0. },
     { PD_IN,  "Filter1->Out Level",  HD_MID,          0.0f,     2.0f,  YPT_0LOG,   2. },
-    { PD_IN,  "Filter1->Out Pan",    HD_LOW,          0.0f,     1.0f,   YPT_LIN,   0. },
+    { PD_IN,  "Filter1->Out Pan",    HD_LOW,          0.0f,     1.0f,   YPT_PAN,   0. },
     { PD_IN,  "Filter2->Out Level",  HD_MID,          0.0f,     2.0f,  YPT_0LOG,   2. },
-    { PD_IN,  "Filter2->Out Pan",    HD_HI,           0.0f,     1.0f,   YPT_LIN,   0. },
+    { PD_IN,  "Filter2->Out Pan",    HD_HI,           0.0f,     1.0f,   YPT_PAN,   0. },
     { PD_IN,  "Volume",              HD_LOW,          0.0f,     1.0f,   YPT_LIN,   0. },
 
     { PD_IN,  "Effect Mode",         HD_DETENT,       0.0f,  Y_EFFECT_MODE_COUNT,
@@ -308,4 +309,5 @@ struct y_port_descriptor y_port_description[Y_PORTS_COUNT] = {
 #undef YPT_0LOG
 #undef YPT_BPLOG
 #undef YPT_COMBO
+#undef YPT_PAN
 };

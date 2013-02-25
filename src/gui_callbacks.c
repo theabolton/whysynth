@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010, 2012 Sean Bolton and others.
+ * Copyright (C) 2004-2008, 2010, 2012, 2013 Sean Bolton and others.
  *
  * Portions of this file may have come from Steve Brookes'
  * Xsynth, copyright (C) 1999 S. J. Brookes.
@@ -482,10 +482,15 @@ void
 on_voice_knob_zero(GtkWidget *widget, gpointer data)
 {
     int port = (int)data;
+    struct y_port_descriptor *ypd = &y_port_description[port];
 
-    GDB_MESSAGE(GDB_GUI, " on_voice_knob_zero: setting knob %d to 0\n", port);
-
-    update_voice_widget(port, 0.0f, TRUE);
+    if (ypd->type == Y_PORT_TYPE_PAN) {
+        GDB_MESSAGE(GDB_GUI, " on_voice_knob_zero: setting knob %d to 0.5\n", port);
+        update_voice_widget(port, 0.5f, TRUE);
+    } else {
+        GDB_MESSAGE(GDB_GUI, " on_voice_knob_zero: setting knob %d to 0\n", port);
+        update_voice_widget(port, 0.0f, TRUE);
+    }
 }
 
 void
@@ -1457,6 +1462,7 @@ update_voice_widget(int port, float value, int send_OSC)
         break;
 
       case Y_PORT_TYPE_LINEAR:
+      case Y_PORT_TYPE_PAN:
         GDB_MESSAGE(GDB_GUI, " update_voice_widget: change of '%s' to %f\n", ypd->name, value);
         adj = (GtkAdjustment *)voice_widgets[port].adjustment;
         adj->value = value;
@@ -1793,6 +1799,7 @@ get_value_from_knob(int index)
     switch (ypd->type) {
 
       case Y_PORT_TYPE_LINEAR:
+      case Y_PORT_TYPE_PAN:
         return value;
 
       case Y_PORT_TYPE_LOGARITHMIC:
