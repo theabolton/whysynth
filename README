@@ -313,7 +313,7 @@ ways:
     - Clicking on a knob with buttons 1 and 3 increment and
         decrement the knob value.
 
-Many of the the bipolar patch parameters (whose values span zero,
+Many of the bipolar patch parameters (whose values span zero,
 such as the 'Detune' and 'Amp Mod Amount' controls) have a small
 square button directly below the knob.  Clicking this button will
 set the parameter directly to zero. A similar small button below the
