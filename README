@@ -313,7 +313,7 @@ ways:
     - Clicking on a knob with buttons 1 and 3 increment and
         decrement the knob value.
 
-Many of the the bipolar patch parameters (whose values span zero,
+Many of the bipolar patch parameters (whose values span zero,
 such as the 'Detune' and 'Amp Mod Amount' controls) have a small
 square button directly below the knob.  Clicking this button will
 set the parameter directly to zero. A similar small button below the
@@ -823,7 +823,7 @@ of its final segment.
 
 The five EG modes all have four segments, with four 'time' controls
 setting the length of each segment, and three 'level' controls
-setting the level of the envelope between each segement.  There are
+setting the level of the envelope between each segment.  There are
 also four 'shape' controls, which determine how the envelope level
 changes within each segment.  'Lead' shapes at first approach the
 segment's ending value more quickly than 'Linear' and then slow
