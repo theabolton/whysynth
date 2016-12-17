@@ -6,7 +6,7 @@ timbres based on real instruments.  Most of the available waveforms
 are intended for use in some combination of additive and subtractive
 synthesis, as with the 'wavecycle' and 'async granular' oscillator
 modes.  Many of these also work well with the 'FM' modes, and
-passibly with the 'waveshaper' mode, but the wavetables also contain
+passably with the 'waveshaper' mode, but the wavetables also contain
 waveforms specifically intended for FM and waveshaping.
 Additionally, since the WhySynth LFOs use these wavetables as well,
 there are a number of non-band-limited waveform specifically
