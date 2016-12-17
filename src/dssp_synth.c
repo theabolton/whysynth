@@ -79,13 +79,13 @@ dssp_voicelist_mutex_trylock(y_synth_t *synth)
     return 0;
 }
 
-inline int
+int
 dssp_voicelist_mutex_lock(y_synth_t *synth)
 {
     return pthread_mutex_lock(&synth->voicelist_mutex);
 }
 
-inline int
+int
 dssp_voicelist_mutex_unlock(y_synth_t *synth)
 {
     return pthread_mutex_unlock(&synth->voicelist_mutex);
