@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2006, 2007, 2012 Sean Bolton.
+ * Copyright (C) 2006, 2007, 2012, 2016 Sean Bolton.
  *
  * Based on the public domain implementation of the PADsynth
  * algorithm by Nasca O. Paul.  If you want to understand the
@@ -23,9 +23,8 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <stdlib.h>
 #include <string.h>

@@ -1,6 +1,7 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010, 2012, 2013 Sean Bolton and others.
+ * Copyright (C) 2004-2008, 2010, 2012, 2013, 2016 Sean Bolton
+ * and others.
  *
  * Portions of this file may have come from Steve Brookes'
  * Xsynth, copyright (C) 1999 S. J. Brookes.
@@ -25,9 +26,8 @@
 #  include <config.h>
 #endif
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -364,7 +364,7 @@ on_save_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
 void
 on_save_file_range_change(GtkWidget *widget, gpointer data)
 {
-    int which = (int)data;
+    int which = GPOINTER_TO_INT(data);
     int start = lrintf(GTK_ADJUSTMENT(save_file_start_spin_adj)->value);
     int end   = lrintf(GTK_ADJUSTMENT(save_file_end_spin_adj)->value);
 
@@ -467,7 +467,7 @@ on_patches_selection(GtkWidget      *clist,
 void
 on_voice_knob_change( GtkWidget *widget, gpointer data )
 {
-    int index = (int)data;
+    int index = GPOINTER_TO_INT(data);
     float value;
 
     value = get_value_from_knob(index);
@@ -481,7 +481,7 @@ on_voice_knob_change( GtkWidget *widget, gpointer data )
 void
 on_voice_knob_zero(GtkWidget *widget, gpointer data)
 {
-    int port = (int)data;
+    int port = GPOINTER_TO_INT(data);
     struct y_port_descriptor *ypd = &y_port_description[port];
 
     if (ypd->type == Y_PORT_TYPE_PAN) {
@@ -537,7 +537,7 @@ check_for_layout_update_on_port_change(int index)
 void
 on_voice_detent_change( GtkWidget *widget, gpointer data )
 {
-    int index = (int)data;
+    int index = GPOINTER_TO_INT(data);
     int value = lrintf(GTK_ADJUSTMENT(widget)->value);
 
     GDB_MESSAGE(GDB_GUI, " on_voice_detent_change: detent %d changed to %d\n",
@@ -549,7 +549,7 @@ on_voice_detent_change( GtkWidget *widget, gpointer data )
 void
 on_voice_onoff_toggled( GtkWidget *widget, gpointer data )
 {
-    int index = (int)data;
+    int index = GPOINTER_TO_INT(data);
     int state = GTK_TOGGLE_BUTTON (widget)->active;
 
     GDB_MESSAGE(GDB_GUI, " on_voice_onoff_toggled: button %d changed to %s\n",
@@ -561,7 +561,7 @@ on_voice_onoff_toggled( GtkWidget *widget, gpointer data )
 void
 on_voice_combo_change( GtkWidget *widget, gpointer data )
 {
-    int index = (int)data;
+    int index = GPOINTER_TO_INT(data);
     GtkTreeIter iter;
     GtkTreeModel *model = gtk_combo_box_get_model(GTK_COMBO_BOX(widget));
     int value = 0;  /* default to 0 if no row is active */
@@ -572,7 +572,7 @@ on_voice_combo_change( GtkWidget *widget, gpointer data )
      * yet the tree model that the combo box is currently using may not be able to
      * represent all values as active rows.  So, we store the value in a qdata
      * associated with the combo box. */
-    g_object_set_qdata(G_OBJECT(widget), combo_value_quark, (gpointer)value);
+    g_object_set_qdata(G_OBJECT(widget), combo_value_quark, GINT_TO_POINTER(value));
 
     GDB_MESSAGE(GDB_GUI, " on_voice_combo_change: combo %d changed to %d\n", index, value);
 
@@ -584,7 +584,7 @@ on_voice_combo_change( GtkWidget *widget, gpointer data )
 void
 on_voice_element_copy(GtkWidget *widget, gpointer data)
 {
-    int index = (int)data,
+    int index = GPOINTER_TO_INT(data),
         offset;
 
     GDB_MESSAGE(GDB_GUI, " on_voice_element_copy: copying element beginning at port %d\n", index);
@@ -672,7 +672,7 @@ on_voice_element_copy(GtkWidget *widget, gpointer data)
 void
 on_voice_element_paste(GtkWidget *widget, gpointer data)
 {
-    int index = (int)data,
+    int index = GPOINTER_TO_INT(data),
         offset;
 
     GDB_MESSAGE(GDB_GUI, " on_voice_element_paste: paste requested for element beginning at port %d\n", index);
@@ -767,7 +767,7 @@ on_test_note_slider_change(GtkWidget *widget, gpointer data)
     unsigned char value = lrintf(GTK_ADJUSTMENT(widget)->value);
 
     /* synchronize main and edit sliders */
-    switch ((int)data) {
+    switch (GPOINTER_TO_INT(data)) {
       case 0: /* main key */
 
         test_note_noteon_key = value;
@@ -776,10 +776,10 @@ on_test_note_slider_change(GtkWidget *widget, gpointer data)
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * this callback again */
         g_signal_handlers_block_by_func(G_OBJECT(edit_test_note_key_adj),
-                                        on_test_note_slider_change, (gpointer)2);
+                                        on_test_note_slider_change, GINT_TO_POINTER(2));
         gtk_signal_emit_by_name (GTK_OBJECT (edit_test_note_key_adj), "value_changed");
         g_signal_handlers_unblock_by_func(G_OBJECT(edit_test_note_key_adj),
-                                          on_test_note_slider_change, (gpointer)2);
+                                          on_test_note_slider_change, GINT_TO_POINTER(2));
 
         GDB_MESSAGE(GDB_GUI, " on_test_note_slider_change: new test note key %d from main window\n", test_note_noteon_key);
         break;
@@ -792,10 +792,10 @@ on_test_note_slider_change(GtkWidget *widget, gpointer data)
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * this callback again */
         g_signal_handlers_block_by_func(G_OBJECT(edit_test_note_velocity_adj),
-                                        on_test_note_slider_change, (gpointer)3);
+                                        on_test_note_slider_change, GINT_TO_POINTER(3));
         gtk_signal_emit_by_name (GTK_OBJECT (edit_test_note_velocity_adj), "value_changed");
         g_signal_handlers_unblock_by_func(G_OBJECT(edit_test_note_velocity_adj),
-                                          on_test_note_slider_change, (gpointer)3);
+                                          on_test_note_slider_change, GINT_TO_POINTER(3));
 
         GDB_MESSAGE(GDB_GUI, " on_test_note_slider_change: new test note velocity %d from main window\n", test_note_velocity);
         break;
@@ -808,10 +808,10 @@ on_test_note_slider_change(GtkWidget *widget, gpointer data)
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * this callback again */
         g_signal_handlers_block_by_func(G_OBJECT(main_test_note_key_adj),
-                                        on_test_note_slider_change, (gpointer)0);
+                                        on_test_note_slider_change, GINT_TO_POINTER(0));
         gtk_signal_emit_by_name (GTK_OBJECT (main_test_note_key_adj), "value_changed");
         g_signal_handlers_unblock_by_func(G_OBJECT(main_test_note_key_adj),
-                                          on_test_note_slider_change, (gpointer)0);
+                                          on_test_note_slider_change, GINT_TO_POINTER(0));
 
         GDB_MESSAGE(GDB_GUI, " on_test_note_slider_change: new test note key %d from edit window\n", test_note_noteon_key);
         break;
@@ -824,10 +824,10 @@ on_test_note_slider_change(GtkWidget *widget, gpointer data)
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * this callback again */
         g_signal_handlers_block_by_func(G_OBJECT(main_test_note_velocity_adj),
-                                        on_test_note_slider_change, (gpointer)1);
+                                        on_test_note_slider_change, GINT_TO_POINTER(1));
         gtk_signal_emit_by_name (GTK_OBJECT (main_test_note_velocity_adj), "value_changed");
         g_signal_handlers_unblock_by_func(G_OBJECT(main_test_note_velocity_adj),
-                                          on_test_note_slider_change, (gpointer)1);
+                                          on_test_note_slider_change, GINT_TO_POINTER(1));
 
         GDB_MESSAGE(GDB_GUI, " on_test_note_slider_change: new test note velocity %d from edit window\n", test_note_velocity);
         break;
@@ -875,7 +875,8 @@ on_test_note_button_press(GtkWidget *widget, gpointer data)
     /* here we just set the state of the test note toggle button, which may
      * cause a call to on_test_note_toggle_toggled() below, which will send
      * the actual MIDI message. */
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(edit_test_note_toggle), (int)data != 0);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(edit_test_note_toggle),
+                                 GPOINTER_TO_INT(data) != 0);
 }
 
 void
@@ -1034,7 +1035,7 @@ combo_get_value(int port)
 {
     GtkComboBox *combo = GTK_COMBO_BOX(voice_widgets[port].widget);
 
-    return (int)g_object_get_qdata(G_OBJECT(combo), combo_value_quark);
+    return GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(combo), combo_value_quark));
 }
 
 void
@@ -1045,14 +1046,14 @@ combo_set_active_row(int port, int value)
     GPtrArray *id_to_path = g_object_get_qdata(G_OBJECT(model), combomodel_id_to_path_quark);
     GtkTreeIter iter;
 
-    g_signal_handlers_block_by_func(combo, on_voice_combo_change, (gpointer)port);
+    g_signal_handlers_block_by_func(combo, on_voice_combo_change, GINT_TO_POINTER(port));
     if (value >= 0 && value < id_to_path->len &&
         gtk_tree_model_get_iter_from_string(model, &iter, g_ptr_array_index(id_to_path, value))) {
         gtk_combo_box_set_active_iter(combo, &iter);
     } else {
         gtk_combo_box_set_active(combo, -1);
     }
-    g_signal_handlers_unblock_by_func(combo, on_voice_combo_change, (gpointer)port);
+    g_signal_handlers_unblock_by_func(combo, on_voice_combo_change, GINT_TO_POINTER(port));
 }
 
 void
@@ -1062,7 +1063,7 @@ combo_set_value(int port, int value)
 
     /* Store the value: associated it with the widget as a qdata. See
      * on_voice_combo_change() for further description. */
-    g_object_set_qdata(G_OBJECT(combo), combo_value_quark, (gpointer)value);
+    g_object_set_qdata(G_OBJECT(combo), combo_value_quark, GINT_TO_POINTER(value));
 
     combo_set_active_row(port, value);
 }
@@ -1072,7 +1073,7 @@ combo_set_combomodel_type(int port, int combomodel_type)
 {
     GtkComboBox *combo = GTK_COMBO_BOX(voice_widgets[port].widget);
     GtkTreeModel *model = GTK_TREE_MODEL(combomodel[combomodel_type]);
-    int value = (int)g_object_get_qdata(G_OBJECT(combo), combo_value_quark);
+    int value = GPOINTER_TO_INT(g_object_get_qdata(G_OBJECT(combo), combo_value_quark));
 
     gtk_combo_box_set_model(GTK_COMBO_BOX(combo), model);
     /* we've left the combobox without an active row, set set it now */
@@ -1444,9 +1445,9 @@ update_voice_widget(int port, float value, int send_OSC)
         GDB_MESSAGE(GDB_GUI, " update_voice_widget: change of '%s' to %f => %d\n", ypd->name, value, dval);
         widget = (GtkWidget *)voice_widgets[port].widget;
         /* update the widget, but don't call on_voice_onoff_toggled(): */
-        g_signal_handlers_block_by_func(widget, on_voice_onoff_toggled, (gpointer)port);
+        g_signal_handlers_block_by_func(widget, on_voice_onoff_toggled, GINT_TO_POINTER(port));
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), dval);
-        g_signal_handlers_unblock_by_func(widget, on_voice_onoff_toggled, (gpointer)port);
+        g_signal_handlers_unblock_by_func(widget, on_voice_onoff_toggled, GINT_TO_POINTER(port));
         break;
 
       case Y_PORT_TYPE_INTEGER:
@@ -1456,9 +1457,9 @@ update_voice_widget(int port, float value, int send_OSC)
         adj->value = (float)dval;
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * on_voice_detent_change(): */
-        g_signal_handlers_block_by_func(adj, on_voice_detent_change, (gpointer)port);
+        g_signal_handlers_block_by_func(adj, on_voice_detent_change, GINT_TO_POINTER(port));
         gtk_signal_emit_by_name (GTK_OBJECT (adj), "value_changed");
-        g_signal_handlers_unblock_by_func(adj, on_voice_detent_change, (gpointer)port);
+        g_signal_handlers_unblock_by_func(adj, on_voice_detent_change, GINT_TO_POINTER(port));
         break;
 
       case Y_PORT_TYPE_LINEAR:
@@ -1468,9 +1469,9 @@ update_voice_widget(int port, float value, int send_OSC)
         adj->value = value;
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * on_voice_knob_change(): */
-        g_signal_handlers_block_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_block_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         gtk_signal_emit_by_name (GTK_OBJECT (adj), "value_changed");
-        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         break;
 
       case Y_PORT_TYPE_LOGARITHMIC:
@@ -1485,9 +1486,9 @@ update_voice_widget(int port, float value, int send_OSC)
         adj->value = cval;
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * on_voice_knob_change(): */
-        g_signal_handlers_block_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_block_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         gtk_signal_emit_by_name (GTK_OBJECT (adj), "value_changed");
-        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         break;
 
       case Y_PORT_TYPE_LOGSCALED:
@@ -1502,9 +1503,9 @@ update_voice_widget(int port, float value, int send_OSC)
         adj->value = cval;
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * on_voice_knob_change(): */
-        g_signal_handlers_block_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_block_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         gtk_signal_emit_by_name (GTK_OBJECT (adj), "value_changed");
-        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         break;
 
       case Y_PORT_TYPE_BPLOGSCALED:
@@ -1527,9 +1528,9 @@ update_voice_widget(int port, float value, int send_OSC)
         adj->value = cval;
         /* emit "value_changed" to get the widget to redraw itself, but don't call 
          * on_voice_knob_change(): */
-        g_signal_handlers_block_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_block_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         gtk_signal_emit_by_name (GTK_OBJECT (adj), "value_changed");
-        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, (gpointer)port);
+        g_signal_handlers_unblock_by_func(adj, on_voice_knob_change, GINT_TO_POINTER(port));
         break;
 
       case Y_PORT_TYPE_COMBO:

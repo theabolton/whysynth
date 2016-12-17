@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010, 2012, 2013 Sean Bolton
+ * Copyright (C) 2004-2008, 2010, 2012, 2013, 2016 Sean Bolton
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -655,16 +655,16 @@ create_main_window (const char *tag)
     /* connect test note widgets */
     gtk_signal_connect (GTK_OBJECT (main_test_note_key_adj),
                         "value_changed", GTK_SIGNAL_FUNC(on_test_note_slider_change),
-                        (gpointer)0);
+                        GINT_TO_POINTER(0));
     gtk_signal_connect (GTK_OBJECT (main_test_note_velocity_adj),
                         "value_changed", GTK_SIGNAL_FUNC(on_test_note_slider_change),
-                        (gpointer)1);
+                        GINT_TO_POINTER(1));
     gtk_signal_connect (GTK_OBJECT (test_note_button), "pressed",
                         GTK_SIGNAL_FUNC (on_test_note_button_press),
-                        (gpointer)1);
+                        GINT_TO_POINTER(1));
     gtk_signal_connect (GTK_OBJECT (test_note_button), "released",
                         GTK_SIGNAL_FUNC (on_test_note_button_press),
-                        (gpointer)0);
+                        GINT_TO_POINTER(0));
 
     /* connect synth configuration widgets */
     gtk_signal_connect (GTK_OBJECT (tuning_adj), "value_changed",
@@ -943,10 +943,10 @@ create_save_file_chooser (const char *tag)
 
     gtk_signal_connect (GTK_OBJECT (save_file_start_spin_adj),
                         "value_changed", GTK_SIGNAL_FUNC(on_save_file_range_change),
-                        (gpointer)0);
+                        GINT_TO_POINTER(0));
     gtk_signal_connect (GTK_OBJECT (save_file_end_spin_adj),
                         "value_changed", GTK_SIGNAL_FUNC(on_save_file_range_change),
-                        (gpointer)1);
+                        GINT_TO_POINTER(1));
 }
 
 void
@@ -1612,7 +1612,7 @@ create_edit_place_knob_in_table(int port,
                               (GtkAttachOptions) (0), 0, 0);
     gtk_signal_connect (GTK_OBJECT (voice_widgets[port].adjustment), "value_changed",
                         GTK_SIGNAL_FUNC (on_voice_knob_change),
-                        (gpointer)port);
+                        GINT_TO_POINTER(port));
 
     if (ypd->type == Y_PORT_TYPE_BPLOGSCALED ||
         (ypd->type == Y_PORT_TYPE_LINEAR && ypd->lower_bound < 0.0f && ypd->upper_bound > 0.0f) ||
@@ -1627,7 +1627,7 @@ create_edit_place_knob_in_table(int port,
                           (GtkAttachOptions) (0), 0, 0);
         gtk_signal_connect (GTK_OBJECT (widget), "pressed",
                             GTK_SIGNAL_FUNC (on_voice_knob_zero),
-                            (gpointer)port);
+                            GINT_TO_POINTER(port));
     }
 
     if (ltext == NULL || *ltext != '\0') { /* Place left value label, unless ltext points to empty string */
@@ -1725,7 +1725,7 @@ create_edit_place_detent_in_table(int port, char *toptext,
     gtk_box_pack_start (GTK_BOX (wvbox), widget, FALSE, FALSE, 0);
     gtk_signal_connect (GTK_OBJECT (voice_widgets[port].adjustment), "value_changed",
                         GTK_SIGNAL_FUNC (on_voice_detent_change),
-                        (gpointer)port);
+                        GINT_TO_POINTER(port));
 }
 
 void
@@ -1761,12 +1761,14 @@ create_edit_place_combo_in_table(int port, char *toptext, int combomodel_type,
     gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(wcombo), combo_renderer,
                                        cmodel_only_leaves_sensitive, NULL, NULL);
     gtk_cell_layout_add_attribute(GTK_CELL_LAYOUT(wcombo), combo_renderer, "text", 0);
-    g_object_set_qdata(G_OBJECT(wcombo), combo_value_quark, (gpointer)0);
-    g_object_set_qdata(G_OBJECT(wcombo), combo_combomodel_type_quark, (gpointer)combomodel_type);
+    g_object_set_qdata(G_OBJECT(wcombo), combo_value_quark, GINT_TO_POINTER(0));
+    g_object_set_qdata(G_OBJECT(wcombo), combo_combomodel_type_quark,
+                       GINT_TO_POINTER(combomodel_type));
     voice_widgets[port].widget = wcombo;
     gtk_widget_show(wcombo);
     gtk_box_pack_start (GTK_BOX(wvbox), wcombo, FALSE, FALSE, 0);
-    g_signal_connect(G_OBJECT(wcombo), "changed", G_CALLBACK(on_voice_combo_change), (gpointer)port);
+    g_signal_connect(G_OBJECT(wcombo), "changed", G_CALLBACK(on_voice_combo_change),
+                     GINT_TO_POINTER(port));
 }
 
 void
@@ -1796,7 +1798,7 @@ create_edit_place_copy_paste_buttons(int port,
     gtk_box_pack_start (GTK_BOX (vbox), copy_button, TRUE, FALSE, 0);
     gtk_signal_connect (GTK_OBJECT (copy_button), "clicked",
                         GTK_SIGNAL_FUNC (on_voice_element_copy),
-                        (gpointer)port);
+                        GINT_TO_POINTER(port));
 
     paste_button = gtk_button_new_with_label ("Paste");
     gtk_widget_ref (paste_button);
@@ -1806,7 +1808,7 @@ create_edit_place_copy_paste_buttons(int port,
     gtk_box_pack_start (GTK_BOX (vbox), paste_button, TRUE, FALSE, 0);
     gtk_signal_connect (GTK_OBJECT (paste_button), "clicked",
                         GTK_SIGNAL_FUNC (on_voice_element_paste),
-                        (gpointer)port);
+                        GINT_TO_POINTER(port));
 }
 
 void
@@ -2110,7 +2112,7 @@ create_edit_window (const char *tag)
     gtk_box_pack_start (GTK_BOX (hbox), copy_button, TRUE, FALSE, 0);
     gtk_signal_connect (GTK_OBJECT (copy_button), "clicked",
                         GTK_SIGNAL_FUNC (on_voice_element_copy),
-                        (gpointer)Y_PORT_VCF1_MODE);
+                        GINT_TO_POINTER(Y_PORT_VCF1_MODE));
 
     paste_button = gtk_button_new_with_label ("Paste Filter1");
     gtk_widget_ref (paste_button);
@@ -2120,7 +2122,7 @@ create_edit_window (const char *tag)
     gtk_box_pack_start (GTK_BOX (hbox), paste_button, TRUE, FALSE, 0);
     gtk_signal_connect (GTK_OBJECT (paste_button), "clicked",
                         GTK_SIGNAL_FUNC (on_voice_element_paste),
-                        (gpointer)Y_PORT_VCF1_MODE);
+                        GINT_TO_POINTER(Y_PORT_VCF1_MODE));
 
     copy_button = gtk_button_new_with_label ("Copy Filter2");
     gtk_widget_ref (copy_button);
@@ -2130,7 +2132,7 @@ create_edit_window (const char *tag)
     gtk_box_pack_start (GTK_BOX (hbox), copy_button, TRUE, FALSE, 0);
     gtk_signal_connect (GTK_OBJECT (copy_button), "clicked",
                         GTK_SIGNAL_FUNC (on_voice_element_copy),
-                        (gpointer)Y_PORT_VCF2_MODE);
+                        GINT_TO_POINTER(Y_PORT_VCF2_MODE));
 
     paste_button = gtk_button_new_with_label ("Paste Filter2");
     gtk_widget_ref (paste_button);
@@ -2140,7 +2142,7 @@ create_edit_window (const char *tag)
     gtk_box_pack_start (GTK_BOX (hbox), paste_button, TRUE, FALSE, 0);
     gtk_signal_connect (GTK_OBJECT (paste_button), "clicked",
                         GTK_SIGNAL_FUNC (on_voice_element_paste),
-                        (gpointer)Y_PORT_VCF2_MODE);
+                        GINT_TO_POINTER(Y_PORT_VCF2_MODE));
 
     /* output mix */
     mix_table = create_edit_tab_and_table("Mix", 6, 3, edit_window, notebook);
@@ -2526,19 +2528,19 @@ create_edit_window (const char *tag)
     /* connect test note widgets */
     gtk_signal_connect (GTK_OBJECT (edit_test_note_key_adj),
                         "value_changed", GTK_SIGNAL_FUNC(on_test_note_slider_change),
-                        (gpointer)2);
+                        GINT_TO_POINTER(2));
     gtk_signal_connect (GTK_OBJECT (edit_test_note_velocity_adj),
                         "value_changed", GTK_SIGNAL_FUNC(on_test_note_slider_change),
-                        (gpointer)3);
+                        GINT_TO_POINTER(3));
     gtk_signal_connect (GTK_OBJECT (test_note_mode_button), "toggled",
                         GTK_SIGNAL_FUNC (on_test_note_mode_toggled),
                         NULL);
     gtk_signal_connect (GTK_OBJECT (edit_test_note_button), "pressed",
                         GTK_SIGNAL_FUNC (on_test_note_button_press),
-                        (gpointer)1);
+                        GINT_TO_POINTER(1));
     gtk_signal_connect (GTK_OBJECT (edit_test_note_button), "released",
                         GTK_SIGNAL_FUNC (on_test_note_button_press),
-                        (gpointer)0);
+                        GINT_TO_POINTER(0));
     gtk_signal_connect (GTK_OBJECT (edit_test_note_toggle), "toggled",
                         GTK_SIGNAL_FUNC (on_test_note_toggle_toggled),
                         NULL);

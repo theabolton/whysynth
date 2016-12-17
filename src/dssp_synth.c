@@ -1,6 +1,6 @@
 /* DSSI Plugin Framework
  *
- * Copyright (C) 2005-2007, 2010 Sean Bolton and others.
+ * Copyright (C) 2005-2007, 2010, 2016 Sean Bolton and others.
  *
  * Portions of this file may have come from Peter Hanappe's
  * Fluidsynth, copyright (C) 2003 Peter Hanappe and others.

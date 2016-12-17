@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2004-2007, 2010, 2012 Sean Bolton and others.
+ * Copyright (C) 2004-2007, 2010, 2012, 2016 Sean Bolton and others.
  *
  * Portions of this file come from Steve Brookes' Xsynth,
  * copyright (C) 1999 S. J. Brookes.
@@ -35,9 +35,8 @@
 #  include <config.h>
 #endif
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <stdlib.h>
 #include <math.h>

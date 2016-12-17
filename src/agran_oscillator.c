@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2005-2007 Sean Bolton and others.
+ * Copyright (C) 2005-2007, 2016 Sean Bolton and others.
  *
  * Portions of this file come from MSS, copyright (C) 2002 Mats
  * Olsson.
@@ -21,9 +21,8 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <stdlib.h>
 #include <math.h>

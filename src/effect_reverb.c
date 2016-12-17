@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2005, 2010 Sean Bolton and others.
+ * Copyright (C) 2005, 2010, 2016 Sean Bolton and others.
  *
  * Nearly all of the Plate reverb code comes from the Plate2x2
  * reverb in CAPS 0.2.3, copyright (c) 2002-4 Tim Goetze.
@@ -23,9 +23,8 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <string.h>
 #include <math.h>

@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2006, 2007 Sean Bolton.
+ * Copyright (C) 2006, 2007, 2016 Sean Bolton.
  *
  * Interthread communication from ardour, copyright (C) 1999-
  * 2002 Paul Davis.
@@ -21,9 +21,8 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <unistd.h>
 #include <string.h>

@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2012 Sean Bolton and others.
+ * Copyright (C) 2004-2012, 2016 Sean Bolton and others.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -22,9 +22,8 @@
 #  include <config.h>
 #endif
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #if THREAD_LOCALE_LOCALE_H
 #define _XOPEN_SOURCE 700   /* needed for glibc newlocale() support */

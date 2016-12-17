@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2008, 2010 Sean Bolton and others.
+ * Copyright (C) 2008, 2010, 2016 Sean Bolton and others.
  *
  * Nearly all of this code comes from the file reverbsc.c in
  * Csound 5.08, copyright (c) 2005 Istvan Varga. Comments from
@@ -35,9 +35,8 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _BSD_SOURCE    1
-#define _SVID_SOURCE   1
-#define _ISOC99_SOURCE 1
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <math.h>
 

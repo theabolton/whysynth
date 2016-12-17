@@ -1,6 +1,6 @@
 /* gtkknob.c - libwhy GtkKnob knob widget
  *
- * Copyright (C) 2008, 2010 Sean Bolton
+ * Copyright (C) 2008, 2010, 2016 Sean Bolton
  *
  * Parts of this code come from GTK+, both the library source and
  * the example programs.  Other bits come from gAlan 0.2.0,
@@ -34,8 +34,8 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _ISOC99_SOURCE
-#define _BSD_SOURCE
+#define _DEFAULT_SOURCE 1
+#define _ISOC99_SOURCE  1
 
 #include <stdlib.h>
 #include <string.h>
