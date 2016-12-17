@@ -446,7 +446,7 @@ int
 y_data_read_patch(FILE *file, y_patch_t *patch)
 {
     int i;
-    char c, buf[256], buf2[180];
+    char c, buf[256], buf2[181];
     y_patch_t tmp;
 
     do {

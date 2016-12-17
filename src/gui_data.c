@@ -670,7 +670,7 @@ int
 gui_data_read_xsynth_patch(FILE *file, y_patch_t *patch, int dual)
 {
     int format, i0;
-    char buf[256], buf2[90];
+    char buf[256], buf2[91];
     float f0, f1, f2, f3, f4, f5, f6;
     float lfo2osc = 0.0f,
           lfo2vcf = 0.0f,
