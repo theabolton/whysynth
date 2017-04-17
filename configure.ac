@@ -74,30 +74,23 @@ else
   fi
 fi
 
-dnl Use lotsa flags if we have gcc.
 CFLAGS="$CFLAGS $ALSA_CFLAGS $COMMON_CFLAGS"
 LDFLAGS="$LDFLAGS $ALSA_LIBS $COMMON_LIBS"
 changequote(,)dnl
 if test "x$GCC" = "xyes"; then
   case " $CFLAGS " in
-  *[\ \	]-Wall[\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -Wall" ;;
+    *[\ \	]-Wall[\ \	]*) ;;
+    *) CFLAGS="$CFLAGS -Wall" ;;
   esac
   case " $CFLAGS " in
-  *[\ \	]-O[1-9][\ \	]*) ;;
-  *) CFLAGS="$CFLAGS -O2" ;;
+    *[\ \	]-O[1-9][\ \	]*) ;;
+    *) CFLAGS="$CFLAGS -O2" ;;
   esac
   case " $CFLAGS " in
-  *[\ \	]-ffast-math[\ \	]*) ;;
-  *)  PLUGIN_CFLAGS="$PLUGIN_CFLAGS -fomit-frame-pointer -funroll-loops -finline-functions -ffast-math"
-      # add '-finline-limit=...' only for GCC 3.x and 4.x:
-      case `$CC -dumpversion 2>/dev/null` in
-      # these --params are also in 3.4.6, but not in 3.3.6
-      4.*) PLUGIN_CFLAGS="$PLUGIN_CFLAGS -finline-limit=5000 --param large-function-growth=4900 --param inline-unit-growth=900" ;;
-      3.*) PLUGIN_CFLAGS="$PLUGIN_CFLAGS -finline-limit=5000" ;;
-      esac
-      if test "x$enable_developer" = "xyes"; then
-        PLUGIN_CFLAGS="$PLUGIN_CFLAGS -Winline"
+    *[\ \	]-ffast-math[\ \	]*) ;;
+    *)  PLUGIN_CFLAGS="$PLUGIN_CFLAGS -funroll-loops -ffast-math"
+      if "$CC" --version | grep -q gcc ; then
+        PLUGIN_CFLAGS="$PLUGIN_CFLAGS -finline-functions"
       fi ;;
   esac
 fi

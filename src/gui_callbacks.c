@@ -1,7 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010, 2012, 2013, 2016 Sean Bolton
- * and others.
+ * Copyright (C) 2004-2017 Sean Bolton and others.
  *
  * Portions of this file may have come from Steve Brookes'
  * Xsynth, copyright (C) 1999 S. J. Brookes.
@@ -406,8 +405,10 @@ on_import_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
             result = gui_data_import_xsynth(filename, position, dual, &message);
         } else if (!strcmp(import_mode, "k4")) {
             result = gui_data_interpret_k4(filename, position, dual, &message);
-        } else
+        } else {
             result = 0;
+            message = "unknown import type";
+        }
 
         if (result) {
             /* successfully imported at least one patch */
