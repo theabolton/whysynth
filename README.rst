@@ -25,17 +25,19 @@ applications.  More information on DSSI can be found at:
 
   http://dssi.sourceforge.net/
 
-WhySynth is something of a mongrel, combining bits from Xsynth-DSSI,
-hexter, Csound, Mats Olsson's MSS, and various other programs, with
+WhySynth is something of a mongrel, combining bits from
+`Xsynth-DSSI <http://dssi.sourceforge.net/download.html#Xsynth-DSSI>`_,
+`hexter <http://dssi.sourceforge.net/hexter.html>`_,
+Csound, Mats Olsson's MSS, and various other programs, with
 inspiration from a number of my favorite long-hair-days synths
 (Matrix 6, ESQ-1, K4), and wavecycle data resynthesized from Claude
 Kaber's Virtual K4 samples and //christian's exegesis of the Ensoniq
 SQ-80 wavetable ROMs. See the enclosed file AUTHORS for more
 details.
 
-WhySynth is written by Sean Bolton, and copyright (c) 2013 under the
+WhySynth is written by Sean Bolton, and copyright (c) 2017 under the
 GNU General Public License, version 2 or later.  See the enclosed
-file COPYING for details.  While this software is 'free' within the
+file `COPYING <COPYING>`_ for details.  While this software is 'free' within the
 requirements of this license, I (Sean) would appreciate any or all
 of the following should you find WhySynth useful:
 
@@ -56,7 +58,7 @@ of the following should you find WhySynth useful:
 The patches distributed with WhySynth, including the default
 'factory' patches and those found in the 'extra' directory, have
 been placed in the public domain by their respective authors.  See
-the enclosed file extra/COPYING-patches for details.
+the enclosed file `extra/COPYING-patches <extra/COPYING-patches>`_ for details.
 
 The GUI is stiflingly dull.  Anyone want to help make it look cool?
 
@@ -143,6 +145,7 @@ aren't particularly helpful, so try this instead:
     <prefix>/share/whysynth/version_20051005_patches.WhySynth
     <prefix>/share/whysynth/version_20051231_patches.WhySynth
     <prefix>/share/whysynth/version_20090608_patches.WhySynth
+    <prefix>/share/whysynth/version_20100922_patches.WhySynth
 
 7. You may wish to manually install the documentation as well: this
    README file, plus the files in the doc/ directory.
@@ -379,7 +382,7 @@ output may be routed to two intermediate buses.  Two filters then
 take their input from one or the other of these buses, or the second
 filter can take its input from the first.  The two buses and the
 filter outputs are then mixed down to stereo.  See the enclosed
-image doc/voice_block_diagram.png for a visual representation.
+image `doc/voice_block_diagram.png <doc/voice_block_diagram.png>`_ for a visual representation.
 
 The stereo outputs for all active voices are summed, then passed
 through a DC blocker (hard-synced minBLEP oscillators and waveshaper
@@ -852,7 +855,12 @@ quickly arrive at the ending value.  'Hold' and 'Jump' are special
 shapes which hold the segment's initial value for the duration of
 the segment, and jump immediately to the segment's ending value,
 respectively.  See the enclosed images doc/eg_shapes_*.png for
-visual representations of the shapes.
+visual representations of the shapes:
+
+    | `EG Shapes - Rising, Part 1 <doc/eg_shapes_rising_1.png>`_
+    | `EG Shapes - Rising, Part 2 <doc/eg_shapes_rising_2.png>`_
+    | `EG Shapes - Falling, Part 1 <doc/eg_shapes_falling_1.png>`_
+    | `EG Shapes - Falling, Part 2 <doc/eg_shapes_falling_2.png>`_
 
 The five EG modes are named:
 
