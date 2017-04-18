@@ -880,7 +880,7 @@ void _init()
 #else
         y_LADSPA_descriptor->Name = "WhySynth DSSI plugin";
 #endif
-        y_LADSPA_descriptor->Maker = "Sean Bolton <sean AT smbolton DOT com>";
+        y_LADSPA_descriptor->Maker = "Sean Bolton <whysynth AT smbolton DOT com>";
         y_LADSPA_descriptor->Copyright = "GNU General Public License version 2 or later";
         y_LADSPA_descriptor->PortCount = Y_PORTS_COUNT;
 

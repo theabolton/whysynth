@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(WhySynth, 20120903, sean-at-smbolton-dot-com)
+AC_INIT(WhySynth, 20120903, whysynth-at-smbolton-dot-com)
 
 AC_CONFIG_SRCDIR(src/whysynth.h)
 AM_INIT_AUTOMAKE
