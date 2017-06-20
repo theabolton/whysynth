@@ -284,7 +284,7 @@ gui_data_load(const char *filename, int position, char **message)
     FILE *fh;
     int count = 0;
     int index = position;
-    char buffer[20];
+    char buffer[32];
 
     GDB_MESSAGE(GDB_IO, " gui_data_load: attempting to load '%s'\n", filename);
 
@@ -315,7 +315,7 @@ gui_data_load(const char *filename, int position, char **message)
         patch_count = index;
 
     if (message) {
-        snprintf(buffer, 20, "loaded %d patches", count);
+        snprintf(buffer, 32, "loaded %d patches", count);
         *message = strdup(buffer);
     }
     return count;
@@ -938,7 +938,7 @@ gui_data_import_xsynth(const char *filename, int position, int dual, char **mess
     FILE *fh;
     int count = 0;
     int index = position;
-    char buffer[20];
+    char buffer[32];
 
     GDB_MESSAGE(GDB_IO, " gui_data_import_xsynth: attempting to load '%s'\n", filename);
 
@@ -966,7 +966,7 @@ gui_data_import_xsynth(const char *filename, int position, int dual, char **mess
         patch_count = index;
 
     if (message) {
-        snprintf(buffer, 20, "loaded %d patches", count);
+        snprintf(buffer, 32, "loaded %d patches", count);
         *message = strdup(buffer);
     }
     return count;
@@ -1422,7 +1422,7 @@ gui_data_interpret_k4(const char *filename, int position, int dual, char **messa
     int i;
     int count = 0;
     int index = position;
-    char buffer[20];
+    char buffer[32];
 
     GDB_MESSAGE(GDB_IO, " gui_data_interpret_k4: attempting to load '%s'\n", filename);
 
@@ -1527,7 +1527,7 @@ gui_data_interpret_k4(const char *filename, int position, int dual, char **messa
         patch_count = index;
 
     if (message) {
-        snprintf(buffer, 20, "loaded %d patches", count);
+        snprintf(buffer, 32, "loaded %d patches", count);
         *message = strdup(buffer);
     }
     return count;

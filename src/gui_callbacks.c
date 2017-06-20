@@ -2233,7 +2233,7 @@ update_project_directory(const char *value)
 void
 rebuild_patches_clist(void)
 {
-    char number[8], name[31];
+    char number[16], name[31];
     char *data[2] = { number, name };
     int i;
 
@@ -2247,7 +2247,7 @@ rebuild_patches_clist(void)
         gtk_clist_append(GTK_CLIST(patches_clist), data);
     } else {
         for (i = 0; i < patch_count; i++) {
-            snprintf(number, 4, "%d", i);
+            snprintf(number, 16, "%d", i);
             strncpy(name, patches[i].name, 31);
             gtk_clist_append(GTK_CLIST(patches_clist), data);
         }
