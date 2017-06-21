@@ -43,7 +43,7 @@ GtkWidget *main_window;
 GtkObject *main_test_note_key_adj;
 GtkObject *main_test_note_velocity_adj;
 
-GtkWidget *patches_clist;
+GtkWidget *patches_list;
 
 GtkWidget *about_window;
 GtkWidget *about_label;
@@ -114,6 +114,50 @@ set_window_title(GtkWidget *window, const char *tag, const char *text)
     free(title);
 }
 
+static GtkWidget *
+patches_list_new(void)
+{
+    GtkListStore *store = gtk_list_store_new(PATCHES_LIST_COLUMNS,
+                                             G_TYPE_UINT,
+                                             G_TYPE_STRING,
+                                             G_TYPE_STRING);
+    GtkTreeSortable   *sortable = GTK_TREE_SORTABLE(store);
+    GtkWidget         *view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
+    GtkCellRenderer   *renderer;
+    GtkTreeViewColumn *column;
+
+    gtk_tree_sortable_set_sort_func(sortable, PATCHES_LIST_COL_NUMBER, patches_list_sort_func,
+                                    GINT_TO_POINTER(PATCHES_LIST_COL_NUMBER), NULL);
+    gtk_tree_sortable_set_sort_func(sortable, PATCHES_LIST_COL_CATEGORY, patches_list_sort_func,
+                                    GINT_TO_POINTER(PATCHES_LIST_COL_CATEGORY), NULL);
+    gtk_tree_sortable_set_sort_func(sortable, PATCHES_LIST_COL_NAME, patches_list_sort_func,
+                                    GINT_TO_POINTER(PATCHES_LIST_COL_NAME), NULL);
+    gtk_tree_sortable_set_sort_column_id(sortable, PATCHES_LIST_COL_NUMBER, GTK_SORT_ASCENDING);
+
+    renderer = gtk_cell_renderer_text_new();
+    gtk_cell_renderer_set_alignment(renderer, 1.0, 0.5);
+    column = gtk_tree_view_column_new_with_attributes("ProgNo", renderer,
+                                                      "text", PATCHES_LIST_COL_NUMBER, NULL);
+    gtk_tree_view_insert_column(GTK_TREE_VIEW(view), column, -1);
+    gtk_tree_view_column_set_sort_column_id(column, PATCHES_LIST_COL_NUMBER);
+
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("Category", renderer,
+                                                      "text", PATCHES_LIST_COL_CATEGORY, NULL);
+    gtk_tree_view_insert_column(GTK_TREE_VIEW(view), column, -1);
+    gtk_tree_view_column_set_sort_column_id(column, PATCHES_LIST_COL_CATEGORY);
+
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes("Name", renderer,
+                                                      "text", PATCHES_LIST_COL_NAME, NULL);
+    gtk_tree_view_insert_column(GTK_TREE_VIEW(view), column, -1);
+    gtk_tree_view_column_set_sort_column_id(column, PATCHES_LIST_COL_NAME);
+
+    gtk_widget_show_all(view);
+
+    return view;
+}
+
 void
 create_main_window (const char *tag)
 {
@@ -135,8 +179,6 @@ create_main_window (const char *tag)
     GtkWidget *menu_about;
     GtkWidget *notebook1;
     GtkWidget *scrolledwindow1;
-    GtkWidget *patches_prog_label;
-    GtkWidget *patches_name_label;
     GtkWidget *patches_tab_label;
     GtkWidget *test_note_frame;
     GtkWidget *test_note_table;
@@ -330,31 +372,10 @@ create_main_window (const char *tag)
                             (GtkDestroyNotify) gtk_widget_unref);
   gtk_widget_show (scrolledwindow1);
   gtk_container_add (GTK_CONTAINER (notebook1), scrolledwindow1);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 
-  patches_clist = gtk_clist_new (2);
-  gtk_widget_ref (patches_clist);
-  gtk_object_set_data_full (GTK_OBJECT (main_window), "patches_clist", patches_clist,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (patches_clist);
-  gtk_container_add (GTK_CONTAINER (scrolledwindow1), patches_clist);
-  gtk_clist_set_column_width (GTK_CLIST (patches_clist), 0, 50);
-  gtk_clist_set_column_width (GTK_CLIST (patches_clist), 1, 80);
-  gtk_clist_column_titles_show (GTK_CLIST (patches_clist));
-
-  patches_prog_label = gtk_label_new ("Prog No");
-  gtk_widget_ref (patches_prog_label);
-  gtk_object_set_data_full (GTK_OBJECT (main_window), "patches_prog_label", patches_prog_label,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (patches_prog_label);
-  gtk_clist_set_column_widget (GTK_CLIST (patches_clist), 0, patches_prog_label);
-
-  patches_name_label = gtk_label_new ("Name");
-  gtk_widget_ref (patches_name_label);
-  gtk_object_set_data_full (GTK_OBJECT (main_window), "patches_name_label", patches_name_label,
-                            (GtkDestroyNotify) gtk_widget_unref);
-  gtk_widget_show (patches_name_label);
-  gtk_clist_set_column_widget (GTK_CLIST (patches_clist), 1, patches_name_label);
+  patches_list = patches_list_new();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow1), patches_list);
 
   patches_tab_label = gtk_label_new ("Patches");
   gtk_widget_ref (patches_tab_label);
@@ -648,9 +669,12 @@ create_main_window (const char *tag)
     gtk_signal_connect (GTK_OBJECT (menu_about), "activate",
                         GTK_SIGNAL_FUNC (on_menu_about_activate),
                         NULL);
-    gtk_signal_connect(GTK_OBJECT(patches_clist), "select_row",
-                       GTK_SIGNAL_FUNC(on_patches_selection),
-                       NULL);
+    g_signal_connect(G_OBJECT(gtk_tree_view_get_selection(GTK_TREE_VIEW(patches_list))), "changed",
+                     G_CALLBACK(on_patches_selection_changed),
+                     NULL); /* single-click */
+    g_signal_connect(G_OBJECT(patches_list), "row-activated",
+                     G_CALLBACK(on_patches_row_activated),
+                     NULL); /* double-click */
 
     /* connect test note widgets */
     gtk_signal_connect (GTK_OBJECT (main_test_note_key_adj),

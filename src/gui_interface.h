@@ -27,7 +27,7 @@ extern GtkWidget *main_window;
 extern GtkObject *main_test_note_key_adj;
 extern GtkObject *main_test_note_velocity_adj;
 
-extern GtkWidget *patches_clist;
+extern GtkWidget *patches_list;
 
 extern GtkWidget *about_window;
 extern GtkWidget *about_label;
@@ -80,6 +80,13 @@ struct voice_widgets {
     GtkWidget *label1;    /* knob lower left label, detent value label */
     GtkWidget *label2;    /* knob lower right label */
     int        last_mode;
+};
+
+enum {
+    PATCHES_LIST_COL_NUMBER,
+    PATCHES_LIST_COL_CATEGORY,
+    PATCHES_LIST_COL_NAME,
+    PATCHES_LIST_COLUMNS,
 };
 
 extern struct voice_widgets voice_widgets[];

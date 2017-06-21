@@ -216,7 +216,7 @@ on_open_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
         if (gui_data_load(filename, position, &message)) {
 
             /* successfully loaded at least one patch */
-            rebuild_patches_clist();
+            rebuild_patches_list();
             display_notice("Open Patch File succeeded:", message);
 
             if (patches_dirty) {
@@ -412,7 +412,7 @@ on_import_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
 
         if (result) {
             /* successfully imported at least one patch */
-            rebuild_patches_clist();
+            rebuild_patches_list();
             display_notice("Import Patches succeeded:", message);
 
             /* patch bank is always dirty after a successful import, so we need
@@ -450,20 +450,126 @@ on_about_dismiss( GtkWidget *widget, gpointer data )
     gtk_widget_hide(about_window);
 }
 
-void
-on_patches_selection(GtkWidget      *clist,
-                     gint            row,
-                     gint            column,
-                     GdkEventButton *event,
-                     gpointer        data )
+/* ========== Patch List ========== */
+
+/* Comparison function for the patch list model sorting. */
+gint
+patches_list_sort_func(GtkTreeModel *model,
+                       GtkTreeIter  *a,
+                       GtkTreeIter  *b,
+                       gpointer      userdata)
 {
-    GDB_MESSAGE(GDB_GUI, " on_patches_selection: patch %d selected\n", row);
+    static gint secondary_sort_on_name = FALSE;  /* -FIX- hidden state */
+    gint sortcol = GPOINTER_TO_INT(userdata);
+    gint ret;
+    gchar *a_name, *b_name;
 
-    /* set all the patch edit widgets to match */
-    update_voice_widgets_from_patch(&patches[row]);
+    /* Set secondary_sort_on_name if the current order is by number or name, otherwise, if the
+     * current order is by category, leave it at its previous value. */
+    if (sortcol == PATCHES_LIST_COL_NUMBER) {
+        secondary_sort_on_name = FALSE;
+    } else if (sortcol == PATCHES_LIST_COL_NAME) {
+        secondary_sort_on_name = TRUE;
+    }
 
-    lo_send(osc_host_address, osc_program_path, "ii", row / 128, row % 128);
+    /* 'ProgNo' and 'Name' sort only on themselves. 'Category' will use a secondary key of 'ProgNo'
+     * or 'Name' depending on whether secondary_sort_on_name is true. The control flow here is a
+     * slightly non-obvious fall-through based on that. */
+    if (sortcol == PATCHES_LIST_COL_CATEGORY) {
+        gchar *a_category, *b_category;
+
+        gtk_tree_model_get(model, a, PATCHES_LIST_COL_CATEGORY, &a_category, -1);
+        gtk_tree_model_get(model, b, PATCHES_LIST_COL_CATEGORY, &b_category, -1);
+        ret = g_utf8_collate(a_category, b_category);
+        g_free(a_category);
+        g_free(b_category);
+        if (ret != 0) {
+            return ret;
+        }
+        /* fall through to sort by either number or name secondary key */
+    }
+    if ((sortcol == PATCHES_LIST_COL_NUMBER) ||
+        (sortcol == PATCHES_LIST_COL_CATEGORY && !secondary_sort_on_name)) {
+        /* sort (or sub-sort) on patch number */
+        guint a_number, b_number;
+
+        gtk_tree_model_get(model, a, PATCHES_LIST_COL_NUMBER, &a_number, -1);
+        gtk_tree_model_get(model, b, PATCHES_LIST_COL_NUMBER, &b_number, -1);
+        return a_number - b_number;
+    }
+    /* sort on name */
+    gtk_tree_model_get(model, a, PATCHES_LIST_COL_NAME, &a_name, -1);
+    gtk_tree_model_get(model, b, PATCHES_LIST_COL_NAME, &b_name, -1);
+    // !FIX! case insensitive, elide punctuation? (then if equal, recompare originals for more stability)
+    // => no, leave punctuation
+    // => g_utf_strup(), g_utf8_strdown(), g_utf8_casefold(),
+    // https://developer.gnome.org/glib/stable/glib-Unicode-Manipulation.html#g-utf8-collate
+    ret = g_utf8_collate(a_name, b_name);
+    g_free(a_name);
+    g_free(b_name);
+    return ret;
 }
+
+static gboolean
+find_program_in_list_store(GtkTreeIter *iter, int program)
+{
+    /* An O(n) search for the requested program within the sorted GtkListStore. Probably using
+     * GtkTreeModelSort would be more efficient, but also more complicated.
+     * `program` must be a valid program number. Sets the `iter` to point to the list store row
+     * containing the patch, and returns TRUE. Should never return FALSE. */
+    GtkTreeModel *store = gtk_tree_view_get_model(GTK_TREE_VIEW(patches_list));
+    int index;
+
+    if (!gtk_tree_model_get_iter_first(store, iter))
+         return FALSE;
+    do {
+        gtk_tree_model_get(store, iter, PATCHES_LIST_COL_NUMBER, &index, -1);
+        if (index == program)
+            return TRUE;
+    } while (gtk_tree_model_iter_next(store, iter));
+
+    return FALSE;
+}
+
+void
+on_patches_selection_changed(GtkTreeSelection *selection,
+                             gpointer data)
+{
+    GtkTreeModel *model;
+    GtkTreeIter iter;
+
+    if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+        guint index;
+
+        gtk_tree_model_get(model, &iter, PATCHES_LIST_COL_NUMBER, &index, -1);
+
+        GDB_MESSAGE(GDB_GUI, " on_patches_selection_changed: patch %d selected\n", index);
+
+        /* set all the patch edit widgets to match */
+        update_voice_widgets_from_patch(&patches[index]);
+
+        lo_send(osc_host_address, osc_program_path, "ii", index / 128, index % 128);
+    }
+}
+
+void
+on_patches_row_activated(GtkTreeView       *tree_view,
+                         GtkTreePath       *path,
+                         GtkTreeViewColumn *column,
+                         gpointer           user_data)
+{
+    /* gint *indicies = gtk_tree_path_get_indices(path); */
+    /* gint row = indicies[0]; */
+
+    GDB_MESSAGE(GDB_GUI, " on_patches_row_activated\n");
+
+    /* User double-clicked on a row. The first click will have triggered
+     * on_patches_selection_changed() above, so all we need to do here is make sure the
+     * window is shown */
+    on_menu_edit_activate(NULL, NULL);
+}
+
+/* ========== Patch Edit Window ========== */
 
 void
 on_voice_knob_change( GtkWidget *widget, gpointer data )
@@ -929,6 +1035,7 @@ void
 on_edit_save_position_ok( GtkWidget *widget, gpointer data )
 {
     int position = lrintf(GTK_ADJUSTMENT(edit_save_position_spin_adj)->value);
+    GtkTreeIter iter;
 
     gtk_widget_hide(edit_save_position_window);
 
@@ -939,7 +1046,12 @@ on_edit_save_position_ok( GtkWidget *widget, gpointer data )
     update_patch_from_voice_widgets(&patches[position]);
     patches_dirty = 1;
     if (position == patch_count) patch_count++;
-    rebuild_patches_clist();
+    /* update view */
+    find_program_in_list_store(&iter, position);
+    gtk_list_store_set(GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(patches_list))), &iter,
+                       PATCHES_LIST_COL_CATEGORY, "y",
+                       PATCHES_LIST_COL_NAME, patches[position].name,
+                       -1);
 
     /* our patch bank is now dirty, so we need to save a temporary copy
      * for the plugin to load */
@@ -1777,17 +1889,26 @@ void
 update_from_program_select(int program)
 {
     if (program < patch_count) {
+        GtkTreeIter iter;
 
-        /* update selected row, but don't call on_patches_selection(): */
-        g_signal_handlers_block_by_func(patches_clist, on_patches_selection, NULL);
-        gtk_clist_select_row (GTK_CLIST(patches_clist), program, 0);
-        g_signal_handlers_unblock_by_func(patches_clist, on_patches_selection, NULL);
+        GDB_MESSAGE(GDB_GUI, " update_from_program_select: received program %d\n", program);
+
+        find_program_in_list_store(&iter, program);
+        /* update selected row, but don't call on_patches_selection_changed() */
+        GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(patches_list));
+        g_signal_handlers_block_by_func(selection, on_patches_selection_changed, NULL);
+        gtk_tree_selection_select_iter(selection, &iter);
+        /* emit cursor-changed signal to get view to update */
+        g_signal_emit_by_name(patches_list, "cursor-changed");
+        /* -FIX- it would be nice to move the GtkScrolledWindow so that the selected row is
+         * in view. Anybody know how to do that easily? */
+        g_signal_handlers_unblock_by_func(selection, on_patches_selection_changed, NULL);
 
         update_voice_widgets_from_patch(&patches[program]);
 
     } else {  /* out of range */
 
-        /* gtk_clist_unselect_all (GTK_CLIST(patches_clist)); */
+        /* gtk_tree_selection_unselect_all(selection); */
 
     }
 }
@@ -2098,7 +2219,7 @@ update_load(const char *value)
             /* successfully loaded at least one patch */
             patch_count = result;
             patches_dirty = 0;
-            rebuild_patches_clist();
+            rebuild_patches_list();
 
             /* clean up old temporary file, if any */
             if (last_configure_load_was_from_tmp) {
@@ -2231,32 +2352,47 @@ update_project_directory(const char *value)
 }
 
 void
-rebuild_patches_clist(void)
+rebuild_patches_list(void)
 {
-    char number[16], name[31];
-    char *data[2] = { number, name };
+    GtkListStore *store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(patches_list)));
+    GtkTreeSortable *sortable = GTK_TREE_SORTABLE(store);
+    GtkTreeIter iter;
+    gint sort_column_id;
+    GtkSortType order;
     int i;
 
-    GDB_MESSAGE(GDB_GUI, ": rebuild_patches_clist called\n");
+    GDB_MESSAGE(GDB_GUI, ": rebuild_patches_list called\n");
 
-    gtk_clist_freeze(GTK_CLIST(patches_clist));
-    gtk_clist_clear(GTK_CLIST(patches_clist));
+    /* removed store from view to prevent updating on each append */
+    g_object_ref(store);
+    gtk_tree_view_set_model(GTK_TREE_VIEW(patches_list), NULL);
+    /* turn off sorting while rebuilding */
+    gtk_tree_sortable_get_sort_column_id(sortable, &sort_column_id, &order);
+    gtk_tree_sortable_set_sort_column_id(sortable, GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID,
+                                         GTK_SORT_ASCENDING);
+    gtk_list_store_clear(store);
     if (patch_count == 0) {
-        strcpy(number, "0");
-        strcpy(name, "default voice");
-        gtk_clist_append(GTK_CLIST(patches_clist), data);
+        gtk_list_store_append(store, &iter);
+        gtk_list_store_set(store, &iter,
+                           PATCHES_LIST_COL_NUMBER, 0,
+                           PATCHES_LIST_COL_CATEGORY, "",
+                           PATCHES_LIST_COL_NAME, "default voice",
+                           -1);
     } else {
         for (i = 0; i < patch_count; i++) {
-            snprintf(number, 16, "%d", i);
-            strncpy(name, patches[i].name, 31);
-            gtk_clist_append(GTK_CLIST(patches_clist), data);
+            gtk_list_store_append(store, &iter);
+            gtk_list_store_set(store, &iter,
+                               PATCHES_LIST_COL_NUMBER, i,
+                               PATCHES_LIST_COL_CATEGORY, "x",
+                               PATCHES_LIST_COL_NAME, patches[i].name,
+                               -1);
         }
     }
-#if GTK_CHECK_VERSION(2, 0, 0)
-    /* kick GTK+ 2.4.x in the pants.... */
-    gtk_signal_emit_by_name (GTK_OBJECT (patches_clist), "check-resize");
-#endif
-    gtk_clist_thaw(GTK_CLIST(patches_clist));
+    /* restore sort order */
+    gtk_tree_sortable_set_sort_column_id(sortable, sort_column_id, order);
+    /* add store back to view */
+    gtk_tree_view_set_model(GTK_TREE_VIEW(patches_list), GTK_TREE_MODEL(store));
+    g_object_unref(store);
 }
 
 void

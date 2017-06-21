@@ -39,8 +39,11 @@ void on_save_file_chooser_response(GtkDialog *dialog, gint response, gpointer da
 void on_save_file_range_change(GtkWidget *widget, gpointer data);
 void on_import_file_chooser_response(GtkDialog *dialog, gint response, gpointer data);
 void on_about_dismiss(GtkWidget *widget, gpointer data);
-void on_patches_selection(GtkWidget *clist, gint row, gint column,
-                          GdkEventButton *event, gpointer data);
+gint patches_list_sort_func(GtkTreeModel *model, GtkTreeIter *a,
+                            GtkTreeIter *b, gpointer data);
+void on_patches_selection_changed(GtkTreeSelection *treeselection, gpointer data);
+void on_patches_row_activated(GtkTreeView *tree_view, GtkTreePath *path,
+                              GtkTreeViewColumn *column, gpointer data);
 void on_voice_knob_change(GtkWidget *widget, gpointer data);
 void on_voice_knob_zero(GtkWidget *widget, gpointer data);
 void on_voice_detent_change(GtkWidget *widget, gpointer data);
@@ -81,7 +84,7 @@ void update_monophonic(const char *value);
 void update_glide(const char *value);
 void update_program_cancel(const char *value);
 void update_project_directory(const char *value);
-void rebuild_patches_clist(void);
+void rebuild_patches_list(void);
 void update_port_wavetable_counts(void);
 
 #endif  /* _GUI_CALLBACKS_H */

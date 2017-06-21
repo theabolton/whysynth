@@ -69,6 +69,7 @@ int last_configure_load_was_from_tmp;
 
 int host_requested_quit = 0;
 int gui_test_mode = 0;
+gint update_request_timeout_tag;
 
 /* ==== OSC handling ==== */
 
@@ -268,6 +269,8 @@ update_request_timeout_callback(gpointer data)
 
     }
 
+    update_request_timeout_tag = 0; /* set to invalid, so we don't try to remove it later */
+
     return FALSE;  /* don't need to do this again */
 }
 
@@ -320,7 +323,6 @@ main(int argc, char *argv[])
     char *host, *port, *path, *tmp_url;
     lo_server osc_server;
     gint osc_server_socket_tag;
-    gint update_request_timeout_tag;
 
     Y_DEBUG_INIT("WhySynth_gtk");
 
@@ -395,15 +397,15 @@ main(int argc, char *argv[])
 
     /* default patches, temporary patchfile support */
     gui_data_friendly_patches();
-    rebuild_patches_clist();
+    rebuild_patches_list();
     patches_dirty = 0;
     last_configure_load_was_from_tmp = 0;
     create_patches_tmp_filename(path);
 
     /* schedule our update request */
-    update_request_timeout_tag = gtk_timeout_add(50,
-                                                 update_request_timeout_callback,
-                                                 NULL);
+    update_request_timeout_tag = g_timeout_add(50,
+                                               update_request_timeout_callback,
+                                               NULL);
 
     /* let GTK+ take it from here */
     gtk_main();
@@ -415,7 +417,8 @@ main(int argc, char *argv[])
     release_test_note();
 
     /* GTK+ cleanup */
-    gtk_timeout_remove(update_request_timeout_tag);
+    if (update_request_timeout_tag != 0)
+        gtk_timeout_remove(update_request_timeout_tag);
     gdk_input_remove(osc_server_socket_tag);
 
     /* say bye-bye */
