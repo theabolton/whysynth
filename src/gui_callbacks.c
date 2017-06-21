@@ -497,13 +497,18 @@ patches_list_sort_func(GtkTreeModel *model,
         gtk_tree_model_get(model, b, PATCHES_LIST_COL_NUMBER, &b_number, -1);
         return a_number - b_number;
     }
-    /* sort on name */
+    /* sort on name, first on squashed namesort field, then if those are equal,
+     * on the original names. */
+    gtk_tree_model_get(model, a, PATCHES_LIST_COL_NAMESORT, &a_name, -1);
+    gtk_tree_model_get(model, b, PATCHES_LIST_COL_NAMESORT, &b_name, -1);
+    ret = g_utf8_collate(a_name, b_name);
+    g_free(a_name);
+    g_free(b_name);
+    if (ret != 0) {
+        return ret;
+    }
     gtk_tree_model_get(model, a, PATCHES_LIST_COL_NAME, &a_name, -1);
     gtk_tree_model_get(model, b, PATCHES_LIST_COL_NAME, &b_name, -1);
-    // !FIX! case insensitive, elide punctuation? (then if equal, recompare originals for more stability)
-    // => no, leave punctuation
-    // => g_utf_strup(), g_utf8_strdown(), g_utf8_casefold(),
-    // https://developer.gnome.org/glib/stable/glib-Unicode-Manipulation.html#g-utf8-collate
     ret = g_utf8_collate(a_name, b_name);
     g_free(a_name);
     g_free(b_name);
@@ -2351,6 +2356,42 @@ update_project_directory(const char *value)
                                              project_directory, NULL);
 }
 
+static char *
+make_namesort(char *name)
+{
+    /* squash non-alphanumeric characters and fold case to produce a sort key */
+    char *in, *out;
+    char buf[127]; /* 30 chars * 4 bytes, plus zero termination and some padding*/
+    gunichar c;
+    int count, len;
+    int last_was_non_alphanum = TRUE;
+
+    in = g_utf8_make_valid(name, -1);
+    name = g_utf8_casefold(in, -1);
+    g_free(in);
+    in = name;
+    out = buf;
+    for (count = 0; count < 30; count++) {
+        c = g_utf8_get_char(in);
+        in = g_utf8_next_char(in);
+        if (c == 0) {
+            break;
+        } else if (g_unichar_isalnum(c)) {
+            len = g_unichar_to_utf8(c, out);
+            out += len;
+            last_was_non_alphanum = FALSE;
+        } else { /* non alphanumeric, so squash */
+            if (!last_was_non_alphanum) {
+                *out++ = '_';
+            }
+            last_was_non_alphanum = TRUE;
+        }
+    }
+    *out = 0;
+    g_free(name);
+    return g_strdup(buf);
+}
+
 void
 rebuild_patches_list(void)
 {
@@ -2377,15 +2418,20 @@ rebuild_patches_list(void)
                            PATCHES_LIST_COL_NUMBER, 0,
                            PATCHES_LIST_COL_CATEGORY, "",
                            PATCHES_LIST_COL_NAME, "default voice",
+                           PATCHES_LIST_COL_NAMESORT, "default_voice",
                            -1);
     } else {
         for (i = 0; i < patch_count; i++) {
+            char *namesort = make_namesort(patches[i].name);
+
             gtk_list_store_append(store, &iter);
             gtk_list_store_set(store, &iter,
                                PATCHES_LIST_COL_NUMBER, i,
                                PATCHES_LIST_COL_CATEGORY, "x",
                                PATCHES_LIST_COL_NAME, patches[i].name,
+                               PATCHES_LIST_COL_NAMESORT, namesort,
                                -1);
+            g_free(namesort);
         }
     }
     /* restore sort order */

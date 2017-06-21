@@ -120,6 +120,7 @@ patches_list_new(void)
     GtkListStore *store = gtk_list_store_new(PATCHES_LIST_COLUMNS,
                                              G_TYPE_UINT,
                                              G_TYPE_STRING,
+                                             G_TYPE_STRING,
                                              G_TYPE_STRING);
     GtkTreeSortable   *sortable = GTK_TREE_SORTABLE(store);
     GtkWidget         *view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
