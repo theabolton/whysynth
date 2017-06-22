@@ -71,6 +71,73 @@ y_data_is_comment(char *buf)  /* line is blank, whitespace, or first non-whitesp
     return 1;
 }
 
+/* Ensure a string contains only valid UTF-8, and is no more than maxlen bytes
+ * long. Any invalid characters, or characters that partially exceed the maxlen
+ * limit, will be removed from the string. */
+void
+y_ensure_valid_utf8(char *str, int maxlen)
+{
+    unsigned int u;
+    char *in, *out;
+
+    u = strlen(str);
+    if (u < maxlen) {
+        maxlen = u;
+    } else {
+        str[maxlen] = 0;
+    }
+    in = out = str;
+    while (1) {
+        if ((in[0] & 0xf8) == 0xf0 &&
+            (in[1] & 0xc0) == 0x80 &&
+            (in[2] & 0xc0) == 0x80 &&
+            (in[3] & 0xc0) == 0x80) {  /* four-byte sequence */
+
+            /* check for over-long (< 0x10000) or out-of-range (> 0x10ffff) */
+            u = ((in[0] & 0x07) << 18) | ((in[1] & 0x3f) << 12);
+            if ((u >= 0x110000) || (u < 0x10000)) {
+                in += 4;
+                continue;
+            }
+            for (u = 4; u > 0; u--) {
+                *out++ = *in++;
+            }
+        } else if ((in[0] & 0xf0) == 0xe0 &&
+                   (in[1] & 0xc0) == 0x80 &&
+                   (in[2] & 0xc0) == 0x80) { /* three-byte */
+
+            /* check of over-long (< 0x800) or illegal (0xd800 through 0xdfff) */
+            u = ((in[0] & 0x0f) << 12) | ((in[1] & 0x3f) << 6);
+            if ((u < 0x800) || ((u >= 0xd800) && (u < 0xe000))) {
+                in += 3;
+                continue;
+            }
+            for (u = 3; u > 0; u--) {
+                *out++ = *in++;
+            }
+        } else if ((in[0] & 0xe0) == 0xc0 &&
+                   (in[1] & 0xc0) == 0x80) { /* two-byte */
+
+            /* check for over-long (< 0x80) */
+            u = ((in[0] & 0x1f) << 6) | (in[1] & 0x3f);
+            if (u < 0x80) {
+                in += 2;
+                continue;
+            }
+            *out++ = *in++;
+            *out++ = *in++;
+        } else if ((*in & 0x80) == 0x00) { /* single-byte */
+            *out = *in++;
+            if (*out == 0) {
+                break;
+            }
+            out++;
+        } else { /* invalid character, skip it */
+            in++;
+        }
+    }
+}
+
 void
 y_data_parse_text(const char *buf, char *name, int maxlen)
 {
@@ -94,6 +161,8 @@ y_data_parse_text(const char *buf, char *name, int maxlen)
     /* trim trailing spaces */
     while (o && name[o - 1] == ' ') o--;
     name[o] = '\0';
+
+    y_ensure_valid_utf8(name, maxlen);
 }
 
 /* y_sscanf.c - dual-locale sscanf

@@ -35,6 +35,7 @@ extern y_patch_t y_init_voice;
 
 int   y_sscanf(const char *str, const char *format, ...);
 int   y_data_is_comment(char *buf);
+void  y_ensure_valid_utf8(char *str, int maxlen);
 void  y_data_parse_text(const char *buf, char *name, int maxlen);
 int   y_data_read_patch(FILE *file, y_patch_t *patch);
 char *y_data_locate_patch_file(const char *origpath, const char *project_dir);

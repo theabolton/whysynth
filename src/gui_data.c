@@ -59,7 +59,7 @@ patch_write_text(FILE *file, char *text, int maxlen)
             break;
         } else if (text[i] < 33 || text[i] > 126 ||
                    text[i] == '%') {
-            fprintf(file, "%%%02x", text[i]);
+            fprintf(file, "%%%02x", (unsigned char)text[i]);
         } else {
             fputc(text[i], file);
         }
@@ -373,7 +373,7 @@ c_write_text(FILE *file, char *text, int maxlen)
             break;
         } else if (text[i] < 32 || text[i] > 126 ||
                    text[i] == '"' || text[i] == '\\') {
-            fprintf(file, "\\%03o", text[i]);
+            fprintf(file, "\\%03o", (unsigned char)text[i]);
         } else {
             fputc(text[i], file);
         }

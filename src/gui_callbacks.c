@@ -2192,6 +2192,7 @@ update_patch_from_voice_widgets(y_patch_t *patch)
 
     strncpy(patch->name, gtk_entry_get_text(GTK_ENTRY(name_entry)), 30);
     patch->name[30] = 0;
+    y_ensure_valid_utf8(patch->name, 30); /* if name was too long, chop at UTF-8 boundary */
     /* trim trailing spaces */
     i = strlen(patch->name);
     while(i && patch->name[i - 1] == ' ') i--;
@@ -2199,6 +2200,7 @@ update_patch_from_voice_widgets(y_patch_t *patch)
 
     strncpy(patch->comment, gtk_entry_get_text(GTK_ENTRY(comment_entry)), 60);
     patch->comment[60] = 0;
+    y_ensure_valid_utf8(patch->name, 60); /* if comment was too long, chop at UTF-8 boundary */
     /* trim trailing spaces */
     i = strlen(patch->comment);
     while(i && patch->comment[i - 1] == ' ') i--;
@@ -2361,20 +2363,17 @@ make_namesort(char *name)
 {
     /* squash non-alphanumeric characters and fold case to produce a sort key */
     char *in, *out;
-    char buf[127]; /* 30 chars * 4 bytes, plus zero termination and some padding*/
+    char buf[127]; /* 30 chars * 4 bytes, plus zero termination and some padding */
     gunichar c;
-    int count, len;
+    int len;
     int last_was_non_alphanum = TRUE;
 
-    in = g_utf8_make_valid(name, -1);
-    name = g_utf8_casefold(in, -1);
-    g_free(in);
-    in = name;
+    in = g_utf8_casefold(name, -1);
     out = buf;
-    for (count = 0; count < 30; count++) {
+    while (1) {
         c = g_utf8_get_char(in);
         in = g_utf8_next_char(in);
-        if (c == 0) {
+        if (c == 0 || (out - buf) > 120) {
             break;
         } else if (g_unichar_isalnum(c)) {
             len = g_unichar_to_utf8(c, out);
@@ -2388,7 +2387,6 @@ make_namesort(char *name)
         }
     }
     *out = 0;
-    g_free(name);
     return g_strdup(buf);
 }
 
