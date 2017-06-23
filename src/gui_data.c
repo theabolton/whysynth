@@ -336,6 +336,7 @@ gui_data_friendly_patches(void)
     patch_count = y_friendly_patch_count;
 }
 
+#if 0 /* no longer used */
 /*
  * gui_data_patch_compare
  *
@@ -358,6 +359,7 @@ gui_data_patch_compare(y_patch_t *patch1, y_patch_t *patch2)
     return !memcmp((void *)((char *)patch1 + n),
                    (void *)((char *)patch2 + n), sizeof(y_patch_t) - n);
 }
+#endif
 
 #ifdef DEVELOPER
 

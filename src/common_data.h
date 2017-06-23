@@ -47,7 +47,6 @@ int  gui_data_save_dirty_patches_to_tmp(void);
 void gui_data_check_patches_allocation(int patch_index);
 int  gui_data_load(const char *filename, int position, char **message);
 void gui_data_friendly_patches(void);
-int  gui_data_patch_compare(y_patch_t *patch1, y_patch_t *patch2);
 int  gui_data_write_patch_as_c(FILE *file, y_patch_t *patch);
 int  gui_data_save_as_c(char *filename, int start, int end, char **message);
 int  gui_data_import_xsynth(const char *filename, int position, int dual,

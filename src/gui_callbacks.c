@@ -1016,18 +1016,20 @@ on_test_note_toggle_toggled(GtkWidget *widget, gpointer data)
 void
 on_edit_action_button_press(GtkWidget *widget, gpointer data)
 {
-    int i;
-
     GDB_MESSAGE(GDB_GUI, " on_edit_action_button_press: '%s' clicked\n", (char *)data);
 
     if (!strcmp(data, "save")) {
 
-        /* find the last non-init-voice patch, and set the save position to the
-         * following patch */
-        for (i = patch_count;
-             i > 0 && gui_data_patch_compare(&patches[i - 1], &y_init_voice);
-             i--);
-        (GTK_ADJUSTMENT(edit_save_position_spin_adj))->value = (float)i;
+        /* This hasn't been useful for a long time:
+         * find the last non-init-voice patch, and set the save position to the
+         * following patch *
+         *   int i;
+         *   for (i = patch_count;
+         *        i > 0 && gui_data_patch_compare(&patches[i - 1], &y_init_voice);
+         *        i--);
+         *   (GTK_ADJUSTMENT(edit_save_position_spin_adj))->value = (float)i;
+         */
+        (GTK_ADJUSTMENT(edit_save_position_spin_adj))->value = (float)patch_count;
         (GTK_ADJUSTMENT(edit_save_position_spin_adj))->upper = (float)patch_count;
         gtk_signal_emit_by_name (GTK_OBJECT (edit_save_position_spin_adj), "value_changed");
     
@@ -1040,6 +1042,7 @@ void
 on_edit_save_position_ok( GtkWidget *widget, gpointer data )
 {
     int position = lrintf(GTK_ADJUSTMENT(edit_save_position_spin_adj)->value);
+    GtkListStore *store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(patches_list)));
     GtkTreeIter iter;
 
     gtk_widget_hide(edit_save_position_window);
@@ -1050,10 +1053,15 @@ on_edit_save_position_ok( GtkWidget *widget, gpointer data )
     gui_data_check_patches_allocation(position);
     update_patch_from_voice_widgets(&patches[position]);
     patches_dirty = 1;
-    if (position == patch_count) patch_count++;
     /* update view */
-    find_program_in_list_store(&iter, position);
-    gtk_list_store_set(GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(patches_list))), &iter,
+    if (position == patch_count) {
+        patch_count++;
+        gtk_list_store_append(store, &iter);
+    } else {
+        find_program_in_list_store(&iter, position);
+    }
+    gtk_list_store_set(store, &iter,
+                       PATCHES_LIST_COL_NUMBER, position,
                        PATCHES_LIST_COL_CATEGORY, "y",
                        PATCHES_LIST_COL_NAME, patches[position].name,
                        -1);
