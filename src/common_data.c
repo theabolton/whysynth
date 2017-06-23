@@ -35,6 +35,7 @@
 y_patch_t y_init_voice = {
     "  <-->",
     "",
+    "",
     /* -PORTS- */
     { 1, 0, 0, 0.0f, 0, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0, 0.0f, 0.5f, 0.5f },  /* osc1 */
     { 0, 0, 0, 0.0f, 0, 0.0f, 0.0f, 0.0f, 0, 0.0f, 0, 0.0f, 0.5f, 0.5f },  /* osc2 */
@@ -514,7 +515,7 @@ y_sscanf(const char *str, const char *format, ...)
 int
 y_data_read_patch(FILE *file, y_patch_t *patch)
 {
-    int i;
+    int format, i;
     char c, buf[256], buf2[181];
     y_patch_t tmp;
 
@@ -522,8 +523,8 @@ y_data_read_patch(FILE *file, y_patch_t *patch)
         if (!fgets(buf, 256, file)) return 0;
     } while (y_data_is_comment(buf));
 
-    if (sscanf(buf, " WhySynth patch format %d begin", &i) != 1 ||
-        i != 0)
+    if (sscanf(buf, " WhySynth patch format %d begin", &format) != 1 ||
+        (format != 0 && format != 1))
         return 0;
 
     memcpy(&tmp, &y_init_voice, sizeof(y_patch_t));
@@ -533,9 +534,21 @@ y_data_read_patch(FILE *file, y_patch_t *patch)
         if (!fgets(buf, 256, file)) return 0;
 
         /* 'name %20%20<init%20voice>' */
-        if (sscanf(buf, " name %90s", buf2) == 1) {
+        if (sscanf(buf, " name %90s%n", buf2, &i) == 1) {
             
             y_data_parse_text(buf2, tmp.name, 30);
+            /* if this is a format 0 patch, check if the category is piggy-
+             * backed on the name line. */
+            if (format == 0 &&
+                sscanf(buf + i, " category %30s", buf2) == 1) {
+                y_data_parse_text(buf2, tmp.category, 10);
+            }
+            continue;
+
+        /* 'category Strings' */
+        } else if (sscanf(buf, " category %30s", buf2) == 1) {
+
+            y_data_parse_text(buf2, tmp.category, 10);
             continue;
 
         /* 'comment %20%20<init%20voice>' */

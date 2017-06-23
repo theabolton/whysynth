@@ -81,6 +81,7 @@ GtkObject *edit_save_position_spin_adj;
 GtkWidget *edit_save_position_name_label;
 
 GtkWidget *name_entry;
+GtkWidget *category_entry;
 GtkWidget *comment_entry;
 
 GtkObject *tuning_adj;
@@ -1842,8 +1843,8 @@ create_edit_window (const char *tag)
     int port;
     GtkWidget *vbox;
     GtkWidget *hbox;
-    GtkWidget *name_label;
-    GtkWidget *comment_label;
+    GtkWidget *table;
+    GtkWidget *label;
     GtkWidget *notebook;
     GtkWidget *osc1_table;
     GtkWidget *osc2_table;
@@ -1893,44 +1894,37 @@ create_edit_window (const char *tag)
     gtk_container_add (GTK_CONTAINER (edit_window), vbox);
     gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
 
-    /* name and comment */
-    hbox = gtk_hbox_new (FALSE, 0);
-    gtk_widget_ref (hbox);
-    gtk_object_set_data_full (GTK_OBJECT (edit_window), "hbox",
-                              hbox, (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_show (hbox);
-    gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
-    gtk_container_set_border_width (GTK_CONTAINER (hbox), 6);
+    /* name, category and comment */
+    table = gtk_table_new (4, 2, FALSE);
+    gtk_box_pack_start (GTK_BOX (vbox), table, TRUE, TRUE, 0);
+    gtk_container_set_border_width (GTK_CONTAINER (table), 2);
+    gtk_table_set_row_spacings (GTK_TABLE (table), 1);
+    gtk_table_set_col_spacings (GTK_TABLE (table), 5);
 
-    name_label = gtk_label_new ("Patch Name");
-    gtk_widget_ref (name_label);
-    gtk_object_set_data_full (GTK_OBJECT (edit_window), "name_label", name_label,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_show (name_label);
-    gtk_box_pack_start (GTK_BOX (hbox), name_label, FALSE, FALSE, 2);
-    gtk_misc_set_alignment (GTK_MISC (name_label), 0, 0.5);
+    label = gtk_label_new ("Patch Name");
+    gtk_table_attach (GTK_TABLE (table), label, 0, 1, 0, 1,
+                      GTK_FILL, 0, 0, 0);
 
     name_entry = gtk_entry_new_with_max_length(30);
-    gtk_widget_ref (name_entry);
-    gtk_object_set_data_full (GTK_OBJECT (edit_window), "name_entry", name_entry,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_show (name_entry);
-    gtk_box_pack_start (GTK_BOX (hbox), name_entry, FALSE, TRUE, 2);
+    gtk_table_attach (GTK_TABLE (table), name_entry, 1, 2, 0, 1,
+                      GTK_FILL | GTK_EXPAND, 0, 0, 0);
 
-    comment_label = gtk_label_new ("Comment");
-    gtk_widget_ref (comment_label);
-    gtk_object_set_data_full (GTK_OBJECT (edit_window), "comment_label", comment_label,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_show (comment_label);
-    gtk_box_pack_start (GTK_BOX (hbox), comment_label, FALSE, FALSE, 2);
-    gtk_misc_set_alignment (GTK_MISC (comment_label), 0, 0.5);
+    label = gtk_label_new ("Category");
+    gtk_table_attach (GTK_TABLE (table), label, 2, 3, 0, 1,
+                      GTK_FILL, 0, 0, 0);
+
+    category_entry = gtk_entry_new_with_max_length(10);
+    gtk_table_attach (GTK_TABLE (table), category_entry, 3, 4, 0, 1,
+                      GTK_FILL, 0, 0, 0);
+
+    label = gtk_label_new ("Comment");
+    gtk_table_attach (GTK_TABLE (table), label, 0, 1, 1, 2,
+                      GTK_FILL, 0, 0, 0);
 
     comment_entry = gtk_entry_new_with_max_length(60);
-    gtk_widget_ref (comment_entry);
-    gtk_object_set_data_full (GTK_OBJECT (edit_window), "comment_entry", comment_entry,
-                              (GtkDestroyNotify) gtk_widget_unref);
-    gtk_widget_show (comment_entry);
-    gtk_box_pack_start (GTK_BOX (hbox), comment_entry, TRUE, TRUE, 2);
+    gtk_table_attach (GTK_TABLE (table), comment_entry, 1, 4, 1, 2,
+                      GTK_FILL | GTK_EXPAND, 0, 0, 0);
+    gtk_widget_show_all (table);
 
     /* separator */
     hseparator = gtk_hseparator_new ();

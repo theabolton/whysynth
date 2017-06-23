@@ -319,7 +319,8 @@ on_save_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
             }
         } else {
 #endif /* DEVELOPER */
-            if (gui_data_save(filename, save_file_start, save_file_end, &message)) {
+            // !FIX! parameterize format
+            if (gui_data_save(filename, save_file_start, save_file_end, 0, &message)) {
 
                 display_notice("Save Patch File succeeded:", message);
 
@@ -477,10 +478,17 @@ patches_list_sort_func(GtkTreeModel *model,
      * slightly non-obvious fall-through based on that. */
     if (sortcol == PATCHES_LIST_COL_CATEGORY) {
         gchar *a_category, *b_category;
+        gint a_len, b_len;
 
         gtk_tree_model_get(model, a, PATCHES_LIST_COL_CATEGORY, &a_category, -1);
         gtk_tree_model_get(model, b, PATCHES_LIST_COL_CATEGORY, &b_category, -1);
-        ret = g_utf8_collate(a_category, b_category);
+        /* sort empty categories last */
+        a_len = strlen(a_category);
+        b_len = strlen(b_category);
+        if (a_len == 0 || b_len == 0)
+            ret = b_len - a_len;
+        else
+            ret = g_utf8_collate(a_category, b_category);
         g_free(a_category);
         g_free(b_category);
         if (ret != 0) {
@@ -1062,7 +1070,7 @@ on_edit_save_position_ok( GtkWidget *widget, gpointer data )
     }
     gtk_list_store_set(store, &iter,
                        PATCHES_LIST_COL_NUMBER, position,
-                       PATCHES_LIST_COL_CATEGORY, "y",
+                       PATCHES_LIST_COL_CATEGORY, patches[position].category,
                        PATCHES_LIST_COL_NAME, patches[position].name,
                        -1);
 
@@ -1895,6 +1903,7 @@ update_voice_widgets_from_patch(y_patch_t *patch)
     update_voice_widget(Y_PORT_MODMIX_MOD2_AMT,    patch->modmix_mod2_amt,           FALSE);
 
     gtk_entry_set_text(GTK_ENTRY(name_entry), patch->name);
+    gtk_entry_set_text(GTK_ENTRY(category_entry), patch->category);
     gtk_entry_set_text(GTK_ENTRY(comment_entry), patch->comment);
 }
 
@@ -2206,6 +2215,14 @@ update_patch_from_voice_widgets(y_patch_t *patch)
     while(i && patch->name[i - 1] == ' ') i--;
     patch->name[i] = 0;
 
+    strncpy(patch->category, gtk_entry_get_text(GTK_ENTRY(category_entry)), 10);
+    patch->category[10] = 0;
+    y_ensure_valid_utf8(patch->name, 10); /* if category was too long, chop at UTF-8 boundary */
+    /* trim trailing spaces */
+    i = strlen(patch->category);
+    while(i && patch->category[i - 1] == ' ') i--;
+    patch->category[i] = 0;
+
     strncpy(patch->comment, gtk_entry_get_text(GTK_ENTRY(comment_entry)), 60);
     patch->comment[60] = 0;
     y_ensure_valid_utf8(patch->name, 60); /* if comment was too long, chop at UTF-8 boundary */
@@ -2433,7 +2450,7 @@ rebuild_patches_list(void)
             gtk_list_store_append(store, &iter);
             gtk_list_store_set(store, &iter,
                                PATCHES_LIST_COL_NUMBER, i,
-                               PATCHES_LIST_COL_CATEGORY, "x",
+                               PATCHES_LIST_COL_CATEGORY, patches[i].category,
                                PATCHES_LIST_COL_NAME, patches[i].name,
                                PATCHES_LIST_COL_NAMESORT, namesort,
                                -1);

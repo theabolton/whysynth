@@ -65,6 +65,7 @@ extern GtkObject *edit_save_position_spin_adj;
 extern GtkWidget *edit_save_position_name_label;
 
 extern GtkWidget *name_entry;
+extern GtkWidget *category_entry;
 extern GtkWidget *comment_entry;
 
 extern GtkObject *tuning_adj;

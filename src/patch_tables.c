@@ -40,6 +40,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "New String Thingy",
         "",
+        "",
         { 8, 18, 0, 0, 0, 0, 0.414079, 0.5, 0, 0.234944, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -63,6 +64,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "FM E.Piano 3",
+        "",
         "",
         { 4, 56, 0, 0, 0, 0, 0.0519861, 0.617628, 18, 0.7428, 9, 0.0345608, 0.932864, 0 },
         { 4, 56, 0, -0.00517476, 0, 0, 0.0682776, 0.593337, 18, 0.776833, 11, 0.0372705, 0, 0.860843 },
@@ -88,6 +90,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Vox Liminal",
         "",
+        "",
         { 8, 165, 0, 0, 0, 0, 0.541889, 0.5, 0, 0.128501, 0, 0, 1.06147, 1.0041 },
         { 8, 162, 0, 0, 0, 0, 0.577239, 0.602047, 0, 0.580746, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -111,6 +114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Glass Organ 2",
+        "",
         "",
         { 8, 87, 0, -3.84027e-11, 0, 0, 0.166667, 0.505583, 4, 0, 0, 0, 1.00159, 0.996471 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -136,6 +140,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Brazzled",
         "",
+        "",
         { 2, 148, 0, 0.00889638, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 21, 0, -0.0166605, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5 },
         { 8, 22, 0, 0, 7, 0.000823012, 0.385319, 0.5, 2, 0, 0, 0, 0.372768, 0.401433 },
@@ -160,6 +165,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Ice Chorus",
         "",
+        "",
         { 8, 69, 0, 0, 0, 0, 0.551986, 0.5, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -183,6 +189,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Bristol Mini 99",
+        "",
         "an imitation of the Bristol Mini patch",
         { 2, 148, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.810405, 0.5 },
         { 1, 0, 0, -0.00813585, 0, 0, 0, 0, 0, 0, 0, 0, 0.842463, 0.5 },
@@ -208,6 +215,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Tree's House",
         "",
+        "",
         { 8, 154, 0, 0, 0, 0, 0.385319, 0.5, 0, 0.196778, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -231,6 +239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amSynth Sweet Bass",
+        "",
         "an imitation of the amSynth patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.716139, 0.5 },
         { 1, 2, -12, 0, 0, 0, 0, 0.582889, 0, 0, 0, 0, 0.33332, 0.5 },
@@ -256,6 +265,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Hannah's Dream Flute",
         "",
+        "",
         { 8, 53, 0, 0, 0, 0, 0.431722, 0.5, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -279,6 +289,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Lush Bells",
+        "",
         "",
         { 8, 81, 0, 0, 0, 0, 0.247413, 0.574907, 4, 0.320865, 0, 0, 1.06147, 1.0041 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -304,6 +315,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Simulated Wood Grain",
         "",
+        "",
         { 8, 21, -12, 0, 0, 0, 0.473611, 0.5, 2, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -327,6 +339,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Mighty Synchronoton",
+        "",
         "",
         { 1, 2, 0, 0, 9, 0, 0, 0.0496018, 0, 0, 0, 0, 0.222222, 0.222222 },
         { 2, 121, 14, 0, 7, 0.528369, 1, 0.409467, 0, 0, 0, 0, 1.08029, 0.5 },
@@ -352,6 +365,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Orange Blossom",
         "",
+        "",
         { 9, 24, 12, 0, 0, 0, 0.188922, 0.5, 18, 0.647428, 0, 0, 0.5, 0 },
         { 9, 86, 12, -0.00551887, 0, 0, 0.138538, 0.5, 18, 0.642289, 0, 0, 0, 0.5 },
         { 8, 19, 0, 0.00301943, 0, 0, 0.157446, 0.492929, 0, 0.151535, 0, 0, 1.0041, 0.929338 },
@@ -375,6 +389,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "...drone.....",
+        "",
         "",
         { 8, 109, 0, 0, 0, 0, 0.644792, 0.503215, 0, 0, 0, 0, 0.5, 0.5 },
         { 8, 118, 7, 0, 0, 0, 0.644792, 0.503215, 0, 0.467607, 0, 0, 0.161007, 0.16988 },
@@ -400,6 +415,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Wist",
         "",
+        "",
         { 8, 157, 0, -0.224394, 0, 0, 0.794476, 0.5, 0, 0.153421, 18, 1, 0.222222, 0.222222 },
         { 8, 37, 0, 0, 0, 0, 0.761889, 0.548128, 0, 0, 0, 0, 0.5, 0.51783 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -423,6 +439,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "String Thingy",
+        "",
         "",
         { 2, 21, 0, -0.00623956, 9, 0.00316481, 0, 0, 0, 0, 0, 0, 1, 0 },
         { 2, 21, 0, 0, 11, 0.00316481, 0, 0, 0, 0, 0, 0, 0, 1 },
@@ -448,6 +465,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Hydrangia",
         "",
+        "",
         { 1, 2, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 1, 0 },
         { 2, 28, 0, 0.09599, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
         { 1, 0, 0, -0.0480044, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0.855951 },
@@ -471,6 +489,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Hydrogenous",
+        "",
         "",
         { 1, 2, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 1, 0 },
         { 2, 22, 0, 0.0722797, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
@@ -496,6 +515,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "DragonPurr",
         "",
+        "",
         { 3, 46, 0, -0.0527965, 0, 0, 0.610062, 1, 0, 4.6921e-05, 0, 0, 0.6296, 0 },
         { 2, 0, 0, 0.0527223, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
         { 2, 12, -24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.746103, 0.749556 },
@@ -519,6 +539,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Soft Synth Strings",
+        "",
         "",
         { 8, 18, 0, 0, 0, 0, 0.603972, 0.5, 0, 0.140278, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -544,6 +565,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "FM E.Piano 1",
         "",
+        "",
         { 4, 71, 0, 8.32677e-05, 0, 0, 0.0481282, 0.608732, 18, 0.782334, 0, 0, 1.12633, 0 },
         { 4, 6, 0, 0.000387602, 0, 0, 0.059057, 0.685905, 19, 0.65254, 0, 0, 0.395513, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -567,6 +589,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "FM E.Piano 2",
+        "",
         "",
         { 4, 0, 0, 0, 0, 0, 0.0720001, 0.438151, 18, 0.808482, 0, 0, 0.838326, 0.281583 },
         { 4, 3, 0, 0, 0, 0, 0.0437833, 0.59176, 19, 0.6296, 0, 0, 0.222222, 0.851618 },
@@ -592,6 +615,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Early Semisolid Bass",
         "",
+        "",
         { 4, 14, -12, 0, 0, 0, 0.0588, 0.5, 18, 0.850042, 0, 0, 0.5, 0.5 },
         { 4, 152, -12, 0, 0, 0, 0.0629861, 0.5, 18, 0.838666, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -615,6 +639,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "SpaceBass",
+        "",
         "",
         { 4, 132, -12, 0, 0, 0, 0.169044, 0.5, 18, 0.730524, 0, 0, 0.5, 0.5 },
         { 2, 108, -12, 0, 0, 0, 0, 0, 0, 0, 18, 0.444444, 0.5, 0.5 },
@@ -640,6 +665,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Waveshaper Bass",
         "",
+        "",
         { 6, 112, -12, 0, 0, 0, 0.135071, 0.464954, 18, 1, 0, 0, 0.725753, 0.5 },
         { 2, 109, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 1.03292 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -663,6 +689,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Waveshaper Clav",
+        "",
         "",
         { 6, 39, 0, 0, 0, 0, 0, 0.10761, 18, 0.723167, 0, 0.333333, 0.5, 0.5 },
         { 6, 1, 0, 0.09599, 0, 0, 0, 0.303222, 18, 0.856816, 0, 0.352572, 0.375634, 0.69925 },
@@ -688,6 +715,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "PADsynth Strings",
         "",
+        "",
         { 8, 98, 0, 0, 0, 0, 0.409467, 0.5, 0, 0.69419, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -711,6 +739,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "PADsynth Choir A",
+        "",
         "",
         { 8, 165, 0, 0, 0, 0, 0.541889, 0.5, 0, 0.128501, 0, 0, 1.06147, 1.0041 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -736,6 +765,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "PADsynth Choir B",
         "",
+        "",
         { 8, 121, 0, 0, 0, 0, 0.593875, 0.5, 0, 0.379736, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -759,6 +789,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Avogadro Choir 2",
+        "",
         "",
         { 11, 121, 0, 0, 0, 0, 0.205999, 0, 5, 1, 0, 0, 0.999651, 1.0041 },
         { 8, 121, 0, 0, 0, 0, 0.290328, 0.5, 0, 0.410268, 0, 0, 0, 1.01317 },
@@ -784,6 +815,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Bernoulli Choir 2",
         "",
+        "",
         { 8, 118, 0, 0, 0, 0, 0.69201, 0.507576, 4, 0, 0, 0, 0.470194, 0.554171 },
         { 2, 119, 0, 0, 9, -0.00247033, 0, 0, 0, 0, 0, 0, 0, 0.792792 },
         { 2, 53, 0, 0, 11, 0.00139513, 0, 0, 0, 0, 0, 0, 1.01694, 0 },
@@ -807,6 +839,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Anakotological",
+        "",
         "",
         { 9, 5, 0, 0, 7, 0.00802651, 0.317042, 0, 18, 0.40824, 0, 0, 0.5, 0 },
         { 1, 0, 6, 0.037451, 6, 0.745537, 1, 0, 18, 0.833333, 0, 0, 0, 0.5 },
@@ -832,6 +865,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Saw Chorus",
         "",
+        "",
         { 11, 18, 0, -0.00102286, 0, 0, 0.185342, 0, 0, 0.925093, 0, 0, 0.5, 0 },
         { 11, 18, 0, 0.000579813, 0, 0, 0.201712, 0, 0, 0.849625, 0, 0, 0, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -855,6 +889,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Simulated Wood Grain Bass",
+        "",
         "",
         { 8, 21, -12, 0, 0, 0, 0.473611, 0.5, 3, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -880,6 +915,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Malarky",
         "",
+        "",
         { 8, 134, 0, 0, 0, 0, 0.368379, 0.5, 0, 0.641815, 18, 0, 0.52, 0.52 },
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0.444444, 0.627198, 0 },
         { 1, 3, 11, 0, 0, 0, 1, 0.0565004, 0, 0, 18, 0.444444, 0, 0.618271 },
@@ -903,6 +939,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Wide Load",
+        "",
         "",
         { 8, 17, 0, 0, 0, 0, 0.532393, 0.5, 4, 0, 0, 0, 0.382438, 0.397035 },
         { 2, 148, -12, 0, 7, 0.00078398, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -928,6 +965,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Double Lush Bells",
         "",
+        "",
         { 8, 81, 0, 0, 0, 0, 0.247413, 0.585921, 4, 0.211462, 0, 0, 1.06147, 1.0041 },
         { 8, 79, 0, 0, 0, 0, 0.247413, 0.585921, 4, 0.211462, 18, 1, 1.06147, 1.0041 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -951,6 +989,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Parched Bells",
+        "",
         "",
         { 8, 54, 0, 0.115808, 0, 0, 0.134757, 0.303222, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -976,6 +1015,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Cello Pong",
         "",
+        "",
         { 8, 98, 0, 0, 0, 0, 0.647428, 0.5, 6, 0.417596, 0, 0, 0.52, 0.52 },
         { 0, 20, 0, 0, 0, -0.00205209, 0, 0, 0, 0.641815, 18, 0, 0.52, 0.52 },
         { 0, 20, 0, 0, 0, 0.00278551, 0, 0, 0, 0.641815, 18, 0, 0.52, 0.52 },
@@ -999,6 +1039,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Helianthus",
+        "",
         "",
         { 3, 118, 0, 0, 0, 0, 0.401611, 1, 3, 0.008, 10, 0.114681, 0.822591, 0 },
         { 3, 118, 0, 0, 0, 0, 0.409467, 1, 3, 0.002, 14, 0.141101, 0, 0.957756 },
@@ -1024,6 +1065,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Moose Invasion",
         "",
+        "",
         { 2, 12, 0, -0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.971, 0 },
         { 2, 12, 0, 0.05, 0, 0, 0, 0, 0, 0, 19, 1, 0, 0.888889 },
         { 2, 23, 0, 0, 0, 0, 0, 0, 0, 0, 20, 1, 0.634712, 0.755664 },
@@ -1047,6 +1089,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "pseudo steel drums",
+        "",
         "Contributed by Nigel Henry",
         { 2, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.769454, 0 },
         { 2, 80, 0, -0.283428, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -1071,6 +1114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "more pseudo steel drums",
+        "",
         "Contributed by Nigel Henry",
         { 2, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.769454, 0 },
         { 2, 80, 0, -0.283428, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -1096,6 +1140,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Spooky Bell",
         "",
+        "",
         { 2, 32, -12, 0, 0, 0, 0, 0, 0, 0, 19, 0.203805, 0.5, 0.888889 },
         { 2, 36, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.866409, 0.833383 },
         { 2, 40, -12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.14932, 0.5 },
@@ -1119,6 +1164,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Sync Leslie",
+        "",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.515835, 0.5 },
         { 1, 2, 11, 0, 6, 0.195846, 0.968789, 0.637246, 0, 0, 0, 0, 0.5, 0 },
@@ -1144,6 +1190,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Mighty Synchronoton Delayed",
         "",
+        "",
         { 1, 2, 0, 0, 9, 0, 0, 0.0496018, 0, 0, 0, 0, 0.222222, 0.222222 },
         { 2, 121, 14, 0, 7, 0.528369, 1, 0.409467, 0, 0, 0, 0, 1.08029, 0.5 },
         { 2, 121, 17, 0, 7, 0.162751, 1, 0.154198, 0, 0, 0, 0, 0.5, 0.952611 },
@@ -1167,6 +1214,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amSynth Derren 1",
+        "",
         "an imitation of the amSynth patch",
         { 1, 2, 0, 0, 0, 0, 0, 0.655508, 0, 0, 8, 0.0951084, 0.414422, 0.5 },
         { 1, 2, -12, 0, 7, 0.121833, 1, 0.80094, 0, 0, 8, 0.0387217, 0.802479, 0.5 },
@@ -1191,6 +1239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amSynth Sexy Boy",
+        "",
         "an imitation of the amSynth patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.888889, 0.5 },
         { 1, 2, -12, 0, 0, 0, 0, 0.5565, 0, 0, 0, 0, 0.33332, 0.5 },
@@ -1215,6 +1264,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amSynth Flangey Bass 1",
+        "",
         "an imitation of the amSynth patch",
         { 1, 2, 0, -0.0904532, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.419732, 0.5 },
         { 1, 2, 0, 0.0875367, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.604124, 0.5 },
@@ -1239,6 +1289,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amSynth Lazy Moon Lead",
+        "",
         "an imitation of the amSynth patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.11116, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -1263,6 +1314,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amSynth Encounter",
+        "",
         "an imitation of the amSynth patch",
         { 4, 58, 0, 0, 7, 0.00386508, 0.0481282, 0.716269, 0, 0.728516, 7, 0.0269601, 0.888889, 0 },
         { 4, 14, 0, 0, 0, 0.00330853, 0.046403, 0.712092, 0, 0.741938, 7, 0.0160496, 0.822591, 0 },
@@ -1287,6 +1339,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amSynth Artic",
+        "",
         "an imitation of the amSynth patch",
         { 5, 24, 0, 0, 0, 0, 0.106056, 0.5, 0, 0.716651, 8, 0.0526065, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -1311,6 +1364,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Bristol Mini 0",
+        "",
         "an imitation of the Bristol Mini patch",
         { 2, 148, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.18095, 0.5 },
         { 1, 0, 0, -0.0430675, 0, 0, 0, 0, 0, 0, 0, 0, 0.913414, 0.5 },
@@ -1335,6 +1389,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Bristol Explorer 0",
+        "",
         "an imitation of the Bristol Explorer patch",
         { 1, 2, -12, -0.00671158, 0, 0, 0.173981, 0.382935, 0, 0, 0, 0, 0.639288, 0.5 },
         { 1, 2, 0, 0.00403808, 0, 0, 0, 0.389834, 0, 0, 0, 0, 1.26458, 0.5 },
@@ -1359,6 +1414,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "another pad",
+        "",
         "Contributed by Ken Restivo",
         { 3, 132, 0, -1.01345e-10, 0, 0, 0.739996, 0.776833, 2, 0.143184, 0, 0, 1, 0.827373 },
         { 8, 165, 0, -3.84027e-11, 0, 0, 0.833333, 0.598389, 0, 0.121871, 0, 0, 0.158313, 0.251317 },
@@ -1383,6 +1439,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "evolving async pad",
+        "",
         "use modwheel for more stuff (contributed by Ken Restivo)",
         { 3, 97, 0, 0, 0, 0, 0.696781, 1, 1, 0.008, 10, 0.100087, 0.702898, 0.140509 },
         { 3, 42, 0, 0, 0, 0, 0.696781, 1, 1, 0.002, 9, 0.111111, 0.293279, 0.69201 },
@@ -1407,6 +1464,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "evolving async pad2",
+        "",
         "use modwheel for more stuff (contributed by Ken Restivo)",
         { 3, 97, 0, 0, 0, 0, 0.931722, 0.734944, 5, 0.008, 10, 0.100087, 0.702898, 0.140509 },
         { 3, 42, 0, 0, 0, 0, 0.696781, 0.931722, 1, 0.002, 9, 0.111111, 0.293279, 0.69201 },
@@ -1431,6 +1489,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "aftertouch bright strings",
+        "",
         "based on String Thingy (contributed by Ken Restivo)",
         { 2, 21, 0, -0.00623956, 9, 0.00316481, 0, 0, 0, 0, 0, 0, 1, 0 },
         { 2, 21, 0, 0.0336766, 11, 0.00316481, 0, 0, 0, 0, 0, 0, 0, 1 },
@@ -1455,6 +1514,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "space organ async",
+        "",
         "Contributed by Ken Restivo",
         { 3, 40, 0, 0, 0, 0, 0.633435, 0.734944, 2, 0.0983891, 0, 0, 0.716139, 0 },
         { 3, 9, 0, 0, 0, 0, 0.868379, 0.696778, 4, 0.166667, 0, 0, 0, 2 },
@@ -1479,6 +1539,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "spaceecho",
+        "",
         "Xsynth-DSSI patch contributed by Silvan, echo added by Ken",
         { 1, 2, 12, 0, 0, 0, 0, 0.64, 0, 0, 0, 0, 0.336, 0 },
         { 1, 0, 24, 0, 19, 1, 1, 0, 0, 0, 0, 0, 1.064, 0 },
@@ -1503,6 +1564,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "weirdasync",
+        "",
         "Contributed by Ken Restivo",
         { 3, 120, 0, 0, 0, 0, 0.817042, 0.809186, 12, 0.124778, 1, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -1528,6 +1590,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Cheese Bazooka",
         "",
+        "",
         { 9, 97, 0, 0, 0, 0, 0.188922, 0.5, 22, 0.549984, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -1551,6 +1614,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Bent Out Of Shape",
+        "",
         "",
         { 9, 7, 0, 0, 0, 0, 0, 0, 8, 0.771484, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -1576,6 +1640,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Circuit",
         "",
+        "",
         { 8, 157, -36, 0, 0, 0, 0.356816, 0.414079, 0, 0, 0, 0, 1.03292, 0.971 },
         { 2, 72, 0, 0, 7, -0.233431, 0, 0, 0, 0, 10, 1, 1.05335, 0.5 },
         { 2, 72, -6, -0.223538, 7, 0.0432409, 0, 0, 0, 0, 12, 1, 0.70248, 0.749237 },
@@ -1599,6 +1664,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Headache",
+        "",
         "",
         { 6, 105, 0, 0, 0, 0, 0.241574, 0.467607, 9, 0.295167, 0, 0, 0.833383, 0 },
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0.420581, 0, 0.9848 },
@@ -1624,6 +1690,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "LFO Madness",
         "",
+        "",
         { 1, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0.5 },
         { 1, 2, 16, 0, 7, -0.310756, 0.940943, 0.493157, 9, 0.291445, 9, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -1647,6 +1714,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Swarmed!",
+        "",
         "",
         { 3, 41, 0, 0, 0, 0, 0.868379, 0.5, 17, 0.389834, 0, 0, 1, 0 },
         { 3, 41, 0, 0, 0, 0, 0.854481, 0.765056, 17, 0.436657, 0, 0, 0, 1 },
@@ -1672,6 +1740,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Wind Cliche",
         "",
+        "",
         { 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
         { 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.872665, 0.875222 },
@@ -1695,6 +1764,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "Grave Fight",
+        "",
         "cello-fm with amsynth filter (contributed by Idiomdrottning)",
         { 4, 98, 0, 0, 0, 0, 0.5, 0, 0, 0.507215, 6, -0.0387217, 0.5, 0.5 },
         { 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0465372, 0 },
@@ -1719,6 +1789,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "off into space",
+        "",
         "Contributed by Ken Restivo: \042man, this is fun\042",
         { 8, 157, -36, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1.46827, 1.46028 },
         { 8, 71, -12, 0, 0, -0.233431, 0.0761335, 0.685905, 0, 0, 0, 1, 1.05335, 0.5 },
@@ -1744,6 +1815,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "Faery Biker Gang",
         "",
+        "",
         { 2, 44, -12, 0, 9, 0.522618, 0, 0.375222, 0, 0, 8, 0, 1.0041, 0 },
         { 2, 44, -13, 0, 11, 0.444444, 0, 0.375222, 0, 0, 8, 0, 0.5, 0.5 },
         { 2, 44, -12, 0, 15, 0.607881, 0, 0.375222, 0, 0, 8, 0, 0, 1.06147 },
@@ -1767,6 +1839,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "============= Conversions from",
+        "",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.658, 0 },
         { 1, 0, 12, 0.0239606, 0, 0, 0, 0, 0, 0, 0, 0, 0.742, 0 },
@@ -1792,6 +1865,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "========= Xsynth-DSSI patches:",
         "",
+        "",
         { 1, 1, 0, -0.0239938, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 2, 0, 0.0240471, 0, 0, 0, 0.598389, 0, 0, 0, 0, 0.7, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5 },
@@ -1815,6 +1889,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: strings",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.0527969, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 0, 0.0527218, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -1839,6 +1914,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: strings",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.0603371, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 0, 0.0401298, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -1863,6 +1939,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Quick Strings",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 1, 0, -0.0359948, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 2, 0, 0, 0.0359716, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -1887,6 +1964,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Quick Strings",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 1, 0, -0.0659948, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 2, 0, 0, 0.0459716, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -1911,6 +1989,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: A-ha",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.658, 0 },
         { 1, 0, 12, 0.0239606, 0, 0, 0, 0, 0, 0, 0, 0, 0.742, 0 },
@@ -1935,6 +2014,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: A-ha VS",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.658, 0 },
         { 1, 3, 12, 0.0239606, 0, 0, 0, 0.0859207, 0, 0, 0, 0, 0.742, 0 },
@@ -1959,6 +2039,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Brass",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.0359948, 0, 0, 0, 0, 0, 0, 0, 0, 0.616, 0 },
         { 1, 0, 0, 0.0359716, 0, 0, 0, 0, 0, 0, 0, 0, 0.784, 0 },
@@ -1983,6 +2064,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Brass",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.0659949, 0, 0, 0, 0, 0, 0, 0, 0, 0.616, 0 },
         { 1, 0, 0, 0.0459716, 0, 0, 0, 0, 0, 0, 0, 0, 0.784, 0 },
@@ -2007,6 +2089,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Xylophone",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 2, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2031,6 +2114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Shimmer Pad",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, 0, 0, 0, 0, 0, 0.0682776, 0, 0, 0, 0, 0.78268, 0 },
         { 1, 3, 0, 0.0119411, 0, 0, 0, 0.08875, 0, 0, 0, 0, 0.61732, 0 },
@@ -2055,6 +2139,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Shimmer Pad",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, 0, -0.03, 0, 0, 0, 0.0727919, 0, 0, 10, -0.0653409, 0.78268, 0 },
         { 1, 3, 0, 0.0219411, 0, 0, 0, 0.08875, 0, 0, 12, -0.0548167, 0.61732, 0 },
@@ -2079,6 +2164,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Sun Dog",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 1, 0, -0.0239938, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 2, 0, 0.0240471, 0, 0, 0, 0.598389, 0, 0, 0, 0, 0.7, 0 },
@@ -2103,6 +2189,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Sun Dog",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 1, 0, -0.0539938, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 2, 0, 0.0340471, 0, 0, 0, 0.598389, 0, 0, 0, 0, 0.7, 0 },
@@ -2127,6 +2214,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Organ 2",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.826, 0 },
         { 1, 2, 12, 0.0239606, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.574, 0 },
@@ -2151,6 +2239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Organ 2",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 2, 0, 0, -0.03, 0, 0, 0, 0, 0, 0, 0, 0, 0.826, 0 },
         { 1, 2, 12, 0.0339606, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.574, 0 },
@@ -2175,6 +2264,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: French Horn",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 2, 0, 0, 0, 0, 0, 0.21, 0, 0, 0, 0, 0.616, 0 },
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.784, 0 },
@@ -2199,6 +2289,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: plucked",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.0527969, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 0, 0.0527218, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2223,6 +2314,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: bell",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.7, 0 },
         { 1, 3, 24, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.7, 0 },
@@ -2247,6 +2339,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: bell VS",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.7, 0 },
         { 1, 3, 24, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.7, 0 },
@@ -2271,6 +2364,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: sync_bass",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 2, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 12, 0.149708, 18, 0.275399, 1, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2295,6 +2389,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: sync_sweep",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 0, 0, 19, 1, 1, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2319,6 +2414,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: sync_sweep",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 0, 0, 19, 1, 1, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2343,6 +2439,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Gramma's Organ",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.798, 0 },
         { 1, 3, 12, 0, 7, 0.003, 0, 0.5, 0, 0, 0, 0, 0.602, 0 },
@@ -2367,6 +2464,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Long Portamento",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 8, 0.390994, 7, 0.714795, 1, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2391,6 +2489,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Owww!",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.715621, 0 },
         { 1, 0, 6, 0.0620319, 18, 0.295167, 1, 0, 0, 0, 0, 0, 0.684379, 0 },
@@ -2415,6 +2514,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Tube Growl",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 2, 10, 0.361363, 19, 1, 1, 0.5, 0, 0, 0, 0, 0.7, 0 },
@@ -2439,6 +2539,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Tube Growl",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.00671157, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 2, 13, 0.361363, 19, 1, 1, 0.5, 7, 0.143814, 0, 0, 0.7, 0 },
@@ -2463,6 +2564,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: squelchy_bass",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 0, 0, 18, 0.154198, 1, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2487,6 +2589,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: reso_sweep",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.692574, 0 },
         { 1, 0, 12, 0.0835031, 0, 0, 0, 0, 0, 0, 0, 0, 0.707426, 0 },
@@ -2511,6 +2614,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: reso_sweep",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.03, 0, 0, 0, 0, 0, 0, 0, 0, 0.692575, 0 },
         { 1, 0, 12, 0.0935031, 0, 0, 0, 0, 0, 0, 0, 0, 0.707426, 0 },
@@ -2535,6 +2639,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: theremin",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 2, 0, 24, 0, 7, 0.050261, 0, 0, 0, 0, 0, 0, 1.4, 0 },
@@ -2559,6 +2664,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Twub",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.715621, 0 },
         { 1, 2, 7, 0.43645, 7, 0.193056, 1, 0.255417, 0, 0, 0, 0, 0.684379, 0 },
@@ -2583,6 +2689,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Wavey",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 2, 10, 0.361363, 19, 1, 1, 0.5, 0, 0, 0, 0, 0.7, 0 },
@@ -2607,6 +2714,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Wavey",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 2, 10, 0.361363, 19, 1, 1, 0.5, 0, 0, 0, 0, 0.7, 0 },
@@ -2631,6 +2739,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: heart_beat",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 2, 0, 12, 0.149708, 7, 0.923867, 0, 0, 0, 0, 0, 0, 1.4, 0 },
@@ -2655,6 +2764,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: voice",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 2, 8, 0.483617, 19, 0.225724, 0, 0.931722, 0, 0, 0, 0, 1.4, 0 },
@@ -2679,6 +2789,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: VS Bass 1",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, -0.0480042, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
         { 1, 0, 0, 0.0456445, 0, 0, 0, 0, 0, 0, 0, 0, 0.7, 0 },
@@ -2703,6 +2814,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: VS Bass 2",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 3, -12, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.975489, 0 },
         { 1, 2, 8, -1.18668e-05, 0, 0, 1, 0.856816, 0, 0, 0, 0, 0.424511, 0 },
@@ -2727,6 +2839,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Klaxon",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 0, 24, 0, 7, -0.89239, 1, 0, 0, 0, 0, 0, 1.4, 0 },
@@ -2751,6 +2864,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Klaxon",
+        "Xsynth",
         "Imported Xsynth-DSSI patch",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 0, 24, -0.347185, 7, -0.89239, 1, 0, 0, 0, 0, 0, 1.4, 0 },
@@ -2775,6 +2889,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Hammond pedals",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 1, 2, 0, 0, 0, 0, 0, 0.49, 0, 0, 0, 0, 1.4, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -2799,6 +2914,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: space race",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 1, 2, 12, 0, 0, 0, 0, 0.64, 0, 0, 0, 0, 0.336, 0 },
         { 1, 0, 24, 0, 19, 1, 1, 0, 0, 0, 0, 0, 1.064, 0 },
@@ -2823,6 +2939,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Night Sweats 2",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.162, 0 },
         { 1, 0, 0, 0, 19, 0.29, 0, 0, 0, 0, 0, 0, 0.238, 0 },
@@ -2847,6 +2964,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Tweetie",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.162, 0 },
         { 1, 0, 0, 0, 19, 0.29, 0, 0, 0, 0, 0, 0, 0.238, 0 },
@@ -2871,6 +2989,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Vitreous Humor",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.98, 0 },
         { 2, 0, 24, 0, 18, 1, 1, 0, 0, 0, 0, 0, 0.42, 0 },
@@ -2895,6 +3014,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Vibrothingie",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.28, 0 },
         { 2, 0, 0, 0, 7, 0.74, 1, 0, 0, 0, 0, 0, 1.12, 0 },
@@ -2919,6 +3039,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Vibrato Hammond",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 1, 3, 24, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.98, 0 },
         { 1, 2, 12, 0, 19, 1, 1, 0.5, 0, 0, 0, 0, 0.42, 0 },
@@ -2943,6 +3064,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Music Box",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 2, 0, 24, -0.03, 0, 0, 0, 0, 0, 0, 0, 0, 1.4, 0 },
         { 1, 2, 0, 0.01, 18, 0.69, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -2967,6 +3089,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X: Ploink Box",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 1, 3, 24, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.854, 0 },
         { 2, 0, 12, 0, 18, 1, 1, 0, 0, 0, 0, 0, 0.546, 0 },
@@ -2991,6 +3114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "X2: Polkenstein",
+        "Xsynth",
         "Xsynth-DSSI patch contributed by Silvan",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.176, 0 },
         { 2, 0, 12, 0, 18, 0.56, 1, 0, 0, 0, 0, 0, 0.224, 0 },
@@ -3016,6 +3140,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "====== Rudimentary conversions",
         "",
+        "",
         { 2, 19, -12, 0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 22, -12, -0.05, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5 },
@@ -3040,6 +3165,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "====== from Kawai K4 patches:",
         "",
+        "",
         { 2, 16, -12, -0.09, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 16, -12, 0.09, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 19, -12, -0.03, 0, 0, 0, 0, 0, 0, 19, 1, 0, 0.5 },
@@ -3063,6 +3189,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Lue",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 80, 19, 0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 116, -12, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3087,6 +3214,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Monocultur",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 101, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, 0, 0.09, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3111,6 +3239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: BreezeGame",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 62, 0, -0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 99, 0, 0.01, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3135,6 +3264,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: E.Piano S1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 61, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 60, 0, 0.01, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3159,6 +3289,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: FletchLead",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 19, -24, -0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 22, -12, 0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3183,6 +3314,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: jaBBazyntx",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 23, -12, -0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 24, -12, 0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3207,6 +3339,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: MICROwave",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, -0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 122, -24, 0.03, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3231,6 +3364,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: OBIErezPAD",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, -0.07, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 21, -12, 0.07, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3255,6 +3389,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: van halen",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 19, -12, -0.09, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 19, -12, 0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3279,6 +3414,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Glaschords",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 102, -12, -0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 102, -12, 0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3303,6 +3439,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Harmonics",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 6, 16, -0.11, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 42, -12, -0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3327,6 +3464,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Polysynth",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 15, -12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 15, -12, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3351,6 +3489,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Pyeipzz",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 96, -24, 0.03, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 96, -24, -0.03, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3375,6 +3514,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Reedy Synt",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 98, 0, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -3399,6 +3539,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Return",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 74, -12, -0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 101, -12, 0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3423,6 +3564,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: TechnoTube",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 87, 19, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 98, -12, 0.01, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3447,6 +3589,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Thin Keys",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 92, 24, -0.01, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 105, -12, -0.03, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3471,6 +3614,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Vectory !",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 114, 19, 0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 118, -12, 0.05, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3495,6 +3639,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Warm Synpi",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 110, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 115, -12, 0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3519,6 +3664,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Woodpecker",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 54, -12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 100, 0, 0, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3543,6 +3689,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Zippoline",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 22, 0, 0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 29, 0, -0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3567,6 +3714,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Double Wha",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 19, 0, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 26, 0, 0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3591,6 +3739,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Lurkerer",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 41, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 12, 0, 0, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3615,6 +3764,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Remember?",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 19, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 92, -12, 0.01, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3639,6 +3789,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Talkochord",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 113, 12, -0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 105, -12, -0.03, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3663,6 +3814,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Cla Bell",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 0, -24, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 81, 0, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3687,6 +3839,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Euro*Dig",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 59, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 59, -12, 0.06, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3711,6 +3864,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: FINE FINE",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 60, 0, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 75, 0, 0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3735,6 +3889,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Spring Sky",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 75, 12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 63, 0, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3759,6 +3914,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: AmbientHrp",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 66, 0, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3783,6 +3939,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: BitterStrg",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 60, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 115, 0, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3807,6 +3964,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: LylesStrng",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 19, 0, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 19, 0, 0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3831,6 +3989,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: OB Strings",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, 0, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, 0, 0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3855,6 +4014,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: EnglishHrn",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 47, 0, 0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3879,6 +4039,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: emphasizer",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 26, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 24, -12, 0.13, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3903,6 +4064,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: UnderAtack",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 23, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 19, -12, 0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3927,6 +4089,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Soundtrack",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, -5, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -3951,6 +4114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Sync Wail",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 73, 0, -0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 103, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3975,6 +4139,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: VeryHiVocs",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 80, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 80, 0, -0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -3999,6 +4164,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: CleanOrgn1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 87, -12, -0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 83, -12, 0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4023,6 +4189,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: IndoProOne",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 23, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 0, -12, 0.21, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4047,6 +4214,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Moog+ChDly",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 116, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 116, 12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4071,6 +4239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: PPG/VelRes",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, 0, -0.06, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 122, 0, 0.06, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4095,6 +4264,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: RememberMe",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 27, -12, 0.06, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 12, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4119,6 +4289,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: RichRhodes",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 63, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 63, -12, 0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4143,6 +4314,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: CleanOrgn3",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 96, -12, -0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 88, -12, 0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4167,6 +4339,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Bob'sBass",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 0, -24, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 24, -12, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4191,6 +4364,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: digitaSYNT",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 93, -24, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 88, 0, 0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4215,6 +4389,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: elektrik 1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 77, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 77, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4239,6 +4414,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: PropaQ PaD",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, 0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4263,6 +4439,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Vibraphon",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 75, 0, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 75, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4287,6 +4464,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Sierra",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 106, -12, 0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 106, 0, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4311,6 +4489,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Spinn Solo",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 75, 7, 0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 96, -12, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4335,6 +4514,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Seventy",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 109, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 77, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4359,6 +4539,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: OhhBe Ex-A",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, -0.04, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 19, -12, 0.07, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4383,6 +4564,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: OldSutCase",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 61, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 8, -10, -0.1, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4407,6 +4589,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Lead Me",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 111, 0, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, 0, 0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4431,6 +4614,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Memory",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, -12, 0.03, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 26, -12, -0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4455,6 +4639,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Glass EP",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 108, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 72, 4, 0.34, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4479,6 +4664,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Super KX",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, 0.03, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 21, -12, -0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4503,6 +4689,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: SquareLead",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 53, 0, 0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 12, 0, -0.03, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4527,6 +4714,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Rock Organ",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 85, -12, -0.03, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 85, -12, 0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4551,6 +4739,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Warmth",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, -12, 0.05, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4575,6 +4764,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Miniapolis",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, -12, 0.04, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 26, -12, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4599,6 +4789,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Reso Syn",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 19, 0, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 19, 7, 0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4623,6 +4814,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Oboe",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 47, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4647,6 +4839,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Mini Bass",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 31, -12, 0.03, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 26, -12, -0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4671,6 +4864,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Melo Vox 1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 12, -12, -0.06, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 12, -12, 0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4695,6 +4889,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Melo Waves",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 71, 0, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 71, 0, 0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4719,6 +4914,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: MelSqrSwep",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, 0, -0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 53, 0, 0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4743,6 +4939,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Sqr Sweep1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, -12, -0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 24, -12, 0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4767,6 +4964,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: SqrMel Ld1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, 24, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 24, 0, 0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4791,6 +4989,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: SqrMel Ld2",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, -12, -0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 24, -12, 0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4815,6 +5014,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Slow Swell",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, -0.06, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, -12, 0.06, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4839,6 +5039,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Eeeevil 1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 122, -24, 0.03, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 122, -24, -0.03, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4863,6 +5064,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Matheim",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 16, -12, -0.09, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 16, -12, 0.09, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -4887,6 +5089,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Celest",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 80, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 8, 0, -0.25, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4911,6 +5114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Xylophone",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 81, 2, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 12, 12, 0, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4935,6 +5139,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: WaterBells",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 76, 0, 0.43, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 75, -12, 0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4959,6 +5164,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Oh Bo! Mel",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 103, 12, -0.01, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 47, -12, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -4983,6 +5189,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Sunday 1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 40, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 71, -12, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5007,6 +5214,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Sunday  2",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 83, -12, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 92, -12, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5031,6 +5239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Sunday  3",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 96, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 92, -12, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5055,6 +5264,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Rezysyn",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 15, -12, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5079,6 +5289,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Reso.Syn 0",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 22, 0, -0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 22, 7, 0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5103,6 +5314,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: 4osc. Juno",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, 12, -0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 22, 0, 0.05, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5127,6 +5339,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: MooG InvsN",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 12, 0, -0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 12, 0, 0.05, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5151,6 +5364,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: MooG InvsN (edited)",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 12, 0, -0.05, 7, 0.0219108, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 12, 0, 0.05, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5175,6 +5389,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: ToyPiano16",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 91, 0, -0.09, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 2, 0, 0.11, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5199,6 +5414,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: 7ender EP",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 56, -9, -0.2, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 42, -12, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5223,6 +5439,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Apham EP",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 42, 0, 0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5247,6 +5464,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Traum",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, -12, 0.03, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 54, 12, -0.03, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5271,6 +5489,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: EP",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 56, -9, -0.2, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 42, -12, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5295,6 +5514,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Blue*G*Org",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 2, 0, 0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 40, -12, 0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5319,6 +5539,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Mild",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 42, -12, 0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 15, -12, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5343,6 +5564,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Peak-A-Bos",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 122, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, -12, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5367,6 +5589,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Harpsich60",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 69, 0, 0.01, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 68, 0, 0, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5391,6 +5614,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Troubles",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 61, 0, -0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 60, 0, 0.02, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5415,6 +5639,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Contempo",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 63, 0, 0.02, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 63, -12, -0.02, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5439,6 +5664,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: GurglGhost",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 23, -24, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5463,6 +5689,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: ClavRhods",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 1, 24, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 101, 0, 0.01, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5487,6 +5714,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: DX-7 Piano",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 58, -12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 63, -12, 0.09, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5511,6 +5739,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Every",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 63, 0, 0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 63, -12, -0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5535,6 +5764,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Iron E.P",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 56, -9, -0.2, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 42, -12, -0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5559,6 +5789,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: SemiRoads",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 58, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 56, -12, -0.09, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5583,6 +5814,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Glocklock+",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 91, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 75, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5607,6 +5839,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Wastmnstr+",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 96, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 96, -12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5631,6 +5864,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: HouseBass+",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 41, 0, 0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, 0, 0.09, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5655,6 +5889,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Taurs4Pol+",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, 0, -0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, 0, 0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5679,6 +5914,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Frogbell",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 75, -12, 0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 77, -12, 0.02, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5703,6 +5939,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Raspel",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 96, 0, -0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -5727,6 +5964,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Clarinet",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 46, 0, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5751,6 +5989,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Glass Harp",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 102, 0, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 103, 0, 0.01, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5775,6 +6014,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: GlockGlock",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 91, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 75, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5799,6 +6039,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Islandbell",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 99, 12, 0.15, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 76, -12, -0.1, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5823,6 +6064,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Drops",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 75, 12, 0.06, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 75, 12, 0.06, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5847,6 +6089,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: scritti",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 68, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 68, 0, 0.02, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5871,6 +6114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: UnAnalogic",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 113, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 113, -12, -0.05, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5895,6 +6139,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: dead PIANO",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 67, -12, -0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 112, -12, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -5919,6 +6164,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: digistical",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 102, 0, 0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 103, 0, -0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5943,6 +6189,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: modular 1",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, -12, -0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 112, 0, 0.01, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5967,6 +6214,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: obPAD+dxEP",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, -12, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, -12, -0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -5991,6 +6239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Candlemass",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 75, 12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 63, 0, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -6015,6 +6264,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Eno's Mini",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 24, 0, 0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 24, 0, -0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -6039,6 +6289,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: SyntexBass",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 122, -12, 0, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 111, -12, 0, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -6063,6 +6314,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: OBX Brass",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 19, -12, 0.05, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 22, -12, -0.05, 0, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -6087,6 +6339,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: OceanBrass",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 16, -12, -0.09, 0, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 16, -12, 0.09, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -6111,6 +6364,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Alassen",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 103, -24, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 117, -5, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -6135,6 +6389,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: AnalgClavi",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 29, 7, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 48, -12, -0.01, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -6159,6 +6414,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Kaliohpann",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 103, -24, -0.04, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 103, -5, 0.04, 7, 0, 0, 0, 0, 0, 19, 1, 0.5, 0 },
@@ -6183,6 +6439,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: Pepe,Geh !",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 53, 19, 0.03, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -6207,6 +6464,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "K4oid: K4-Init",
+        "K4oid",
         "(Mis)Interpreted Kawai K4 patch",
         { 2, 18, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
         { 2, 18, 0, 0, 7, 0, 0, 0, 0, 0, 18, 1, 0.5, 0 },
@@ -6232,6 +6490,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "================ Test patches:",
         "",
+        "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6255,6 +6514,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "sweep alias test (key=100)",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 13, -0.158873, 7, 0.863445, 0, 0.5, 0, 0, 0, 0, 1.4, 0 },
@@ -6279,6 +6539,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "sweep alias test 2 (key=108)",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 0, 0, 7, 0.57, 0, 0.5, 0, 0, 0, 0, 1.4, 0 },
@@ -6303,6 +6564,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "sync alias test (key=108)",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 13, -0.158873, 7, 0.863445, 1, 0.5, 0, 0, 0, 0, 1.4, 0 },
@@ -6327,6 +6589,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "mod discontinuity test",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 13, -0.158873, 7, -0.8634, 0, 0.5, 0, 0, 0, 0, 1.4, 0 },
@@ -6351,6 +6614,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "subsample alias test (key=94)",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 12, 0.124202, 7, 0.431722, 1, 0.5, 0, 0, 0, 0, 1.4, 0 },
@@ -6375,6 +6639,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "subsample alias 2 (key=60)",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 12, 0.0120278, 7, 0.166667, 1, 0.5, 0, 0, 0, 0, 1.4, 0 },
@@ -6399,6 +6664,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "subsample alias 3 (key=96)",
+        "[test]",
         "",
         { 1, 0, 0, 0.391136, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 0, 0.108381, 7, 0.791445, 1, 0.0682776, 0, 0, 0, 0, 1.4, 0 },
@@ -6423,6 +6689,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "clipsaw sync test",
+        "[test]",
         "",
         { 1, 0, 0, 0, 5, 0, 0, 1, 22, 1, 0, 0, 0, 0 },
         { 1, 5, 34, 0, 22, 0.718651, 1, 0.102393, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6447,6 +6714,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "clipsaw sync test 2, key=72",
+        "[test]",
         "",
         { 1, 0, 0, 0, 5, 0, 0, 1, 22, 1, 0, 0, 0, 0 },
         { 1, 5, 28, 0, 22, 0.111111, 1, 0.181799, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6471,6 +6739,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "startup thump test (key=108)",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 2, 7, -0.279991, 0, 0, 1, 0.06, 0, 0, 0, 0, 1.4, 0 },
@@ -6495,6 +6764,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "tri sync thump test (key=77)",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 1, 3, 14, -0.320002, 7, 0.57, 1, 0.08, 0, 0, 0, 0, 1.4, 0 },
@@ -6519,6 +6789,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "pulse click! (key=106)",
+        "[test]",
         "",
         { 1, 2, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0 },
         { 1, 2, 13, -0.158873, 7, 0.863445, 0, 0.21, 0, 0, 0, 0, 1.4, 0 },
@@ -6543,6 +6814,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "pulse click! (key=103)",
+        "[test]",
         "",
         { 1, 2, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0 },
         { 1, 2, 13, -0.158873, 7, 0.863445, 0, 0.21, 0, 0, 0, 0, 1.4, 0 },
@@ -6567,6 +6839,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "osc amp mod test",
+        "[test]",
         "",
         { 2, 83, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0.0573404, 1, 0 },
         { 2, 95, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0.0739899, 0, 1 },
@@ -6591,6 +6864,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "amp mod test 2",
+        "[test]",
         "",
         { 2, 71, 0, 0, 0, 0, 0, 0, 0, 0, 9, 1, 1, 0 },
         { 2, 83, 0, 0, 0, 0, 0, 0, 0, 0, 11, 1, 0.989903, 0 },
@@ -6615,6 +6889,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "new filter test",
+        "[test]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.0147647, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6639,6 +6914,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "eg amp mod test",
+        "[test]",
         "",
         { 1, 0, 0, 0, 18, 1, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6663,6 +6939,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "wave comparer (LFO)",
+        "[test]",
         "",
         { 2, 18, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0.433205, 0.674532, 0.5 },
         { 2, 19, 0, 0, 0, 0, 0, 0, 0, 0, 11, 0.461224, 0.674532, 0.5 },
@@ -6688,6 +6965,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     {
         "========= Development patches:",
         "",
+        "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6711,6 +6989,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "-Xsynth-DSSI single init voice",
+        "[devel]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -6735,6 +7014,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "-Xsynth-DSSI dual init voice-",
+        "[devel]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -6759,6 +7039,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "- K4oid single init voice -",
+        "[devel]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -6783,6 +7064,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "- K4oid dual init voice -",
+        "[devel]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -6807,6 +7089,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "- K4oid twin init voice -",
+        "[devel]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -6831,6 +7114,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "- K4oid double init voice -",
+        "[devel]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -6855,6 +7139,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "GSynth",
+        "[devel]",
         "Starting point for Juno 106-like patches from Garett Shulman",
         { 2, 0, -12, 0, 1, 0, 0, 0, 0, 0, 18, 0, 0.5, 0 },
         { 1, 2, 0, 0, 0, 0, 0, 0.492026, 6, 0.149838, 18, 0, 0.5, 0 },
@@ -6879,6 +7164,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         " <dual agran base>",
+        "[devel]",
         "",
         { 3, 90, 0, 0, 0, 0, 0.696781, 1, 1, 0.008, 0, 0, 0.702898, 0 },
         { 3, 90, 0, 0, 0, 0, 0.696781, 1, 1, 0.002, 0, 0, 0, 0.69201 },
@@ -6903,6 +7189,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "  <PADsynth stereo base>",
+        "[devel]",
         "",
         { 8, 12, 0, 0, 0, 0, 0.431722, 0.5, 0, 0, 0, 0, 0.5, 0.5 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6927,6 +7214,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         "<effect: short echo>",
+        "[devel]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.916019, 0.916019 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },
@@ -6951,6 +7239,7 @@ y_patch_t y_friendly_patches[FRIENDLY_PATCH_COUNT] = {
     },
     {
         " <init voice>",
+        "[devel]",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },   /* osc1 */
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0.5 },   /* osc2 */

@@ -41,8 +41,9 @@ int   y_data_read_patch(FILE *file, y_patch_t *patch);
 char *y_data_locate_patch_file(const char *origpath, const char *project_dir);
 
 /* in gui_data.c: */
-int  gui_data_write_patch(FILE *file, y_patch_t *patch);
-int  gui_data_save(char *filename, int start, int end, char **message);
+int  gui_data_write_patch(FILE *file, y_patch_t *patch, int format);
+int  gui_data_save(char *filename, int start, int end, int format,
+                   char **message);
 int  gui_data_save_dirty_patches_to_tmp(void);
 void gui_data_check_patches_allocation(int patch_index);
 int  gui_data_load(const char *filename, int position, char **message);

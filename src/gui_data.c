@@ -49,7 +49,7 @@
 #include "gui_main.h"
 #include "common_data.h"
 
-static int
+static void
 patch_write_text(FILE *file, char *text, int maxlen)
 {
     int i;
@@ -64,7 +64,6 @@ patch_write_text(FILE *file, char *text, int maxlen)
             fputc(text[i], file);
         }
     }
-    return fprintf(file, "\n"); /* -FIX- error handling... */
 }
 
 static int
@@ -109,13 +108,23 @@ patch_write_eg(FILE *file, char which, struct peg *eg)
 }
 
 int
-gui_data_write_patch(FILE *file, y_patch_t *patch)
+gui_data_write_patch(FILE *file, y_patch_t *patch, int format)
 {
     fprintf(file, "# WhySynth patch\n");
-    fprintf(file, "WhySynth patch format %d begin\n", 0);
+    fprintf(file, "WhySynth patch format %d begin\n", format);
 
     fprintf(file, "name ");
     patch_write_text(file, patch->name, 30);
+    if (strlen(patch->category)) {
+        if (format == 0) {
+            fputc(' ', file); /* piggy back category on the name field */
+        } else {
+            fputc('\n', file); /* put it on its own line */
+        }
+        fprintf(file, "category ");
+        patch_write_text(file, patch->category, 10);
+    }
+    fputc('\n', file);
 
     if (strlen(patch->comment)) {
         fprintf(file, "comment ");
@@ -195,7 +204,7 @@ void y_restore_old_numeric_locale(void) { return; }
  * gui_data_save
  */
 int
-gui_data_save(char *filename, int start, int end, char **message)
+gui_data_save(char *filename, int start, int end, int format, char **message)
 {
     FILE *fh;
     int i;
@@ -209,7 +218,7 @@ gui_data_save(char *filename, int start, int end, char **message)
     }
     y_set_C_numeric_locale();
     for (i = start; i <= end; i++) {
-        if (!gui_data_write_patch(fh, &patches[i])) {
+        if (!gui_data_write_patch(fh, &patches[i], format)) {
             y_restore_old_numeric_locale();
             fclose(fh);
             if (message) *message = strdup("error while writing file");
@@ -240,7 +249,7 @@ gui_data_save_dirty_patches_to_tmp(void)
     }
     y_set_C_numeric_locale();
     for (i = 0; i < patch_count; i++) {
-        if (!gui_data_write_patch(fh, &patches[i])) {
+        if (!gui_data_write_patch(fh, &patches[i], 1)) {
             y_restore_old_numeric_locale();
             fclose(fh);
             return 0;
@@ -439,6 +448,10 @@ gui_data_write_patch_as_c(FILE *file, y_patch_t *patch)
     fprintf(file, "\",\n");
 
     fprintf(file, "        \"");
+    c_write_text(file, patch->category, 30);
+    fprintf(file, "\",\n");
+
+    fprintf(file, "        \"");
     c_write_text(file, patch->comment, 60);
     fprintf(file, "\",\n");
 
@@ -520,6 +533,7 @@ gui_data_save_as_c(char *filename, int start, int end, char **message)
 y_patch_t y_init_voice_xsynth_single = {
         /* -PORTS- */
         "-Xsynth-DSSI single init voice",
+        "Xsynth",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -546,6 +560,7 @@ y_patch_t y_init_voice_xsynth_single = {
 y_patch_t y_init_voice_xsynth_dual = {
         /* -PORTS- */
         "-Xsynth-DSSI dual init voice-",
+        "Xsynth",
         "",
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -691,6 +706,7 @@ gui_data_read_xsynth_patch(FILE *file, y_patch_t *patch, int dual)
 
     memcpy(&tmp, dual ? &y_init_voice_xsynth_dual
                       : &y_init_voice_xsynth_single, sizeof(y_patch_t));
+    strcpy(tmp.category, "Xsynth");
     strcpy(tmp.comment, "Imported Xsynth-DSSI patch");
 
     while (1) {
@@ -985,6 +1001,7 @@ gui_data_import_xsynth(const char *filename, int position, int dual, char **mess
 y_patch_t y_init_voice_k4_single = {
         /* -PORTS- */
         "- K4oid single init voice -",
+        "K4oid",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1011,6 +1028,7 @@ y_patch_t y_init_voice_k4_single = {
 y_patch_t y_init_voice_k4_dual = {
         /* -PORTS- */
         "- K4oid dual init voice -",
+        "K4oid",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1037,6 +1055,7 @@ y_patch_t y_init_voice_k4_dual = {
 y_patch_t y_init_voice_k4_twin = {
         /* -PORTS- */
         "- K4oid twin init voice -",
+        "K4oid",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1063,6 +1082,7 @@ y_patch_t y_init_voice_k4_twin = {
 y_patch_t y_init_voice_k4_double = {
         /* -PORTS- */
         "- K4oid double init voice -",
+        "K4oid",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1285,6 +1305,7 @@ k4_interpret_patch(int number, unsigned char *data, y_patch_t *patch, int dual)
     }
     while (i > 0 && tmp.name[j + i - 1] == ' ') i--;
     tmp.name[j + i] = 0;
+    strcpy(tmp.category, "K4oid");
     strcpy(tmp.comment, "(Mis)Interpreted Kawai K4 patch");
 
     printf("%s", tmp.name);

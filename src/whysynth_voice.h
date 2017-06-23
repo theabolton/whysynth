@@ -128,6 +128,7 @@ struct peg
 struct _y_patch_t
 {
     char          name[31];
+    char          category[11];
     char          comment[61];
 
     struct posc   osc1,
