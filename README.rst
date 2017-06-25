@@ -202,6 +202,14 @@ Patches Tab
 Selecting the 'Patches' tab displays a list of all the patches loaded.
 Clicking on the name of a patch causes that patch to be selected.
 
+The sort order of the patch list may be changed by clicking on the list
+headers, 'ProgNo' (program number), 'Category', and 'Name'. The sort order is
+somewhat "sticky": if you want to sort by category, and then sub-sort by name,
+click on the 'Name' header and then the 'Category' header; the list will
+remember that you were sorting by name before, and use that for the sub-sort.
+Similarly, if you want to sort by category, and then sub-sort by patch number,
+click on the 'ProgNo' header and then the 'Category' header.
+
 Configuration Tab
 -----------------
 Tuning
@@ -309,6 +317,12 @@ Patch Edit Window
 This windows allows you to edit patches.
 
 The 'Patch Name' text box allows you to change the name of a patch.
+
+You may assign the patch a category using the 'Category' text box, which is
+then displayed in the main patch list, and can optionally be used to sort your
+patches based on their category. Categories are free-form, so you can set them
+to whatever seems useful.
+
 You may optionally add a comment to a patch in the 'Comment' box.
 
 The controls in the Osc1, Osc2, Osc3, Osc4, Filters, Mix, Effect,
