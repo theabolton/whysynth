@@ -130,6 +130,7 @@ gui_data_write_patch(FILE *file, y_patch_t *patch, int format)
         fprintf(file, "comment ");
         patch_write_text(file, patch->comment, 60);
     }
+    fputc('\n', file);
 
     /* -PORTS- */
     patch_write_osc(file, 1, &patch->osc1);
@@ -272,7 +273,7 @@ gui_data_check_patches_allocation(int patch_index)
             i;
 
         if (!(patches = (y_patch_t *)realloc(patches, n * sizeof(y_patch_t)))) {
-            GDB_MESSAGE(-1, " gui_data_friendly_patches fatal: out of memory!\n");
+            GDB_MESSAGE(-1, " gui_data_check_patches_allocation fatal: out of memory!\n");
             exit(1);
         }
 
@@ -1001,7 +1002,7 @@ gui_data_import_xsynth(const char *filename, int position, int dual, char **mess
 y_patch_t y_init_voice_k4_single = {
         /* -PORTS- */
         "- K4oid single init voice -",
-        "K4oid",
+        "[K4oid]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1028,7 +1029,7 @@ y_patch_t y_init_voice_k4_single = {
 y_patch_t y_init_voice_k4_dual = {
         /* -PORTS- */
         "- K4oid dual init voice -",
-        "K4oid",
+        "[K4oid]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1055,7 +1056,7 @@ y_patch_t y_init_voice_k4_dual = {
 y_patch_t y_init_voice_k4_twin = {
         /* -PORTS- */
         "- K4oid twin init voice -",
-        "K4oid",
+        "[K4oid]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1082,7 +1083,7 @@ y_patch_t y_init_voice_k4_twin = {
 y_patch_t y_init_voice_k4_double = {
         /* -PORTS- */
         "- K4oid double init voice -",
-        "K4oid",
+        "[K4oid]",
         "",
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
         { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0 },
@@ -1305,7 +1306,7 @@ k4_interpret_patch(int number, unsigned char *data, y_patch_t *patch, int dual)
     }
     while (i > 0 && tmp.name[j + i - 1] == ' ') i--;
     tmp.name[j + i] = 0;
-    strcpy(tmp.category, "K4oid");
+    strcpy(tmp.category, "[K4oid]");
     strcpy(tmp.comment, "(Mis)Interpreted Kawai K4 patch");
 
     printf("%s", tmp.name);
