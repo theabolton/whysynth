@@ -1914,18 +1914,23 @@ update_from_program_select(int program)
 {
     if (program < patch_count) {
         GtkTreeIter iter;
+        GtkTreeSelection *selection;
+        GtkTreeModel *store;
+        GtkTreePath *path;
 
         GDB_MESSAGE(GDB_GUI, " update_from_program_select: received program %d\n", program);
 
         find_program_in_list_store(&iter, program);
         /* update selected row, but don't call on_patches_selection_changed() */
-        GtkTreeSelection *selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(patches_list));
+        selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(patches_list));
         g_signal_handlers_block_by_func(selection, on_patches_selection_changed, NULL);
         gtk_tree_selection_select_iter(selection, &iter);
-        /* emit cursor-changed signal to get view to update */
-        g_signal_emit_by_name(patches_list, "cursor-changed");
-        /* -FIX- it would be nice to move the GtkScrolledWindow so that the selected row is
-         * in view. Anybody know how to do that easily? */
+        /* If necessary, move the scrolled window to make the selected patch visible. Note that
+         * without doing this, we'd need to emit cursor-changed to get the view to update. */
+        store = gtk_tree_view_get_model(GTK_TREE_VIEW(patches_list));
+        path = gtk_tree_model_get_path(store, &iter);
+        gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(patches_list), path, NULL, FALSE, 0.0f, 0.0f);
+        /* restore normal signal handling */
         g_signal_handlers_unblock_by_func(selection, on_patches_selection_changed, NULL);
 
         update_voice_widgets_from_patch(&patches[program]);
