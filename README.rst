@@ -85,7 +85,7 @@ WhySynth requires the following:
   (WhySynth contains code to use FFTW version 2, but it is
   untested and not supported.)
 
-- GTK+ version 2.4 or later.  (If a suitable GTK+ installation
+- GTK+ version 2.24 or later.  (If a suitable GTK+ installation
   is not found, the plugin will be built without the GUI.)
 
 - the LADSPA v1.x SDK.

@@ -23,7 +23,7 @@ PKG_CHECK_MODULES(GUI, liblo >= 0.12)
 
 dnl Check for GTK+
 with_gtk=no
-AM_PATH_GTK_2_0(2.4.0, with_gtk='yes', AC_MSG_WARN([GUI will not be built; GTK+ 2.4 or later needed]))
+AM_PATH_GTK_2_0(2.24.0, with_gtk='yes', AC_MSG_WARN([GUI will not be built; GTK+ 2.24 or later needed]))
 AM_CONDITIONAL(BUILD_GUI, test "x${with_gtk}" != 'xno')
 
 dnl developer functions

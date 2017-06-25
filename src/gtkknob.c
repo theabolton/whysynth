@@ -1,22 +1,13 @@
 /* gtkknob.c - libwhy GtkKnob knob widget
  *
- * Copyright (C) 2008, 2010, 2016 Sean Bolton
+ * Copyright (C) 2008, 2010, 2011, 2012, 2017 Sean Bolton
  *
  * Parts of this code come from GTK+, both the library source and
- * the example programs.  Other bits come from gAlan 0.2.0,
- * copyright (C) 1999 Tony Garnock-Jones.
+ * the example programs.
  *
- * gtkknob-cairo_or_pixmap_selectable.c
- *
- * - This version requires GTK+ 2.0 or later.
- * - This version can use fast but ugly server-side pixmaps to draw
- *   the knobs.
- * - On GTK+ 2.8 or later, this can also use cairo to draw nice but
- *   relatively slower anti-aliased knobs.
- * - On GTK+ 2.8 or later, cairo is the default, but this can be
- *   changed using the function gtk_knob_set_fast_rendering().
- * -FIX- It would be nice to add a property "fast-rendering" that
- * could be easily set....
+ * This version requires GTK+ 2.8 or later (for cairo).
+ * This version uses the 'gtk-control-rotary-prefer-radial'
+ * GtkSettings property.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -34,15 +25,15 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _DEFAULT_SOURCE 1
-#define _ISOC99_SOURCE  1
+#define _ISOC99_SOURCE
+#define _BSD_SOURCE
 
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <gtk/gtk.h>
 
-#include "gtkknob.h"
+#include "why/gtkknob.h"
 
 #define KNOB_SIZE               32
 #define HALF_KNOB_SIZE          (KNOB_SIZE / 2)
@@ -58,24 +49,11 @@ enum {
 
 static GtkWidgetClass *parent_class = NULL;
 
-#if GTK_CHECK_VERSION(2, 8, 0)
-static int prefer_cairo = TRUE;
-#else /* GTK_CHECK_VERSION(2, 8, 0) */
-static int prefer_cairo = FALSE;
-#endif /* GTK_CHECK_VERSION(2, 8, 0) */
-
 static struct {
     int refcount;
-    GdkPixmap *pixmap;
-    GdkPixmap *insensitive_pixmap;
-    GdkBitmap *mask;
-    GdkGC     *mask_gc;
-    GdkGC     *red_gc;
-#if GTK_CHECK_VERSION(2, 8, 0)
     cairo_surface_t *knob_surface;
     cairo_surface_t *insensitive_knob_surface;
     cairo_pattern_t *shadow_pattern;
-#endif
 } common;
 
 G_DEFINE_TYPE (GtkKnob, gtk_knob, GTK_TYPE_WIDGET);
@@ -87,6 +65,7 @@ static void     gtk_knob_finalize      (GObject   *object);
 static void     gtk_knob_realize       (GtkWidget *widget);
 static void     gtk_knob_size_request  (GtkWidget *widget, GtkRequisition *requisition);
 static void     gtk_knob_size_allocate (GtkWidget *widget, GtkAllocation  *allocation);
+static gboolean gtk_knob_expose        (GtkWidget *knob, GdkEventExpose *event);
 static gint     gtk_knob_button_press  (GtkWidget *widget, GdkEventButton *event);
 static gint     gtk_knob_button_release(GtkWidget *widget, GdkEventButton *event);
 static gint     gtk_knob_motion_notify (GtkWidget *widget, GdkEventMotion *event);
@@ -96,8 +75,8 @@ static void     gtk_knob_adjustment_value_changed (GtkAdjustment *adjustment,
                                                    gpointer       data);
 static void     gtk_knob_adjustment_changed (GtkAdjustment *adjustment,
                                              gpointer       data);
-static gboolean gtk_knob_expose        (GtkWidget *knob, GdkEventExpose *event);
-static void     gtk_knob_common_initialize(GtkWidget *widget);
+static void     gtk_knob_paint         (GtkWidget *widget, cairo_t *cr);
+static void     gtk_knob_common_initialize(void);
 static void     gtk_knob_common_finalize(void);
 
 
@@ -121,17 +100,21 @@ gtk_knob_class_init (GtkKnobClass *class)
     widget_class->button_release_event = gtk_knob_button_release;
     widget_class->motion_notify_event = gtk_knob_motion_notify;
 
+    /* ugly: GtkControl properly "owns" the gtk-control-rotary-prefer-radial setting
+     * property, but GtkKnob can be used without GtkControl, so they both check if the
+     * property exists, and install it if it doesn't. */
+    if (g_object_class_find_property(G_OBJECT_GET_CLASS(gtk_settings_get_default()),
+                                     "gtk-control-rotary-prefer-radial") == NULL)
+        gtk_settings_install_property (g_param_spec_boolean ("gtk-control-rotary-prefer-radial",
+                                                             "Rotary GtkControls prefer radial mode",
+                                                             "Whether rotary control's primary mode of operation should be radial",
+                                                             FALSE,
+                                                             G_PARAM_READWRITE|G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
+
     common.refcount = 0;
-    common.pixmap = NULL;
-    common.insensitive_pixmap = NULL;
-    common.mask = NULL;
-    common.mask_gc = NULL;
-    common.red_gc = NULL;
-#if GTK_CHECK_VERSION(2, 8, 0)
     common.knob_surface = NULL;
     common.insensitive_knob_surface = NULL;
     common.shadow_pattern = NULL;
-#endif
 }
 
 
@@ -140,6 +123,9 @@ gtk_knob_init (GtkKnob *knob)
 {
     knob->adjustment = NULL;
     knob->policy = GTK_UPDATE_CONTINUOUS;
+    g_object_get (gtk_widget_get_settings (GTK_WIDGET(knob)),
+                  "gtk-control-rotary-prefer-radial",
+                  &knob->prefer_radial, NULL);
     knob->state = STATE_IDLE;
     knob->center_x = 0;
     knob->center_y = 0;
@@ -196,17 +182,6 @@ gtk_knob_destroy (GtkObject *object)
     }
 
     (* GTK_OBJECT_CLASS (parent_class)->destroy) (object);
-}
-
-
-void
-gtk_knob_set_fast_rendering(gboolean setting)
-{
-#if GTK_CHECK_VERSION(2, 8, 0)
-    prefer_cairo = (setting ? FALSE : TRUE);
-#else
-    prefer_cairo = FALSE;
-#endif
 }
 
 
@@ -296,7 +271,7 @@ gtk_knob_realize (GtkWidget *widget)
     widget->style = gtk_style_attach (widget->style, widget->window);
     gtk_style_set_background (widget->style, widget->window, GTK_STATE_NORMAL);
 
-    gtk_knob_common_initialize(widget);
+    gtk_knob_common_initialize();
 }
 
 
@@ -325,6 +300,43 @@ gtk_knob_size_allocate (GtkWidget     *widget,
 }
 
 
+static gboolean
+gtk_knob_expose (GtkWidget *widget, GdkEventExpose *event)
+{
+    int center_x, center_y;
+    int l, t, r, b;
+    cairo_t *cr;
+
+    g_return_val_if_fail(GTK_IS_KNOB(widget), FALSE);
+    g_return_val_if_fail(event != NULL, FALSE);
+
+    /* minimize the clip area to just what we'll actually draw (32x32 at most) */
+    center_x = widget->allocation.width / 2;
+    center_y = widget->allocation.height / 2;
+    if ((center_x - HALF_KNOB_SIZE >= event->area.x + event->area.width)  ||
+        (center_x + HALF_KNOB_SIZE <= event->area.x)                      ||
+        (center_y - HALF_KNOB_SIZE >= event->area.y + event->area.height) ||
+        (center_y + HALF_KNOB_SIZE <= event->area.y)) {
+        /* clip area is empty */
+        return FALSE;
+    }
+    l = MAX(event->area.x,                      center_x - HALF_KNOB_SIZE);
+    r = MIN(event->area.x + event->area.width,  center_x + HALF_KNOB_SIZE);
+    t = MAX(event->area.y,                      center_y - HALF_KNOB_SIZE);
+    b = MIN(event->area.y + event->area.height, center_y + HALF_KNOB_SIZE);
+    cr = gdk_cairo_create (widget->window);
+    cairo_rectangle (cr, l, t, r - l, b - t);
+    cairo_clip (cr);
+    cairo_translate(cr, center_x - HALF_KNOB_SIZE, center_y - HALF_KNOB_SIZE);
+
+    gtk_knob_paint(widget, cr);
+
+    cairo_destroy (cr);
+
+    return FALSE;
+}
+
+
 static gint
 gtk_knob_button_press (GtkWidget *widget, GdkEventButton *event)
 {
@@ -339,6 +351,7 @@ gtk_knob_button_press (GtkWidget *widget, GdkEventButton *event)
       case STATE_IDLE:
         switch (event->button) {
           case 1:
+          case 2:
           case 3:
             gtk_grab_add(widget);
             knob->state = STATE_PRESSED;
@@ -447,7 +460,8 @@ gtk_knob_motion_notify (GtkWidget *widget, GdkEventMotion *event)
         if (mods & GDK_BUTTON1_MASK) {
             gtk_knob_update_mouse(knob, x, y, TRUE);
             return TRUE;
-        } else if (mods & GDK_BUTTON3_MASK) {
+        } else if ((mods & GDK_BUTTON2_MASK) ||
+                   (mods & GDK_BUTTON3_MASK)) {
             gtk_knob_update_mouse(knob, x, y, FALSE);
             return TRUE;
         }
@@ -474,7 +488,7 @@ gtk_knob_timer_callback (GtkKnob *knob)
 
 
 static void
-gtk_knob_update_mouse(GtkKnob *knob, gint x, gint y, gboolean absolute)
+gtk_knob_update_mouse(GtkKnob *knob, gint x, gint y, gboolean first_button)
 {
     gfloat old_value, new_value;
     gdouble angle;
@@ -484,18 +498,9 @@ gtk_knob_update_mouse(GtkKnob *knob, gint x, gint y, gboolean absolute)
 
     old_value = knob->adjustment->value;
 
-    if (absolute) {
+    if (knob->prefer_radial) first_button = !first_button;
 
-        angle = atan2(-y + knob->center_y, x - knob->center_x);
-        angle /= M_PI;
-        if (angle < -0.5)
-            angle += 2;
-
-        new_value = -(2.0/3.0) * (angle - 1.25);   /* map [1.25pi, -0.25pi] onto [0, 1] */
-        new_value *= knob->adjustment->upper - knob->adjustment->lower;
-        new_value += knob->adjustment->lower;
-
-    } else {
+    if (first_button) {
 
         dv = knob->center_y - y; /* inverted cartesian graphics coordinate system */
         dh = x - knob->center_x;
@@ -526,6 +531,18 @@ gtk_knob_update_mouse(GtkKnob *knob, gint x, gint y, gboolean absolute)
         }
         knob->saved_x = x;
         knob->saved_y = y;
+
+    } else {
+
+        angle = atan2(-y + knob->center_y, x - knob->center_x);
+        angle /= M_PI;
+        if (angle < -0.5)
+            angle += 2;
+
+        new_value = -(2.0/3.0) * (angle - 1.25);   /* map [1.25pi, -0.25pi] onto [0, 1] */
+        new_value *= knob->adjustment->upper - knob->adjustment->lower;
+        new_value += knob->adjustment->lower;
+
     }
 
     new_value = MAX(MIN(new_value, knob->adjustment->upper),
@@ -585,50 +602,8 @@ gtk_knob_adjustment_value_changed (GtkAdjustment *adjustment, gpointer data)
     }
 }
 
-
 static void
-gtk_knob_paint_xlib(GtkWidget *widget, int center_x, int center_y)
-{
-    GtkKnob *knob = GTK_KNOB(widget);
-    gfloat dx, dy;
-
-    gdk_window_clear_area(widget->window, 0, 0, widget->allocation.width, widget->allocation.height);
-
-    center_x -= HALF_KNOB_SIZE;
-    center_y -= HALF_KNOB_SIZE;
-    gdk_gc_set_clip_origin(common.mask_gc, center_x, center_y);
-
-    dx = knob->adjustment->value - knob->adjustment->lower;
-    dy = knob->adjustment->upper - knob->adjustment->lower;
-
-    if (dy != 0 && GTK_WIDGET_IS_SENSITIVE (widget)) {
-        dx = MIN(MAX(dx / dy, 0), 1);
-        dx = -1.5 * dx + 1.25;
-
-        gdk_draw_arc (widget->window, common.red_gc, TRUE,
-                      1 + center_x , 1 + center_y,
-                      KNOB_SIZE - 4, KNOB_SIZE - 2,
-                      dx * 180.f * 64.f, (1.25f - dx) * 180.f * 64.f);
-        gdk_draw_pixmap(widget->window, common.mask_gc, common.pixmap,
-                        0, 0, center_x, center_y, KNOB_SIZE, KNOB_SIZE);
-
-        dx *= M_PI;
-        dy = -sin(dx) * 11 + 15.5;
-        dx = cos(dx) * 11 + 15.5;
-
-        gdk_draw_line(widget->window, widget->style->white_gc,
-                      15 + center_x, 16 + center_y,
-                      dx + center_x, dy + center_y);
-    } else {
-        gdk_draw_pixmap(widget->window, common.mask_gc, common.insensitive_pixmap,
-                        0, 0, center_x, center_y, KNOB_SIZE, KNOB_SIZE);
-    }
-}
-
-
-#if GTK_CHECK_VERSION(2, 8, 0)
-static void
-gtk_knob_paint_cairo(GtkWidget *widget, cairo_t *cr)
+gtk_knob_paint(GtkWidget *widget, cairo_t *cr)
 {
     GtkKnob *knob = GTK_KNOB(widget);
     gfloat value, range;
@@ -675,113 +650,7 @@ gtk_knob_paint_cairo(GtkWidget *widget, cairo_t *cr)
         cairo_paint (cr);
     }
 }
-#endif /* GTK_CHECK_VERSION(2, 8, 0) */
 
-
-static gboolean
-gtk_knob_expose (GtkWidget *widget, GdkEventExpose *event)
-{
-    int center_x, center_y;
-#if GTK_CHECK_VERSION(2, 8, 0)
-    int l, t, r, b;
-    cairo_t *cr;
-#endif /* GTK_CHECK_VERSION(2, 8, 0) */
-
-    g_return_val_if_fail(GTK_IS_KNOB(widget), FALSE);
-    g_return_val_if_fail(event != NULL, FALSE);
-
-    /* minimize the clip area to just what we'll actually draw (32x32 at most) */
-    center_x = widget->allocation.width / 2;
-    center_y = widget->allocation.height / 2;
-
-    if (prefer_cairo) {
-#if GTK_CHECK_VERSION(2, 8, 0)
-        if (common.knob_surface == NULL)
-            gtk_knob_common_initialize(widget);
-            
-        if ((center_x - HALF_KNOB_SIZE >= event->area.x + event->area.width)  ||
-            (center_x + HALF_KNOB_SIZE <= event->area.x)                      ||
-            (center_y - HALF_KNOB_SIZE >= event->area.y + event->area.height) ||
-            (center_y + HALF_KNOB_SIZE <= event->area.y)) {
-            /* clip area is empty */
-            return FALSE;
-        }
-        l = MAX(event->area.x,                      center_x - HALF_KNOB_SIZE);
-        r = MIN(event->area.x + event->area.width,  center_x + HALF_KNOB_SIZE);
-        t = MAX(event->area.y,                      center_y - HALF_KNOB_SIZE);
-        b = MIN(event->area.y + event->area.height, center_y + HALF_KNOB_SIZE);
-        cr = gdk_cairo_create (widget->window);
-        cairo_rectangle (cr, l, t, r - l, b - t);
-        cairo_clip (cr);
-        cairo_translate(cr, center_x - HALF_KNOB_SIZE, center_y - HALF_KNOB_SIZE);
-
-        gtk_knob_paint_cairo(widget, cr);
-
-        cairo_destroy (cr);
-#endif /* GTK_CHECK_VERSION(2, 8, 0) */
-    } else {
-        if (common.pixmap == NULL)
-            gtk_knob_common_initialize(widget);
-
-        gtk_knob_paint_xlib(widget, center_x, center_y);
-    }
-
-    return FALSE;
-}
-
-
-/* forward declarations of XPM data below */
-static char * knob_xpm[];
-static char * insensitive_knob_xpm[];
-
-static void
-gtk_knob_common_initialize_xlib(GtkWidget *widget)
-{
-    GdkColor color = { 0, 0xffff, 0, 0 };
-
-    common.pixmap = gdk_pixmap_create_from_xpm_d(widget->window, &common.mask,
-                                                 &widget->style->bg[GTK_STATE_NORMAL],
-                                                 knob_xpm);
-    common.insensitive_pixmap = gdk_pixmap_create_from_xpm_d(widget->window, &common.mask,
-                                                 &widget->style->bg[GTK_STATE_NORMAL],
-                                                 insensitive_knob_xpm);
-
-    common.mask_gc = gdk_gc_new(widget->window);
-    gdk_gc_copy(common.mask_gc, widget->style->bg_gc[GTK_STATE_NORMAL]);
-    gdk_gc_set_clip_mask(common.mask_gc, common.mask);
-
-    common.red_gc = gdk_gc_new(widget->window);
-    gdk_gc_copy(common.red_gc, widget->style->bg_gc[GTK_STATE_NORMAL]);
-    gdk_colormap_alloc_color(gtk_widget_get_colormap (widget), &color, FALSE, TRUE);
-    gdk_gc_set_foreground(common.red_gc, &color);
-}
-
-static void
-gtk_knob_common_finalize_xlib(void)
-{
-    if (common.pixmap) {
-        gdk_pixmap_unref(common.pixmap);
-        common.pixmap = NULL;
-    }
-    if (common.insensitive_pixmap) {
-        gdk_pixmap_unref(common.insensitive_pixmap);
-        common.insensitive_pixmap = NULL;
-    }
-    if (common.mask) {
-        gdk_bitmap_unref(common.mask);
-        common.mask = NULL;
-    }
-    if (common.mask_gc) {
-        gdk_gc_unref(common.mask_gc);
-        common.mask_gc = NULL;
-    }
-    if (common.red_gc) {
-        gdk_gc_unref(common.red_gc);
-        common.red_gc = NULL;
-    }
-}
-
-#if GTK_CHECK_VERSION(2, 8, 0)
 
 /* forward declarations of PNG data below */
 static size_t        knob_c_png_length;
@@ -809,7 +678,7 @@ cairo_read_func(void *closure, unsigned char *data, unsigned int length)
 }
 
 static void
-gtk_knob_common_initialize_cairo(void)
+gtk_knob_common_initialize(void)
 {
     struct cairo_read_func_closure cl;
     cairo_pattern_t *pat;
@@ -834,7 +703,7 @@ gtk_knob_common_initialize_cairo(void)
 }
 
 static void
-gtk_knob_common_finalize_cairo(void)
+gtk_knob_common_finalize(void)
 {
     if (common.knob_surface) {
         cairo_surface_destroy (common.knob_surface);
@@ -850,294 +719,6 @@ gtk_knob_common_finalize_cairo(void)
     }
 }
 
-#endif  /* GTK_CHECK_VERSION(2, 8, 0) */
-
-
-static void
-gtk_knob_common_initialize(GtkWidget *widget)
-{
-#if GTK_CHECK_VERSION(2, 8, 0)
-    if (prefer_cairo) {
-        gtk_knob_common_initialize_cairo();
-        gtk_knob_common_finalize_xlib();
-    } else {
-        gtk_knob_common_initialize_xlib(widget);
-        gtk_knob_common_finalize_cairo();
-    }
-#else /* GTK_CHECK_VERSION(2, 8, 0) */
-    gtk_knob_common_initialize_xlib(widget);
-#endif /* GTK_CHECK_VERSION(2, 8, 0) */
-}
-
-static void
-gtk_knob_common_finalize(void)
-{
-    gtk_knob_common_finalize_xlib();
-#if GTK_CHECK_VERSION(2, 8, 0)
-    gtk_knob_common_finalize_cairo();
-#endif /* GTK_CHECK_VERSION(2, 8, 0) */
-}
-
-
-static char * knob_xpm[] = {
-"32 32 106 2",
-"  	c None",
-". 	c #FCFCFD",
-"+ 	c #0A0A20",
-"@ 	c #6B6B9E",
-"# 	c #8989B3",
-"$ 	c #66669A",
-"% 	c #AEAECC",
-"& 	c #AAAACA",
-"* 	c #A6A6C7",
-"= 	c #9C9CC0",
-"- 	c #9494BB",
-"; 	c #8E8EB7",
-"> 	c #8C8CB6",
-", 	c #7F7FAD",
-"' 	c #A0A0C3",
-") 	c #B5B5D1",
-"! 	c #B0B0CE",
-"~ 	c #8181AE",
-"{ 	c #7C7CAA",
-"] 	c #7575A5",
-"^ 	c #595991",
-"/ 	c #9696BC",
-"( 	c #8383AF",
-"_ 	c #7A7AA9",
-": 	c #7171A3",
-"< 	c #7070A2",
-"[ 	c #626298",
-"} 	c #42427E",
-"| 	c #9292BA",
-"1 	c #6E6EA0",
-"2 	c #616197",
-"3 	c #5F5F95",
-"4 	c #585890",
-"5 	c #464682",
-"6 	c #2E2E6D",
-"7 	c #9A9ABF",
-"8 	c #69699D",
-"9 	c #5B5B92",
-"0 	c #4C4C86",
-"a 	c #363674",
-"b 	c #222262",
-"c 	c #5E5E94",
-"d 	c #52528B",
-"e 	c #3F3F7C",
-"f 	c #282868",
-"g 	c #A2A2C4",
-"h 	c #43437F",
-"i 	c #2D2D6C",
-"j 	c #1F1F5E",
-"k 	c #333371",
-"l 	c #202060",
-"m 	c #30306F",
-"n 	c #1D1D58",
-"o 	c #53538C",
-"p 	c #454581",
-"q 	c #1C1C54",
-"r 	c #19194C",
-"s 	c #50508A",
-"t 	c #3B3B79",
-"u 	c #232363",
-"v 	c #181848",
-"w 	c #15153F",
-"x 	c #4A4A85",
-"y 	c #353573",
-"z 	c #1C1C56",
-"A 	c #14143E",
-"B 	c #121237",
-"C 	c #2F2F6E",
-"D 	c #121236",
-"E 	c #7777A7",
-"F 	c #292969",
-"G 	c #161642",
-"H 	c #0E0E2C",
-"I 	c #13133A",
-"J 	c #0C0C26",
-"K 	c #393977",
-"L 	c #0E0E2B",
-"M 	c #4F4F89",
-"N 	c #161644",
-"O 	c #0A0A1F",
-"P 	c #474783",
-"Q 	c #41417D",
-"R 	c #3E3E7B",
-"S 	c #54548D",
-"T 	c #171747",
-"U 	c #0A0A1E",
-"V 	c #080819",
-"W 	c #1E1E5A",
-"X 	c #0F0F2D",
-"Y 	c #09091C",
-"Z 	c #070717",
-"` 	c #2B2B6A",
-" .	c #343472",
-"..	c #252565",
-"+.	c #19194B",
-"@.	c #0D0D29",
-"#.	c #070715",
-"$.	c #1A1A4F",
-"%.	c #101032",
-"&.	c #0D0D28",
-"*.	c #0F0F2F",
-"=.	c #101030",
-"-.	c #0B0B22",
-";.	c #09091B",
-">.	c #060614",
-",.	c #060612",
-"                                                                ",
-"                              + +                               ",
-"                              + +                               ",
-"                                                                ",
-"                            @ # # $                             ",
-"                      % & * = - ; > # # ,                       ",
-"                  ' ) ! & = ; # ~ , { { ] @ ^                   ",
-"                % ) ) * / ( _ : < @ @ @ @ [ ^ }                 ",
-"              & ) ) * | { 1 $ 2 2 3 3 3 3 3 4 5 6               ",
-"            7 ) ) & | _ 8 3 3 3 3 3 3 3 3 3 9 0 a b             ",
-"            & % * | { $ 3 3 3 3 3 3 3 3 3 3 c d e f             ",
-"          ' & g | { $ 3 3 3 3 3 3 3 3 3 3 3 3 4 h i j           ",
-"          * * / , @ 3 3 3 3 3 3 3 3 3 3 3 3 3 9 0 k l           ",
-"          g ' > ] 2 3 3 3 3 3 3 3 3 3 3 3 3 3 ^ 0 m n           ",
-"        1 ' = ( 1 3 3 3 3 3 3 3 3 3 3 3 3 3 9 o p i q r         ",
-"        > = / , @ 3 3 3 3 3 3 3 3 3 3 3 3 c ^ s t u v w         ",
-"        # 7 ; { $ 3 3 3 3 3 3 3 3 3 3 3 3 9 4 x y z A B         ",
-"        3 > ( ] 2 3 3 3 3 3 3 3 3 3 3 3 3 ^ d 5 C r D B         ",
-"          E E @ 3 3 3 3 3 3 3 3 3 3 3 3 9 4 s e F G H           ",
-"          [ [ 3 c c 3 3 3 3 3 3 3 3 3 3 9 d 5 a j I J           ",
-"          c ^ o o 9 9 3 3 3 3 c 9 9 9 ^ d 5 K u G L +           ",
-"            s x x s 4 9 3 3 c 9 4 o s M x a u N H O             ",
-"            P Q R h M S 9 9 ^ o M P h e k b T L U V             ",
-"              K k a t h 0 M 0 x h K m f W G X Y Z               ",
-"                ` i ` i 6 k  .m ` ..n +.B @.Y #.                ",
-"          + +     l q r +.v $.$.v w %.&.U Z #.    + +           ",
-"          + +         B *.=.=.=.@.-.;.>.,.        + +           ",
-"                            %.J O J                             ",
-"                                                                ",
-"                                                                ",
-"                                                                ",
-"                                                                "};
-
-static char * insensitive_knob_xpm[] = {
-"32 32 82 1",
-" 	c None",
-".	c #777777",
-"+	c #B8B8B8",
-"@	c #C7C7C7",
-"#	c #B5B5B5",
-"$	c #D9D9D9",
-"%	c #D7D7D7",
-"&	c #D5D5D5",
-"*	c #D0D0D0",
-"=	c #CCCCCC",
-"-	c #CACACA",
-";	c #C8C8C8",
-">	c #C2C2C2",
-",	c #D2D2D2",
-"'	c #DCDCDC",
-")	c #DADADA",
-"!	c #C3C3C3",
-"~	c #C0C0C0",
-"{	c #BDBDBD",
-"]	c #AFAFAF",
-"^	c #CDCDCD",
-"/	c #C4C4C4",
-"(	c #BBBBBB",
-"_	c #BABABA",
-":	c #B3B3B3",
-"<	c #A3A3A3",
-"[	c #CBCBCB",
-"}	c #B9B9B9",
-"|	c #B2B2B2",
-"1	c #AEAEAE",
-"2	c #A5A5A5",
-"3	c #989898",
-"4	c #CFCFCF",
-"5	c #B7B7B7",
-"6	c #B0B0B0",
-"7	c #A8A8A8",
-"8	c #9C9C9C",
-"9	c #919191",
-"0	c #B1B1B1",
-"a	c #ABABAB",
-"b	c #A1A1A1",
-"c	c #959595",
-"d	c #D3D3D3",
-"e	c #8F8F8F",
-"f	c #9A9A9A",
-"g	c #909090",
-"h	c #999999",
-"i	c #8D8D8D",
-"j	c #ACACAC",
-"k	c #A4A4A4",
-"l	c #8B8B8B",
-"m	c #888888",
-"n	c #AAAAAA",
-"o	c #9F9F9F",
-"p	c #929292",
-"q	c #878787",
-"r	c #838383",
-"s	c #A7A7A7",
-"t	c #8C8C8C",
-"u	c #808080",
-"v	c #BEBEBE",
-"w	c #848484",
-"x	c #7C7C7C",
-"y	c #818181",
-"z	c #797979",
-"A	c #9E9E9E",
-"B	c #858585",
-"C	c #A2A2A2",
-"D	c #868686",
-"E	c #767676",
-"F	c #757575",
-"G	c #8E8E8E",
-"H	c #737373",
-"I	c #969696",
-"J	c #9B9B9B",
-"K	c #939393",
-"L	c #7A7A7A",
-"M	c #8A8A8A",
-"N	c #7E7E7E",
-"O	c #7D7D7D",
-"P	c #787878",
-"Q	c #727272",
-"                                ",
-"               ..               ",
-"               ..               ",
-"                                ",
-"              +@@#              ",
-"           $%&*=-;@@>           ",
-"         ,')%*-@!>~~{+]         ",
-"        $''&^/~(_++++:]<        ",
-"       %''&[~}#::|||||123       ",
-"      4''%[~5|||||||||6789      ",
-"      %$&[~#||||||||||0abc      ",
-"     ,%d[~#||||||||||||1<3e     ",
-"     &&^>+|||||||||||||67fg     ",
-"     d,;{:|||||||||||||]7hi     ",
-"    },*/}|||||||||||||6jk3lm    ",
-"    ;*^>+||||||||||||0]nopqr    ",
-"    @4-~#||||||||||||61s8tru    ",
-"    |;/{:||||||||||||]a2hmuu    ",
-"     vv+||||||||||||61nbcwx     ",
-"     ::|00||||||||||6a28eyz     ",
-"     0]jj66||||0666]a2Apwx.     ",
-"      nssn16||061jnns8pBx.      ",
-"      2Cb<nj66]jn2<bf9DxEF      ",
-"       Af8o<7n7s<AhcGwxEH       ",
-"        I3I33fJhIKimuLEH        ",
-"     ..  glmmqMMqrNLEHH  ..     ",
-"     ..    uOOOOLPFQQ    ..     ",
-"              Nz.z              ",
-"                                ",
-"                                ",
-"                                ",
-"                                "};
-
-#if GTK_CHECK_VERSION(2, 8, 0)
 
 static size_t        knob_c_png_length = 1082;
 static unsigned char knob_c_png[1082] =
@@ -1218,6 +799,4 @@ static unsigned char knob_i_png[819] =
   "M\250m\236\347k\237\306\251f\242(\372\25\222\177\313Y~yyy\244\224\32"
   "Xk\373\253%\263\4\360t}}\375\200\237\370\211\216\361\33\353\274\40}\314"
   "\227E/\0\0\0\0IEND\256B`\202";
-
-#endif /* GTK_CHECK_VERSION(2, 8, 0) */
 

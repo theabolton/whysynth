@@ -818,9 +818,7 @@ create_open_file_chooser (const char *tag)
     gtk_window_set_modal(GTK_WINDOW (open_file_chooser), FALSE);
     gtk_window_set_type_hint(GTK_WINDOW (open_file_chooser), GDK_WINDOW_TYPE_HINT_NORMAL);
     gtk_window_set_decorated(GTK_WINDOW (open_file_chooser), TRUE);
-#if GTK_CHECK_VERSION(2, 6, 0)
     gtk_file_chooser_set_show_hidden (GTK_FILE_CHOOSER (open_file_chooser), TRUE);
-#endif
 
     gtk_signal_connect (GTK_OBJECT (open_file_chooser), "destroy",
                         GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
@@ -886,14 +884,10 @@ create_save_file_chooser (const char *tag)
     gtk_window_set_modal(GTK_WINDOW (save_file_chooser), FALSE);
     gtk_window_set_type_hint(GTK_WINDOW (save_file_chooser), GDK_WINDOW_TYPE_HINT_NORMAL);
     gtk_window_set_decorated(GTK_WINDOW (save_file_chooser), TRUE);
-#if GTK_CHECK_VERSION(2, 8, 0)
-    /* perform overwrite confirmation, if we can */
+    /* perform overwrite confirmation */
     gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (save_file_chooser),
                                                     TRUE);
-#endif
-#if GTK_CHECK_VERSION(2, 6, 0)
     gtk_file_chooser_set_show_hidden (GTK_FILE_CHOOSER (save_file_chooser), TRUE);
-#endif
 
     gtk_signal_connect (GTK_OBJECT (save_file_chooser), "destroy",
                         GTK_SIGNAL_FUNC(gtk_main_quit), NULL);
@@ -996,9 +990,7 @@ create_import_file_chooser (void)
     gtk_window_set_modal(GTK_WINDOW (import_file_chooser), FALSE);
     gtk_window_set_type_hint(GTK_WINDOW (import_file_chooser), GDK_WINDOW_TYPE_HINT_NORMAL);
     gtk_window_set_decorated(GTK_WINDOW (import_file_chooser), TRUE);
-#if GTK_CHECK_VERSION(2, 6, 0)
     gtk_file_chooser_set_show_hidden (GTK_FILE_CHOOSER (import_file_chooser), TRUE);
-#endif
 
     gtk_signal_connect (GTK_OBJECT (import_file_chooser), "destroy",
                         GTK_SIGNAL_FUNC(gtk_main_quit), NULL);

@@ -1,10 +1,9 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2008 Sean Bolton
+ * Copyright (C) 2008, 2012 Sean Bolton
  *
  * Parts of this code come from GTK+, both the library source and
- * the example programs.  Other bits come from gAlan 0.2.0,
- * copyright (C) 1999 Tony Garnock-Jones.
+ * the example programs.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -46,15 +45,16 @@ struct _GtkKnob
 
     GtkAdjustment *adjustment;
 
-    guint  policy;   /* update policy (GTK_UPDATE_[CONTINUOUS/DELAYED/DISCONTINUOUS]) */
-    guint  state;
-    gint   center_x;
-    gint   center_y;
-    gint   saved_x;
-    gint   saved_y;
-    gfloat old_value;
+    guint     policy;   /* update policy (GTK_UPDATE_[CONTINUOUS/DELAYED/DISCONTINUOUS]) */
+    gboolean  prefer_radial;
+    guint     state;
+    gint      center_x;
+    gint      center_y;
+    gint      saved_x;
+    gint      saved_y;
+    gfloat    old_value;
 
-    guint32 timer;   /* ID of update timer, or 0 if none */
+    guint32   timer;   /* ID of update timer, or 0 if none */
 };
 
 struct _GtkKnobClass
@@ -65,8 +65,6 @@ struct _GtkKnobClass
 
 GType          gtk_knob_get_type (void) G_GNUC_CONST;
 GtkWidget     *gtk_knob_new (GtkAdjustment *adjustment);
-
-void           gtk_knob_set_fast_rendering(gboolean setting);
 
 GtkAdjustment *gtk_knob_get_adjustment(GtkKnob *knob);
 void           gtk_knob_set_adjustment(GtkKnob *knob, GtkAdjustment *adjustment);
