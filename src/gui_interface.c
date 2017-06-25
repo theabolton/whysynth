@@ -57,9 +57,7 @@ GtkObject *save_file_start_spin_adj;
 GtkWidget *save_file_start_name;
 GtkObject *save_file_end_spin_adj;
 GtkWidget *save_file_end_name;
-#ifdef DEVELOPER
-GtkWidget *save_file_c_mode_button;
-#endif /* DEVELOPER */
+GtkWidget *save_file_mode_combo;
 
 GtkWidget *import_file_chooser;
 GtkObject *import_file_position_spin_adj;
@@ -865,10 +863,8 @@ create_save_file_chooser (const char *tag)
     GtkWidget *label6;
     GtkWidget *save_file_start_spin;
     GtkWidget *save_file_end_spin;
-#ifdef DEVELOPER
     GtkWidget *hbox;
-    GtkWidget *label7;
-#endif /* DEVELOPER */
+    GtkWidget *label;
 
     save_file_chooser = gtk_file_chooser_dialog_new(title,
                                                     GTK_WINDOW (main_window),
@@ -947,16 +943,22 @@ create_save_file_chooser (const char *tag)
                       (GtkAttachOptions) (0), 0, 0);
     gtk_misc_set_alignment (GTK_MISC (save_file_end_name), 0, 0.5);
 
-#ifdef DEVELOPER
     hbox = gtk_hbox_new (FALSE, 0);
     gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 6);
 
-    label7 = gtk_label_new ("Save as 'C':");
-    gtk_box_pack_start (GTK_BOX (hbox), label7, FALSE, FALSE, 0);
+    label = gtk_label_new ("Patch File Format:");
+    gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 
-    save_file_c_mode_button = gtk_check_button_new ();
-    gtk_box_pack_start (GTK_BOX (hbox), save_file_c_mode_button, FALSE, FALSE, 6);
+    save_file_mode_combo = gtk_combo_box_text_new();
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(save_file_mode_combo),
+                                   "Current (version 1)");
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(save_file_mode_combo),
+                                   "Backward-compatible (version 0)");
+#ifdef DEVELOPER
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(save_file_mode_combo), "'C' Source Code");
 #endif /* DEVELOPER */
+    gtk_combo_box_set_active(GTK_COMBO_BOX(save_file_mode_combo), 0);
+    gtk_box_pack_start (GTK_BOX (hbox), save_file_mode_combo, FALSE, FALSE, 6);
     
     gtk_widget_show_all (vbox);
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(save_file_chooser), vbox);

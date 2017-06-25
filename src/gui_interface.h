@@ -41,9 +41,7 @@ extern GtkObject *save_file_start_spin_adj;
 extern GtkWidget *save_file_start_name;
 extern GtkObject *save_file_end_spin_adj;
 extern GtkWidget *save_file_end_name;
-#ifdef DEVELOPER
-extern GtkWidget *save_file_c_mode_button;
-#endif /* DEVELOPER */
+extern GtkWidget *save_file_mode_combo;
 
 extern GtkWidget *import_file_chooser;
 extern GtkObject *import_file_position_spin_adj;

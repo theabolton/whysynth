@@ -291,6 +291,7 @@ on_save_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
 
     int save_file_start = lrintf(GTK_ADJUSTMENT(save_file_start_spin_adj)->value);
     int save_file_end   = lrintf(GTK_ADJUSTMENT(save_file_end_spin_adj)->value);
+    int mode_item;
 
     gtk_widget_hide(save_file_chooser);
 
@@ -306,21 +307,12 @@ on_save_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
         if (!open_path_set)
             set_file_chooser_path(GTK_FILE_CHOOSER(open_file_chooser), filename);
 
-#ifdef DEVELOPER
-        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (save_file_c_mode_button))) {
-            if (gui_data_save_as_c(filename, save_file_start, save_file_end, &message)) {
+        mode_item = gtk_combo_box_get_active(GTK_COMBO_BOX(save_file_mode_combo));
+        if (mode_item == 0 || mode_item == 1) {
 
-                display_notice("Save Patches as 'C' succeeded:", message);
+            int format = 1 - mode_item; /* format 0: backward-compatible, format 1: current */
 
-            } else {  /* problem with save */
-
-                display_notice("Save Patches as 'C' failed:", message);
-
-            }
-        } else {
-#endif /* DEVELOPER */
-            // !FIX! parameterize format
-            if (gui_data_save(filename, save_file_start, save_file_end, 0, &message)) {
+            if (gui_data_save(filename, save_file_start, save_file_end, format, &message)) {
 
                 display_notice("Save Patch File succeeded:", message);
 
@@ -342,8 +334,18 @@ on_save_file_chooser_response(GtkDialog *dialog, gint response, gpointer data)
 
             }
 #ifdef DEVELOPER
-        }
+        } else if (mode_item == 2) {
+            if (gui_data_save_as_c(filename, save_file_start, save_file_end, &message)) {
+
+                display_notice("Save Patches as 'C' succeeded:", message);
+
+            } else {  /* problem with save */
+
+                display_notice("Save Patches as 'C' failed:", message);
+
+            }
 #endif /* DEVELOPER */
+        }
         free(message);
         g_free(filename);
         break;

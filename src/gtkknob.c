@@ -25,15 +25,14 @@
  * Boston, MA 02110-1301 USA.
  */
 
-#define _ISOC99_SOURCE
-#define _BSD_SOURCE
+#define _DEFAULT_SOURCE
 
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <gtk/gtk.h>
 
-#include "why/gtkknob.h"
+#include "gtkknob.h"
 
 #define KNOB_SIZE               32
 #define HALF_KNOB_SIZE          (KNOB_SIZE / 2)
