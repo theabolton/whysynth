@@ -1994,11 +1994,23 @@ get_value_from_combo(int index)
 //     return (GTK_TOGGLE_BUTTON (voice_widget[index])->active ? 1 : 0);
 // }
 
-void
-update_patch_from_voice_widgets(y_patch_t *patch)
+static void
+copy_and_normalize_text(char *destination, GtkWidget *source, int length_limit)
 {
     int i;
 
+    strncpy(destination, gtk_entry_get_text(GTK_ENTRY(source)), length_limit);
+    destination[length_limit] = 0;
+    y_ensure_valid_utf8(destination, length_limit); /* if name was too long, chop at UTF-8 boundary */
+    /* trim trailing spaces */
+    i = strlen(destination);
+    while(i && destination[i - 1] == ' ') i--;
+    destination[i] = 0;
+}
+
+void
+update_patch_from_voice_widgets(y_patch_t *patch)
+{
     /* -PORTS- */
     patch->osc1.mode          = get_value_from_combo(Y_PORT_OSC1_MODE);
     patch->osc1.waveform      = get_value_from_combo(Y_PORT_OSC1_WAVEFORM);
@@ -2214,29 +2226,9 @@ update_patch_from_voice_widgets(y_patch_t *patch)
     patch->modmix_mod2_src    = get_value_from_combo(Y_PORT_MODMIX_MOD2_SRC);
     patch->modmix_mod2_amt    = get_value_from_knob(Y_PORT_MODMIX_MOD2_AMT);
 
-    strncpy(patch->name, gtk_entry_get_text(GTK_ENTRY(name_entry)), 30);
-    patch->name[30] = 0;
-    y_ensure_valid_utf8(patch->name, 30); /* if name was too long, chop at UTF-8 boundary */
-    /* trim trailing spaces */
-    i = strlen(patch->name);
-    while(i && patch->name[i - 1] == ' ') i--;
-    patch->name[i] = 0;
-
-    strncpy(patch->category, gtk_entry_get_text(GTK_ENTRY(category_entry)), 10);
-    patch->category[10] = 0;
-    y_ensure_valid_utf8(patch->name, 10); /* if category was too long, chop at UTF-8 boundary */
-    /* trim trailing spaces */
-    i = strlen(patch->category);
-    while(i && patch->category[i - 1] == ' ') i--;
-    patch->category[i] = 0;
-
-    strncpy(patch->comment, gtk_entry_get_text(GTK_ENTRY(comment_entry)), 60);
-    patch->comment[60] = 0;
-    y_ensure_valid_utf8(patch->name, 60); /* if comment was too long, chop at UTF-8 boundary */
-    /* trim trailing spaces */
-    i = strlen(patch->comment);
-    while(i && patch->comment[i - 1] == ' ') i--;
-    patch->comment[i] = 0;
+    copy_and_normalize_text(patch->name,     name_entry,     30);
+    copy_and_normalize_text(patch->category, category_entry, 10);
+    copy_and_normalize_text(patch->comment,  comment_entry,  60);
 }
 
 void
