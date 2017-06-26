@@ -1183,7 +1183,7 @@ combo_set_active_row(int port, int value)
     GtkTreeIter iter;
 
     g_signal_handlers_block_by_func(combo, on_voice_combo_change, GINT_TO_POINTER(port));
-    if (value >= 0 && value < id_to_path->len &&
+    if (value >= 0 && value < id_to_path->len && g_ptr_array_index(id_to_path, value) != NULL &&
         gtk_tree_model_get_iter_from_string(model, &iter, g_ptr_array_index(id_to_path, value))) {
         gtk_combo_box_set_active_iter(combo, &iter);
     } else {
