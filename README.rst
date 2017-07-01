@@ -146,6 +146,7 @@ aren't particularly helpful, so try this instead:
     <prefix>/share/whysynth/version_20051231_patches.WhySynth
     <prefix>/share/whysynth/version_20090608_patches.WhySynth
     <prefix>/share/whysynth/version_20100922_patches.WhySynth
+    <prefix>/share/whysynth/version_20120903_patches.WhySynth
 
 7. You may wish to manually install the documentation as well: this
    README file, plus the files in the doc/ directory.

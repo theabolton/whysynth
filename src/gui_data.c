@@ -129,8 +129,8 @@ gui_data_write_patch(FILE *file, y_patch_t *patch, int format)
     if (strlen(patch->comment)) {
         fprintf(file, "comment ");
         patch_write_text(file, patch->comment, 60);
+        fputc('\n', file);
     }
-    fputc('\n', file);
 
     /* -PORTS- */
     patch_write_osc(file, 1, &patch->osc1);
