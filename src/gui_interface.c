@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2004-2008, 2010, 2012, 2013, 2016 Sean Bolton
+ * Copyright (C) 2004-2017 Sean Bolton
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as

@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin and GUI
  *
- * Copyright (C) 2004-2007, 2010, 2012 Sean Bolton and others.
+ * Copyright (C) 2004-2017 Sean Bolton and others.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as

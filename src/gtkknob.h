@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer GUI
  *
- * Copyright (C) 2008, 2012 Sean Bolton
+ * Copyright (C) 2008, 2012, 2017 Sean Bolton
  *
  * Parts of this code come from GTK+, both the library source and
  * the example programs.
