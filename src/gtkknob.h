@@ -46,7 +46,7 @@ struct _GtkKnob
     GtkAdjustment *adjustment;
 
     guint     policy;   /* update policy (GTK_UPDATE_[CONTINUOUS/DELAYED/DISCONTINUOUS]) */
-    gboolean  prefer_radial;
+    gboolean  prefer_angular;
     guint     state;
     gint      center_x;
     gint      center_y;

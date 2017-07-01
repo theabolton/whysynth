@@ -6,7 +6,7 @@
  * the example programs.
  *
  * This version requires GTK+ 2.8 or later (for cairo).
- * This version uses the 'gtk-control-rotary-prefer-radial'
+ * This version uses the 'gtk-control-rotary-prefer-angular'
  * GtkSettings property.
  *
  * This program is free software; you can redistribute it and/or
@@ -99,14 +99,14 @@ gtk_knob_class_init (GtkKnobClass *class)
     widget_class->button_release_event = gtk_knob_button_release;
     widget_class->motion_notify_event = gtk_knob_motion_notify;
 
-    /* ugly: GtkControl properly "owns" the gtk-control-rotary-prefer-radial setting
+    /* ugly: GtkControl properly "owns" the gtk-control-rotary-prefer-angular setting
      * property, but GtkKnob can be used without GtkControl, so they both check if the
      * property exists, and install it if it doesn't. */
     if (g_object_class_find_property(G_OBJECT_GET_CLASS(gtk_settings_get_default()),
-                                     "gtk-control-rotary-prefer-radial") == NULL)
-        gtk_settings_install_property (g_param_spec_boolean ("gtk-control-rotary-prefer-radial",
-                                                             "Rotary GtkControls prefer radial mode",
-                                                             "Whether rotary control's primary mode of operation should be radial",
+                                     "gtk-control-rotary-prefer-angular") == NULL)
+        gtk_settings_install_property (g_param_spec_boolean ("gtk-control-rotary-prefer-angular",
+                                                             "Rotary GtkControls prefer angular mode",
+                                                             "Whether rotary control's primary mode of operation should be angular or linear",
                                                              FALSE,
                                                              G_PARAM_READWRITE|G_PARAM_STATIC_NAME|G_PARAM_STATIC_NICK|G_PARAM_STATIC_BLURB));
 
@@ -123,8 +123,8 @@ gtk_knob_init (GtkKnob *knob)
     knob->adjustment = NULL;
     knob->policy = GTK_UPDATE_CONTINUOUS;
     g_object_get (gtk_widget_get_settings (GTK_WIDGET(knob)),
-                  "gtk-control-rotary-prefer-radial",
-                  &knob->prefer_radial, NULL);
+                  "gtk-control-rotary-prefer-angular",
+                  &knob->prefer_angular, NULL);
     knob->state = STATE_IDLE;
     knob->center_x = 0;
     knob->center_y = 0;
@@ -497,7 +497,7 @@ gtk_knob_update_mouse(GtkKnob *knob, gint x, gint y, gboolean first_button)
 
     old_value = knob->adjustment->value;
 
-    if (knob->prefer_radial) first_button = !first_button;
+    if (knob->prefer_angular) first_button = !first_button;
 
     if (first_button) {
 
