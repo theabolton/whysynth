@@ -5,6 +5,7 @@ SUBDIRS = src
 EXTRA_DIST = \
 	autogen.sh \
 	config.h.ac \
+	README.rst \
 	doc/eg_shapes_falling_1.png \
 	doc/eg_shapes_falling_2.png \
 	doc/eg_shapes_rising_1.png \
@@ -18,6 +19,7 @@ EXTRA_DIST = \
 	extra/version_20051231_patches.WhySynth \
 	extra/version_20090608_patches.WhySynth \
 	extra/version_20100922_patches.WhySynth \
+	extra/version_20120903_patches.WhySynth \
 	extra/whysynth-icon-32x32.png
 
 #icondir = $(datadir)/icons/hicolor/32x32/apps
@@ -29,7 +31,8 @@ dist_pkgdata_DATA = \
 	extra/version_20051005_patches.WhySynth \
 	extra/version_20051231_patches.WhySynth \
 	extra/version_20090608_patches.WhySynth \
-	extra/version_20100922_patches.WhySynth
+	extra/version_20100922_patches.WhySynth \
+	extra/version_20120903_patches.WhySynth
 
 AUTOMAKE_OPTIONS = foreign
 
