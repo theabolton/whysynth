@@ -32,7 +32,7 @@ Csound, Mats Olsson's MSS, and various other programs, with
 inspiration from a number of my favorite long-hair-days synths
 (Matrix 6, ESQ-1, K4), and wavecycle data resynthesized from Claude
 Kaber's Virtual K4 samples and //christian's exegesis of the Ensoniq
-SQ-80 wavetable ROMs. See the enclosed file AUTHORS for more
+SQ-80 wavetable ROMs. See the enclosed file `AUTHORS <AUTHORS>`_ for more
 details.
 
 WhySynth is written by Sean Bolton, and copyright (c) 2017 under the
@@ -272,10 +272,15 @@ will let you keep loading patches until you run out of memory, but
 the most you can really use via MIDI would be 16384 patches (128
 programs times 128 banks).
 
+.. _SavePatchBank:
+
 Selecting 'Save Patch Bank...' from the 'File' menu will allow you
 to save your patch bank to a file.  A file chooser dialog will
 appear, which you may use to specify a file name, as well as the
-range of patches to be saved.
+range of patches to be saved. You can also choose the patch file
+format to be used: the 'Current (version 1)' format can only be read
+by WhySynth 20170701 and later, while the 'Backward-compatible
+(version 0)' format can be used by earlier versions.
 
 The 'Import Xsynth-DSSI Patches' menu option allows you to import
 patches from WhySynth's predecessor, Xsynth-DSSI.  This conversion
@@ -334,20 +339,25 @@ real-time; some take effect at the beginning of the next envelope
 segment, and some require a voice to be retriggered to take effect.
 The voice architecture is described in more detail below.
 
+.. _Knobs:
+
 The controls come in three varieties: rotary knobs, menu buttons,
 and spin buttons.  The rotary knobs may be manipulated in several
 ways:
 
-- Clicking and dragging a knob with mouse button 1 sets the
-  value directly, by making the knob pointer point toward the
-  mouse pointer.
-- Clicking and dragging a knob with mouse button 3 allows
+- Clicking and dragging a knob with mouse button 1 allows
   incremental adjustment of the knob's current value (without
   a sudden jump.) Horizontal movement produces large variation
   in the knob value, while vertical movement allows finer
   control.
+- Clicking and dragging a knob with mouse button 3 sets the
+  value directly, by making the knob pointer point toward the
+  mouse pointer.
 - Clicking on a knob with buttons 1 and 3 increment and
   decrement the knob value.
+
+(The default behavior for dragging knobs can be changed, see `Question 8 <FAQ8_>`_
+below.)
 
 Many of the bipolar patch parameters (whose values span zero,
 such as the 'Detune' and 'Amp Mod Amount' controls) have a small
@@ -430,7 +440,7 @@ All of the modes also have a 'Waveform' control, whose meaning
 depends upon the mode, plus zero to four additional mode-dependent
 controls.  For many of the modes, the 'Waveform' control selects one
 of some 168 different single-cycle 'wavecycle' waveforms.  See the
-enclosed file doc/wavetable_guide for more information on these
+enclosed file `doc/wavetable_guide <doc/wavetable_guide>`_ for more information on these
 waveforms.
 
 The ten oscillator modes and their controls are:
@@ -606,7 +616,7 @@ The ten oscillator modes and their controls are:
 
 9. Wavecycle - In this mode, the oscillator produces one of the 168
    or so different single-cycle waveforms.  See the enclosed file
-   doc/wavetable_guide for more information on the waveforms.
+   `doc/wavetable_guide <doc/wavetable_guide>`_ for more information on the waveforms.
 
    Wavecycle oscillators may also be 'hard synced' to the previous
    oscillator, but the minBLEP anti-aliasing used only compensates
@@ -634,7 +644,7 @@ The ten oscillator modes and their controls are:
       when fully clockwise, all five copies are included.
 
 11. Waveshaper - Classic waveshaping, with the wavecycle waveforms
-    used as the transfer functions.  As of this writing (2005/12/31),
+    used as the transfer functions.  As of 2005/12/31,
     only one of the waveforms was created specifically for the
     waveshaper, a (rather boring) Chebychev T5 function, yet many of
     the other waveforms can yield interesting results.  The
@@ -1025,22 +1035,46 @@ A4. Make sure your glide setting is completely off (for now, that's
 fully clockwise to '1').  Even a very little glide with long grain
 envelopes will cause the problem.
 
-Q5. I upgraded from the 20100922 release to the 20120729 release, and
+Q5. I upgraded from the 20120903 release to the 20170701 release, and
 the default patches changed, breaking my super-cool setup.  What
 gives?
 
-A5. Just load the extra/version_20100922_patches.WhySynth file.
+A5. Just load the extra/version_20120903_patches.WhySynth file.
 
-Q6. How can I map other MIDI control change (CC) or NRPN messages to
+Q6. Help! I tried loading a patch file, and it just says 'loaded 0
+patches'!
+
+A6. If you are sure the file hasn't been corrupted, then you are
+probably trying to load a 'version 1' patch file into an older
+version of WhySynth. Upgrading to WhySynth 20170701 or later should
+fix the problem. Note that a newer WhySynth can save patches in a
+backward-compatible format; see `File Menu / Save Patch Bank... <SavePatchBank_>`_
+above.
+
+Q7. How can I map other MIDI control change (CC) or NRPN messages to
 WhySynth ports?
 
-A6. DSSI doesn't (yet) support run-time configuration of these
+A7. DSSI doesn't (yet) support run-time configuration of these
 controller mappings, but you can set up your own mappings by editing
 the function y_get_midi_controller() in the file src/dssp_synth.c,
 then recompiling.  See the comments there for more information.
 
-Q7. Uggh. The new cairo knobs look really nice, but they're too slow
-on my remote X display.  What do I do?
+.. _FAQ8:
 
-A7. Change the line 'static int prefer_cairo = TRUE;' to FALSE in
-gtkknob.c and recompile.
+Q8. What? The response of the patch edit knobs to my mouse is all
+screwy!
+
+A8. Prior to WhySynth 20170701, the knobs responded to angular motion on
+mouse button 1, and linear motion on mouse button 3 (see the `rotary knob
+section under 'Patch Edit Window' <Knobs_>`_ for a more detailed
+description.) Unless a user knew of the non-intuitive button 3
+functionality, they would be limited to angular motion, which made it
+almost impossible to avoid making an abrupt change in value. Now, the
+default is swapped, with linear response on mouse button 1.
+
+If you prefer the old way, add the following to your ~/.gtkrc-2.0 file:
+
+.. code-block:: shell
+
+   gtk-control-rotary-prefer-angular = 1
+
