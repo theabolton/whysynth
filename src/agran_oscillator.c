@@ -1,6 +1,6 @@
 /* WhySynth DSSI software synthesizer plugin
  *
- * Copyright (C) 2005-2007, 2016 Sean Bolton and others.
+ * Copyright (C) 2005-2007, 2016, 2018 Sean Bolton and others.
  *
  * Portions of this file come from MSS, copyright (C) 2002 Mats
  * Olsson.
@@ -420,6 +420,9 @@ create_grain_envelopes(unsigned long sample_rate)
                   const float ampl = expf(-t*t/2);
                   env[e].data[Y_CONTROL_PERIOD + peak + i] = ampl;
                   env[e].data[Y_CONTROL_PERIOD + peak - i] = ampl;
+                }
+                if (env[e].length % 2 == 0) { /* if length is even, zero last frame of buffer */
+                    env[e].data[Y_CONTROL_PERIOD + env[e].length - 1] = 0.0f;
                 }
             }
             break;

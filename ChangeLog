@@ -1,14 +1,23 @@
+* Olga Vasileva found and fixed a bug in the async granular envelope
+    generation.
+
 20170701
 
 * Thanks to Brian Collins @ linuxsynths.com, added over 100 new patches to
     the default patch set.
+
 * Added a 'category' field to each patch.
+
 * Converted the patch list to GtkTreeView, and made it sortable by program
     number, name, or category.
+
 * Updated gtkknob.[ch], which swapped the default to linear/angular button
     bindings.
+
 * Removed support for GTK+ earlier than version 2.24.
+
 * Removed compiler-specific optimization flags.
+
 * Fix a number of security problems, minor bugs, compiler warnings, and
     documentation errors. Thanks to Olivier Humbert and dcb314.
 
